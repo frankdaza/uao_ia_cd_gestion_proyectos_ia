@@ -38,11 +38,11 @@ Thumbs.db
 !.env.example
 
 # ---------------------------------------------------------------------------
-# Opcional: descomentar si el equipo decide no versionar datos o modelos.
+# Datos y modelos (TDSP): no versionar artefactos grandes; conservar carpetas con .gitkeep
 # ---------------------------------------------------------------------------
-# data/raw/*
-# !data/raw/.gitkeep
-# data/processed/*
-# !data/processed/.gitkeep
-# outputs/models/*.joblib
-# outputs/models/*.pkl
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+outputs/models/*
+!outputs/models/.gitkeep

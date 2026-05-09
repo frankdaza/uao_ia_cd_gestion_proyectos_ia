@@ -3,10 +3,11 @@ id: TASK-1
 title: >-
   Analizar consignas (Lab1 y Scrum ML) y definir plan de alineación con
   estructura TDSP profesional en el repositorio
-status: In Progress
+status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:03'
+updated_date: '2026-05-09 18:18'
 labels: []
 dependencies: []
 references:
@@ -16,6 +17,7 @@ references:
   - AGENTS.md
   - .cursor/rules/drybean-lab-context.mdc
 documentation:
+  - docs/tdsp-alineacion.md
   - .cursor/skills/drybean-ml-laboratorio/SKILL.md
 ---
 
@@ -42,11 +44,11 @@ El repositorio documenta un laboratorio de clasificación (Dry Bean, UCI 602) co
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 Lista verificable de requisitos de Lab1.pdf y Plan_Equipos_ScrumML_DryBean.pdf sobre estructura, metodología, entregables ML, Scrum ML y Git, cada uno con referencia a sección o página del PDF (o nota si el PDF no tiene numeración clara).
-- [ ] #2 Tabla o lista Requisito → ubicación o artefacto propuesto en el repo (ruta existente o nueva), alineada al árbol TDSP del README y a las carpetas estándar data/, notebooks/, outputs/, src/.
-- [ ] #3 Texto comparativo breve (máx. 1 página): TDSP académico (carpetas actuales) vs TDSP profesional (fases y artefactos típicos), con recomendación explícita de alcance para el curso.
-- [ ] #4 Lista priorizada de siguientes historias o PRs (con dependencias si aplican) para implementar la estructura acordada.
-- [ ] #5 Revisión cruzada: ninguna política en README/AGENTS/reglas contradice un requisito extraído de la consigna; discrepancias documentadas con acción correctiva.
+- [x] #1 Lista verificable de requisitos de Lab1.pdf y Plan_Equipos_ScrumML_DryBean.pdf sobre estructura, metodología, entregables ML, Scrum ML y Git, cada uno con referencia a sección o página del PDF (o nota si el PDF no tiene numeración clara).
+- [x] #2 Tabla o lista Requisito → ubicación o artefacto propuesto en el repo (ruta existente o nueva), alineada al árbol TDSP del README y a las carpetas estándar data/, notebooks/, outputs/, src/.
+- [x] #3 Texto comparativo breve (máx. 1 página): TDSP académico (carpetas actuales) vs TDSP profesional (fases y artefactos típicos), con recomendación explícita de alcance para el curso.
+- [x] #4 Lista priorizada de siguientes historias o PRs (con dependencias si aplican) para implementar la estructura acordada.
+- [x] #5 Revisión cruzada: ninguna política en README/AGENTS/reglas contradice un requisito extraído de la consigna; discrepancias documentadas con acción correctiva.
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -69,6 +71,12 @@ El repositorio documenta un laboratorio de clasificación (Dry Bean, UCI 602) co
 - Si existe trabajo paralelo en rama feature/add-project-folders-structure (u otra), coordinar para no duplicar creación de carpetas o .gitkeep.
 <!-- SECTION:NOTES:END -->
 
+## Final Summary
+
+<!-- SECTION:FINAL_SUMMARY:BEGIN -->
+Análisis completado: inventario de requisitos (Lab1 18 páginas, Plan equipos 4 páginas), mapeo a rutas del repo, comparación TDSP académico vs profesional, plan de PRs priorizado y revisión cruzada (UV vs venv/pip del PDF documentada). Entregable principal en docs/tdsp-alineacion.md. README, CLAUDE.md, copilot-instructions y drybean-lab-context actualizados con enlace a docs/. DoD ítem 3 (acuerdo explícito de estructura con docente/equipo) queda pendiente: ver TASK-2.
+<!-- SECTION:FINAL_SUMMARY:END -->
+
 ## Dependencias
 
 - **Backlog.md operativo:** estructura `backlog/` con CLI (`backlog task`) funcional; esta tarea ya asume entorno local con `backlog` instalado.
@@ -78,8 +86,8 @@ El repositorio documenta un laboratorio de clasificación (Dry Bean, UCI 602) co
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 Ambos PDF revisados y sintetizados en el entregable de la tarea (cuerpo ampliado, comentarios o documento de apoyo acordado por el equipo).
-- [ ] #2 Gap analysis completado (repo actual vs requisitos vs TDSP profesional) sin ítems vagos sin dueño o fecha.
-- [ ] #3 Estructura objetivo acordada con el equipo y traducida en checklist concreta para implementación.
-- [ ] #4 Referencias internas del repo actualizadas o tareas creadas si hace falta cambiar AGENTS.md, CLAUDE.md, copilot-instructions o reglas tras el acuerdo.
+- [x] #1 Ambos PDF revisados y sintetizados en el entregable de la tarea (cuerpo ampliado, comentarios o documento de apoyo acordado por el equipo).
+- [x] #2 Gap analysis completado (repo actual vs requisitos vs TDSP profesional) sin ítems vagos sin dueño o fecha.
+- [x] #3 Estructura objetivo acordada con el equipo y traducida en checklist concreta para implementación.
+- [x] #4 Referencias internas del repo actualizadas o tareas creadas si hace falta cambiar AGENTS.md, CLAUDE.md, copilot-instructions o reglas tras el acuerdo.
 <!-- DOD:END -->

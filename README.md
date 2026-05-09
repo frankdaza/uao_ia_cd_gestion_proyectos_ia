@@ -19,6 +19,7 @@ La siguiente organización es la esperada a medida que avance el laboratorio; al
 
 ```text
 ├── consignas/            # Consignas y plan de equipos (PDF)
+├── docs/                 # Análisis y documentación de apoyo (p. ej. alineación TDSP)
 ├── data/
 │   ├── raw/              # Datos sin procesar
 │   └── processed/        # Datos limpios o transformados
@@ -53,6 +54,7 @@ La lista concreta de paquetes debe alinearse con `pyproject.toml` y `uv.lock` cu
 
 - [consignas/Lab1.pdf](consignas/Lab1.pdf)
 - [consignas/Plan_Equipos_ScrumML_DryBean.pdf](consignas/Plan_Equipos_ScrumML_DryBean.pdf)
+- [docs/tdsp-alineacion.md](docs/tdsp-alineacion.md) — inventario de requisitos de las consignas, mapeo al repositorio y comparación TDSP académico vs profesional (entregable TASK-1).
 
 ## Colaboración en Git
 
