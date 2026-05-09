@@ -1,0 +1,30 @@
+---
+description: Español latinoamericano, Python 3.12 y UV para todo el proyecto
+alwaysApply: true
+---
+
+# Pila y convenciones del proyecto
+
+## Idioma
+
+- Comentarios en código, docstrings, mensajes de commit, descripciones de PR, `README.md` y demás documentación del repositorio: **español latinoamericano**, tono profesional y neutro.
+- Nombres de variables, funciones, clases y archivos pueden seguir convenciones habituales en inglés si ya existen en el código; la explicación al usuario y la documentación orientadas al equipo deben estar en español latinoamericano.
+
+## Python
+
+- Versión objetivo: **Python 3.12** (no proponer 3.10 u otras sin acuerdo explícito del equipo).
+
+## Gestión de paquetes y entornos (UV)
+
+- Usar **UV** (Astral) como gestor único de dependencias y entornos virtuales del proyecto.
+- Flujo recomendado:
+  - Activar o fijar intérprete: `uv python pin 3.12` cuando aplique en el repositorio.
+  - Sincronizar dependencias: `uv sync`.
+  - Añadir dependencias: `uv add <paquete>`.
+  - Ejecutar comandos dentro del entorno del proyecto: `uv run <comando>`.
+- Mantener dependencias declaradas en **`pyproject.toml`** y el lock en **`uv.lock`** (versionar ambos en Git).
+- No instruir `pip install` ni `python -m venv` como flujo por defecto; reservarlos solo para migración legacy o restricciones externas documentadas.
+
+## Sincronización entre herramientas de IA
+
+Al cambiar políticas de idioma, versión de Python o uso de UV, actualizar también [CLAUDE.md](../../CLAUDE.md), [.github/copilot-instructions.md](../../.github/copilot-instructions.md) y [AGENTS.md](../../AGENTS.md). Ver [AGENTS.md](../../AGENTS.md) sección de sincronización.

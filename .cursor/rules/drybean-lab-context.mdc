@@ -1,0 +1,55 @@
+---
+description: Contexto del laboratorio Dry Bean (CRISP-DM, TDSP, Scrum ML)
+globs: "**/*.py,**/*.ipynb,**/notebooks/**,**/src/**,**/data/**,**/outputs/**,README.md,pyproject.toml"
+alwaysApply: false
+---
+
+# Laboratorio ML — Dry Bean Dataset
+
+## Alcance
+
+Proyecto de **clasificación multiclase** de variedades de frijol seco con **CRISP-DM**, **TDSP** y **Scrum ML**. Consignas en [consignas/Lab1.pdf](../../consignas/Lab1.pdf) y plan de equipo en [consignas/Plan_Equipos_ScrumML_DryBean.pdf](../../consignas/Plan_Equipos_ScrumML_DryBean.pdf).
+
+## Datos
+
+- **Dry Bean Dataset** — UCI Machine Learning Repository, id **602**.
+- Fuente: `https://archive.ics.uci.edu/dataset/602/dry+bean+dataset`
+- Variable objetivo: columna **`Class`**.
+
+## Estructura TDSP sugerida
+
+```text
+laboratorio_drybean_ml/
+├── data/raw/
+├── data/processed/
+├── notebooks/
+├── outputs/models/
+├── outputs/reports/
+├── src/
+├── README.md
+└── pyproject.toml  (dependencias gestionadas con UV)
+```
+
+## Flujo técnico esperado
+
+- Carga con `ucimlrepo.fetch_ucirepo(id=602)` (u otra fuente equivalente reproducible).
+- EDA: forma, nulos, duplicados, distribución de `Class`.
+- Partición **train/test** con `stratify=y`, `test_size=0.2`, `random_state=42` salvo justificación documentada.
+- **Baseline**: `Pipeline` con `StandardScaler` + `LogisticRegression(max_iter=1000, random_state=42)`.
+- **Alternativo**: `RandomForestClassifier` (p. ej. `n_estimators=200`, `random_state=42`, `class_weight="balanced"`).
+- Métricas: **accuracy** y **F1 macro**; `classification_report`; **matriz de confusión** (`ConfusionMatrixDisplay`).
+- Persistencia del modelo final con **`joblib`** bajo `outputs/models/` (p. ej. `.joblib`).
+
+## Evaluación y decisiones
+
+- En evaluación, priorizar **F1 macro**, revisar errores por clase y si el desempeño es muy similar preferir el modelo más simple.
+
+## Trabajo en equipo (Git)
+
+- Ramas `feature/<nombre>`; integración mediante **pull requests** y revisión antes de merge.
+
+## Definition of Done (síntesis)
+
+- Notebook o flujo ejecutable de punta a punta; datos cargables; baseline y alternativo entrenados; comparación accuracy / F1 macro; matriz de confusión; modelo guardado; interpretación y vínculo explícito con CRISP-DM, TDSP y Scrum ML.
+
+Para checklist extendido y plantillas Scrum, usar el skill del proyecto [drybean-ml-laboratorio](../skills/drybean-ml-laboratorio/SKILL.md).
