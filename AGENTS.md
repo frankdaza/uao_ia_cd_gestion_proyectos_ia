@@ -14,16 +14,16 @@ Este repositorio es el laboratorio **Machine Learning — Dry Bean** (UCI id **6
 
 | Herramienta | Archivos |
 |-------------|----------|
-| **Cursor** | [`.cursor/rules/stack-python-es.mdc`](.cursor/rules/stack-python-es.mdc) (siempre), [`.cursor/rules/drybean-lab-context.mdc`](.cursor/rules/drybean-lab-context.mdc) (Python/notebook/proyecto); skill [`.cursor/skills/drybean-ml-laboratorio/SKILL.md`](.cursor/skills/drybean-ml-laboratorio/SKILL.md) |
-| **Claude Code** | [`CLAUDE.md`](CLAUDE.md) |
-| **GitHub Copilot / Codex** | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) |
+| **Cursor** | [`.cursor/rules/stack-python-es.mdc`](.cursor/rules/stack-python-es.mdc) (siempre), [`.cursor/rules/drybean-lab-context.mdc`](.cursor/rules/drybean-lab-context.mdc) (Python/notebook/proyecto); skill [`.cursor/skills/drybean-ml-laboratorio/SKILL.md`](.cursor/skills/drybean-ml-laboratorio/SKILL.md); tareas Backlog: [`.cursor/rules/backlog-md-tareas.mdc`](.cursor/rules/backlog-md-tareas.mdc) y skill [`.cursor/skills/backlog-md-tareas/SKILL.md`](.cursor/skills/backlog-md-tareas/SKILL.md) |
+| **Claude Code** | [`CLAUDE.md`](CLAUDE.md) (incluye puntero al skill de tareas Backlog) |
+| **GitHub Copilot / Codex** | [`.github/copilot-instructions.md`](.github/copilot-instructions.md) (incluye puntero al skill de tareas Backlog) |
 
 ## Sincronización (obligatoria al cambiar reglas o skills)
 
 Si se **agrega, elimina o modifica** una política que deba aplicar a todos los asistentes (idioma, versión de Python, UV, flujo del laboratorio, Definition of Done, estructura TDSP, etc.), **actualizar en la misma tarea commit** todos estos sitios para que permanezcan alineados:
 
-1. [`.cursor/rules/stack-python-es.mdc`](.cursor/rules/stack-python-es.mdc) y, si aplica el contexto del lab, [`.cursor/rules/drybean-lab-context.mdc`](.cursor/rules/drybean-lab-context.mdc)
-2. [`.cursor/skills/drybean-ml-laboratorio/SKILL.md`](.cursor/skills/drybean-ml-laboratorio/SKILL.md)
+1. [`.cursor/rules/stack-python-es.mdc`](.cursor/rules/stack-python-es.mdc) y, si aplica el contexto del lab, [`.cursor/rules/drybean-lab-context.mdc`](.cursor/rules/drybean-lab-context.mdc). Si cambian estándares de redacción o flujo de **tareas Backlog.md**, [`.cursor/rules/backlog-md-tareas.mdc`](.cursor/rules/backlog-md-tareas.mdc).
+2. [`.cursor/skills/drybean-ml-laboratorio/SKILL.md`](.cursor/skills/drybean-ml-laboratorio/SKILL.md) y, si aplica, [`.cursor/skills/backlog-md-tareas/SKILL.md`](.cursor/skills/backlog-md-tareas/SKILL.md)
 3. [`CLAUDE.md`](CLAUDE.md)
 4. [`.github/copilot-instructions.md`](.github/copilot-instructions.md)
 5. Esta sección en [`AGENTS.md`](AGENTS.md) solo si cambia el **procedimiento** de sincronización o la tabla de ubicaciones.

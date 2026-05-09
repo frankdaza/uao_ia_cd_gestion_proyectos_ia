@@ -18,7 +18,8 @@ Consignas: `consignas/Lab1.pdf`, `consignas/Plan_Equipos_ScrumML_DryBean.pdf`.
 ## Otras guías del mismo repo
 
 - Cursor: `.cursor/rules/`, skill `.cursor/skills/drybean-ml-laboratorio/SKILL.md`
+- Tareas Backlog.md: skill `.cursor/skills/backlog-md-tareas/SKILL.md`, regla `.cursor/rules/backlog-md-tareas.mdc`, `backlog/config.yml`
 - Claude Code: `CLAUDE.md`
 - Tabla de sincronización: `AGENTS.md`
 
-Al cambiar políticas globales del proyecto, actualizar **este archivo**, `CLAUDE.md`, `.cursor/rules/`, el skill y `AGENTS.md`.
+Al cambiar políticas globales del proyecto (incluido el estándar de tareas en Backlog.md), actualizar **este archivo**, `CLAUDE.md`, `.cursor/rules/`, los skills afectados y `AGENTS.md`.

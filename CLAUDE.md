@@ -22,6 +22,10 @@ Consignas en [consignas/Lab1.pdf](consignas/Lab1.pdf) y [consignas/Plan_Equipos_
 - Reglas: [.cursor/rules/](.cursor/rules/)
 - Skill detallado: [.cursor/skills/drybean-ml-laboratorio/SKILL.md](.cursor/skills/drybean-ml-laboratorio/SKILL.md)
 
+## Tareas Backlog.md
+
+Al crear o editar ítems de gestión en el repositorio, seguir el skill [.cursor/skills/backlog-md-tareas/SKILL.md](.cursor/skills/backlog-md-tareas/SKILL.md) y la configuración [backlog/config.yml](backlog/config.yml).
+
 ## Sincronización entre herramientas de IA
 
-Al agregar, quitar o cambiar políticas (idioma, Python, UV, metodología del laboratorio), actualizar **Cursor** (`.cursor/rules/` y el skill), **esta guía** (`CLAUDE.md`) y **[.github/copilot-instructions.md](.github/copilot-instructions.md)**. La lista canónica y el procedimiento están en [AGENTS.md](AGENTS.md).
+Al agregar, quitar o cambiar políticas (idioma, Python, UV, metodología del laboratorio, estándares de tareas Backlog), actualizar **Cursor** (`.cursor/rules/` y los skills afectados), **esta guía** (`CLAUDE.md`) y **[.github/copilot-instructions.md](.github/copilot-instructions.md)**. La lista canónica y el procedimiento están en [AGENTS.md](AGENTS.md).
