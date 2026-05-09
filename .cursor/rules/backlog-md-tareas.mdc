@@ -1,0 +1,14 @@
+---
+description: Tareas Backlog.md — plantilla profesional y alineación con config.yml
+globs: backlog/**/*.md,backlog/**/*.yml
+alwaysApply: false
+---
+
+# Tareas en Backlog.md
+
+Al **crear o editar** archivos bajo `backlog/` (especialmente `backlog/tasks/*.md`):
+
+1. Seguir el skill del proyecto [`.cursor/skills/backlog-md-tareas/SKILL.md`](../skills/backlog-md-tareas/SKILL.md): español latinoamericano, secciones completas (contexto, alcance, fuera de alcance, AC, DoD, plan, notas, dependencias, referencias).
+2. Usar solo **assignees** y **statuses** definidos en [`backlog/config.yml`](../../backlog/config.yml).
+3. Antes de abrir tareas nuevas, evitar duplicados (`backlog search` o listado en `backlog/tasks/`).
+4. Si la tarea implica cambiar políticas del laboratorio para todos los asistentes, planificar la **misma tarea o PR** con actualizaciones en `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md` y reglas/skills afectados, según [`AGENTS.md`](../../AGENTS.md).

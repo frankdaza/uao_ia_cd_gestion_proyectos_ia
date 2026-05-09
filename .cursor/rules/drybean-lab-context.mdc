@@ -20,6 +20,8 @@ Proyecto de **clasificación multiclase** de variedades de frijol seco con **CRI
 
 ```text
 laboratorio_drybean_ml/
+├── consignas/          # PDFs de consignas (fuera del árbol mínimo TDSP del PDF; presente en este repo)
+├── docs/               # Análisis de alineación metodológica, actas Scrum, etc.
 ├── data/raw/
 ├── data/processed/
 ├── notebooks/
@@ -29,6 +31,8 @@ laboratorio_drybean_ml/
 ├── README.md
 └── pyproject.toml  (dependencias gestionadas con UV)
 ```
+
+Versión congelada de referencia del árbol y políticas: [docs/tdsp-estructura-congelada.md](../../docs/tdsp-estructura-congelada.md).
 
 ## Flujo técnico esperado
 

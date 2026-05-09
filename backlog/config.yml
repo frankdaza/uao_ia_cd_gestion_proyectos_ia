@@ -2,6 +2,8 @@ project_name: "laboratorio drybean ml"
 default_status: "To Do"
 statuses: ["To Do", "In Progress", "Done"]
 labels: []
+milestones: []
+assignees: ["Jenifer Ramos", "Juan Velasquez", "Yan Cuaran", "Frank Daza"]
 date_format: yyyy-mm-dd
 max_column_width: 20
 auto_open_browser: true

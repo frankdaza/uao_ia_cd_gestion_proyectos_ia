@@ -15,13 +15,17 @@ Laboratorio de **clasificación** con el **Dry Bean Dataset** (UCI, id **602**),
 
 Flujo esperado: EDA; partición train/test estratificada; baseline con `Pipeline` (`StandardScaler` + `LogisticRegression`); alternativa con `RandomForestClassifier`; **accuracy** y **F1 macro**; matriz de confusión; persistencia con **`joblib`**. Trabajo colaborativo con ramas `feature/*` y pull requests.
 
-Consignas en [consignas/Lab1.pdf](consignas/Lab1.pdf) y [consignas/Plan_Equipos_ScrumML_DryBean.pdf](consignas/Plan_Equipos_ScrumML_DryBean.pdf).
+Consignas en [consignas/Lab1.pdf](consignas/Lab1.pdf) y [consignas/Plan_Equipos_ScrumML_DryBean.pdf](consignas/Plan_Equipos_ScrumML_DryBean.pdf). Análisis de alineación TDSP y requisitos: [docs/tdsp-alineacion.md](docs/tdsp-alineacion.md). Estructura congelada v1.0: [docs/tdsp-estructura-congelada.md](docs/tdsp-estructura-congelada.md). Validación/acuerdo: [docs/tdsp-validacion-acuerdo.md](docs/tdsp-validacion-acuerdo.md).
 
 ## Cursor
 
 - Reglas: [.cursor/rules/](.cursor/rules/)
 - Skill detallado: [.cursor/skills/drybean-ml-laboratorio/SKILL.md](.cursor/skills/drybean-ml-laboratorio/SKILL.md)
 
+## Tareas Backlog.md
+
+Al crear o editar ítems de gestión en el repositorio, seguir el skill [.cursor/skills/backlog-md-tareas/SKILL.md](.cursor/skills/backlog-md-tareas/SKILL.md) y la configuración [backlog/config.yml](backlog/config.yml).
+
 ## Sincronización entre herramientas de IA
 
-Al agregar, quitar o cambiar políticas (idioma, Python, UV, metodología del laboratorio), actualizar **Cursor** (`.cursor/rules/` y el skill), **esta guía** (`CLAUDE.md`) y **[.github/copilot-instructions.md](.github/copilot-instructions.md)**. La lista canónica y el procedimiento están en [AGENTS.md](AGENTS.md).
+Al agregar, quitar o cambiar políticas (idioma, Python, UV, metodología del laboratorio, estándares de tareas Backlog), actualizar **Cursor** (`.cursor/rules/` y los skills afectados), **esta guía** (`CLAUDE.md`) y **[.github/copilot-instructions.md](.github/copilot-instructions.md)**. La lista canónica y el procedimiento están en [AGENTS.md](AGENTS.md).
