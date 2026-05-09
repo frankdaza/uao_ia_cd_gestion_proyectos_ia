@@ -32,6 +32,8 @@ laboratorio_drybean_ml/
 └── pyproject.toml  (dependencias gestionadas con UV)
 ```
 
+Versión congelada de referencia del árbol y políticas: [docs/tdsp-estructura-congelada.md](../../docs/tdsp-estructura-congelada.md).
+
 ## Flujo técnico esperado
 
 - Carga con `ucimlrepo.fetch_ucirepo(id=602)` (u otra fuente equivalente reproducible).

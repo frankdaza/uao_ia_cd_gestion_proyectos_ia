@@ -15,7 +15,7 @@ Para un checklist de entrega (Definition of Done), evidencias de Scrum ML y plan
 
 ## Estructura del proyecto (TDSP)
 
-La siguiente organización es la esperada a medida que avance el laboratorio; algunas carpetas pueden crearse cuando el equipo empiece a cargar datos, notebooks y código.
+La organización sigue las consignas (Lab1 y plan de equipos). La **versión congelada** de referencia (obligatorios, política de Git y entorno) está en [docs/tdsp-estructura-congelada.md](docs/tdsp-estructura-congelada.md). El registro de validación del equipo y el espacio para el docente están en [docs/tdsp-validacion-acuerdo.md](docs/tdsp-validacion-acuerdo.md).
 
 ```text
 ├── consignas/            # Consignas y plan de equipos (PDF)
@@ -55,6 +55,8 @@ La lista concreta de paquetes debe alinearse con `pyproject.toml` y `uv.lock` cu
 - [consignas/Lab1.pdf](consignas/Lab1.pdf)
 - [consignas/Plan_Equipos_ScrumML_DryBean.pdf](consignas/Plan_Equipos_ScrumML_DryBean.pdf)
 - [docs/tdsp-alineacion.md](docs/tdsp-alineacion.md) — inventario de requisitos de las consignas, mapeo al repositorio y comparación TDSP académico vs profesional (entregable TASK-1).
+- [docs/tdsp-estructura-congelada.md](docs/tdsp-estructura-congelada.md) — estructura TDSP **v1.0 congelada** (TASK-2).
+- [docs/tdsp-validacion-acuerdo.md](docs/tdsp-validacion-acuerdo.md) — acuerdo del equipo y plantilla para el docente (TASK-2).
 
 ## Colaboración en Git
 

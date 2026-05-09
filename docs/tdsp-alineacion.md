@@ -96,7 +96,7 @@ Mantener el **árbol TDSP de las consignas** como núcleo (cumple L6 y rúbrica 
 
 | Elemento | Estado | Comentario |
 |----------|--------|------------|
-| `README.md` con árbol TDSP | Documentado | Carpetas pueden no existir aún en disco. |
+| `README.md` con árbol TDSP | Documentado + congelado v1.0 | Enlaza a `tdsp-estructura-congelada.md` (TASK-2). |
 | `data/raw`, `data/processed`, `notebooks`, `outputs/models`, `outputs/reports`, `src` | **Resuelto (2026-05-09)** | Carpetas creadas con `.gitkeep`; `.gitignore` alineado (TASK-3 / P0). |
 | `pyproject.toml` / `uv.lock` | Ausente al momento del análisis | Abordar PR P1. |
 | Notebook / script Lab1 | Pendiente | PB-01 en adelante. |
@@ -104,8 +104,9 @@ Mantener el **árbol TDSP de las consignas** como núcleo (cumple L6 y rúbrica 
 
 ---
 
-## 7. Cierre TASK-1
+## 7. Cierre TASK-1 y validación TASK-2
 
-- **Entregable principal:** este archivo (`docs/tdsp-alineacion.md`).  
-- **Pendiente de stakeholders:** validación explícita de la “estructura objetivo” y de la política UV vs texto literal de Lab1 (ítem DoD organizacional en Backlog).  
-- **Fecha de análisis:** 2026-05-09.
+- **Entregable principal (TASK-1):** [tdsp-alineacion.md](tdsp-alineacion.md).  
+- **Congelación y validación (TASK-2):** [tdsp-estructura-congelada.md](tdsp-estructura-congelada.md) (v1.0) y [tdsp-validacion-acuerdo.md](tdsp-validacion-acuerdo.md) (acuerdo del equipo; bloque docente opcional).  
+- **Fecha de análisis (TASK-1):** 2026-05-09.  
+- **Fecha de congelación (TASK-2):** 2026-05-09.

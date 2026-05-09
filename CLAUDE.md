@@ -15,7 +15,7 @@ Laboratorio de **clasificación** con el **Dry Bean Dataset** (UCI, id **602**),
 
 Flujo esperado: EDA; partición train/test estratificada; baseline con `Pipeline` (`StandardScaler` + `LogisticRegression`); alternativa con `RandomForestClassifier`; **accuracy** y **F1 macro**; matriz de confusión; persistencia con **`joblib`**. Trabajo colaborativo con ramas `feature/*` y pull requests.
 
-Consignas en [consignas/Lab1.pdf](consignas/Lab1.pdf) y [consignas/Plan_Equipos_ScrumML_DryBean.pdf](consignas/Plan_Equipos_ScrumML_DryBean.pdf). Análisis de alineación TDSP y requisitos: [docs/tdsp-alineacion.md](docs/tdsp-alineacion.md).
+Consignas en [consignas/Lab1.pdf](consignas/Lab1.pdf) y [consignas/Plan_Equipos_ScrumML_DryBean.pdf](consignas/Plan_Equipos_ScrumML_DryBean.pdf). Análisis de alineación TDSP y requisitos: [docs/tdsp-alineacion.md](docs/tdsp-alineacion.md). Estructura congelada v1.0: [docs/tdsp-estructura-congelada.md](docs/tdsp-estructura-congelada.md). Validación/acuerdo: [docs/tdsp-validacion-acuerdo.md](docs/tdsp-validacion-acuerdo.md).
 
 ## Cursor
 
