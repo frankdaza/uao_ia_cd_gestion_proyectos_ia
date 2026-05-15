@@ -3,7 +3,7 @@ id: TASK-10
 title: >-
   Implementar src/preprocessing.py: limpieza y partición train/test
   estratificada
-status: To Do
+status: Done
 assignee:
   - Juan Velasquez
 created_date: '2026-05-09 18:42'

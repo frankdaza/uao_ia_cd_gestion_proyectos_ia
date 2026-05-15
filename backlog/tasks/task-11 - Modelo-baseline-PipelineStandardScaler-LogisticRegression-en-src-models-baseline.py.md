@@ -3,7 +3,7 @@ id: TASK-11
 title: >-
   Modelo baseline: Pipeline(StandardScaler + LogisticRegression) en
   src/models/baseline.py
-status: To Do
+status: Done
 assignee:
   - Juan Velasquez
 created_date: '2026-05-09 18:42'
