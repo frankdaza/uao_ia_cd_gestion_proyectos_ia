@@ -1,9 +1,9 @@
 ---
 id: TASK-8
 title: Implementar módulo src/data_loading.py con fetch_drybean() y pruebas unitarias
-status: To Do
+status: Done
 assignee:
-  - Yan Cuaran
+  - Juan Velasquez
 created_date: '2026-05-09 18:41'
 labels: []
 dependencies:

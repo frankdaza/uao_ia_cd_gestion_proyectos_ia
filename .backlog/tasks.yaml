@@ -119,7 +119,7 @@ tasks:
     title: "TASK-5: Configurar entorno reproducible con UV (Python 3.12) y
       dependencias del laboratorio"
     source_links: []
-    status: ready
+    status: done
     priority: P2
     labels: []
     repo_targets:
@@ -143,7 +143,7 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:07.565Z
-    updated_at: 2026-05-15T04:53:07.565Z
+    updated_at: 2026-05-15T05:21:08.455Z
   - id: task_006
     title: "TASK-6: Documentar política de datos en data/raw/README.md y
       data/processed/README.md"
@@ -206,7 +206,7 @@ tasks:
     title: "TASK-8: Implementar módulo src/data_loading.py con fetch_drybean() y
       pruebas unitarias"
     source_links: []
-    status: ready
+    status: done
     priority: P2
     labels: []
     repo_targets:
@@ -230,7 +230,7 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:17.991Z
-    updated_at: 2026-05-15T04:53:17.991Z
+    updated_at: 2026-05-15T05:21:10.524Z
   - id: task_009
     title: "TASK-9: Notebook de EDA notebooks/01_eda_drybean.ipynb (Dry Bean UCI 602)"
     source_links: []
@@ -263,7 +263,7 @@ tasks:
     title: "TASK-10: Implementar src/preprocessing.py: limpieza y partición
       train/test estratificada"
     source_links: []
-    status: ready
+    status: done
     priority: P2
     labels: []
     repo_targets:
@@ -287,12 +287,12 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:21.881Z
-    updated_at: 2026-05-15T04:53:21.881Z
+    updated_at: 2026-05-15T05:21:12.356Z
   - id: task_011
     title: "TASK-11: Modelo baseline: Pipeline(StandardScaler + LogisticRegression)
       en src/models/baseline.py"
     source_links: []
-    status: ready
+    status: done
     priority: P2
     labels: []
     repo_targets:
@@ -316,7 +316,7 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:23.936Z
-    updated_at: 2026-05-15T04:53:23.936Z
+    updated_at: 2026-05-15T05:21:14.335Z
   - id: task_012
     title: "TASK-12: Modelo alternativo RandomForestClassifier en
       src/models/random_forest.py"

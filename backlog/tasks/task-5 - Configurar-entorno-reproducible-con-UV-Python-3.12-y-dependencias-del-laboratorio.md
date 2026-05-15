@@ -3,9 +3,9 @@ id: TASK-5
 title: >-
   Configurar entorno reproducible con UV (Python 3.12) y dependencias del
   laboratorio
-status: To Do
+status: Done
 assignee:
-  - Frank Daza
+  - Juan Velasquez
 created_date: '2026-05-09 18:40'
 labels: []
 dependencies: []
