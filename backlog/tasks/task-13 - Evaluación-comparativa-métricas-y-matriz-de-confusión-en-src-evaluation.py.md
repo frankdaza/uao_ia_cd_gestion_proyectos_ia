@@ -1,7 +1,7 @@
 ---
 id: TASK-13
 title: 'Evaluación comparativa, métricas y matriz de confusión en src/evaluation.py'
-status: To Do
+status: Done
 assignee:
   - Jenifer Ramos
 created_date: '2026-05-09 18:43'
