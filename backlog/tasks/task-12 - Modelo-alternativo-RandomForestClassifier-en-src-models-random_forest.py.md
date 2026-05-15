@@ -5,6 +5,7 @@ status: Done
 assignee:
   - Jenifer Ramos
 created_date: '2026-05-09 18:43'
+updated_date: '2026-05-15 21:24'
 labels: []
 dependencies:
   - TASK-10
@@ -41,12 +42,22 @@ Implementar el **modelo alternativo** del laboratorio (PB-04 y L12): `RandomFore
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 src/models/random_forest.py expone build_rf_pipeline, train_rf y evaluate_rf con type hints y docstrings en español.
-- [ ] #2 uv run python -m src.models.random_forest produce outputs/reports/metrics_rf.json con claves accuracy y f1_macro.
-- [ ] #3 Tests en tests/test_models_random_forest.py pasan con uv run pytest y validan retorno de las dos métricas.
-- [ ] #4 Hiperparámetros (n_estimators, max_depth, random_state, n_jobs) son explícitos y reproducibles.
-- [ ] #5 La interfaz pública es paralela a la del baseline (mismas firmas y nombres equivalentes).
+- [x] #1 src/models/random_forest.py expone build_rf_pipeline, train_rf y evaluate_rf con type hints y docstrings en español.
+- [x] #2 uv run python -m src.models.random_forest produce outputs/reports/metrics_rf.json con claves accuracy y f1_macro.
+- [x] #3 Tests en tests/test_models_random_forest.py pasan con uv run pytest y validan retorno de las dos métricas.
+- [x] #4 Hiperparámetros (n_estimators, max_depth, random_state, n_jobs) son explícitos y reproducibles.
+- [x] #5 La interfaz pública es paralela a la del baseline (mismas firmas y nombres equivalentes).
 <!-- AC:END -->
+
+
+
+
+
+
+
+
+
+
 
 ## Implementation Plan
 
@@ -66,6 +77,6 @@ Random Forest no requiere escalado, por eso el Pipeline tiene un único paso. Ma
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 Sin importes mutuos entre baseline.py y random_forest.py (ambos siguen un contrato común sin acoplarse).
-- [ ] #2 Métricas serializadas en JSON UTF-8.
+- [x] #1 Sin importes mutuos entre baseline.py y random_forest.py (ambos siguen un contrato común sin acoplarse).
+- [x] #2 Métricas serializadas en JSON UTF-8.
 <!-- DOD:END -->
