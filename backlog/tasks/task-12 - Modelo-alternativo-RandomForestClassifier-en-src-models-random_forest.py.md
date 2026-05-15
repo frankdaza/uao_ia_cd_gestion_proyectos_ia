@@ -1,7 +1,7 @@
 ---
 id: TASK-12
 title: Modelo alternativo RandomForestClassifier en src/models/random_forest.py
-status: To Do
+status: Done
 assignee:
   - Jenifer Ramos
 created_date: '2026-05-09 18:43'
