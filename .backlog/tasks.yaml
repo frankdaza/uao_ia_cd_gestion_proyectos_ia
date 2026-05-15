@@ -3,6 +3,12 @@ tasks:
   - id: task_001
     title: "TASK-1: Analizar consignas (Lab1 y Scrum ML) y definir plan de
       alineación con estructura TDSP profesional en el repositorio"
+    description: Analizar consignas (Lab1 y Scrum ML) y definir plan de alineación
+      con estructura TDSP profesional. El repositorio documenta un laboratorio
+      de clasificación (Dry Bean, UCI 602) con CRISP-DM, TDSP y Scrum ML. Es
+      necesario leer las consignas en PDF, extraer requisitos explícitos y
+      proponer una alineación realista entre lo pedido en el curso y un marco
+      TDSP profesional.
     source_links: []
     status: done
     priority: P2
@@ -28,10 +34,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:52:59.407Z
-    updated_at: 2026-05-15T04:53:50.922Z
+    updated_at: 2026-05-15T05:24:44.568Z
   - id: task_002
     title: "TASK-2: Validar docs/tdsp-alineacion.md con docente y congelar
       estructura TDSP objetivo"
+    description: Revisión formal de docs/tdsp-alineacion.md (mapeo consignas → repo,
+      discrepancias UV vs pip/venv, requirements.txt). Obtener acuerdo explícito
+      de estructura de carpetas y política de entorno antes de merges mayores.
+      Depende del análisis entregado en TASK-1.
     source_links: []
     status: done
     priority: P2
@@ -57,10 +67,15 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:01.667Z
-    updated_at: 2026-05-15T04:53:53.120Z
+    updated_at: 2026-05-15T05:24:49.379Z
   - id: task_003
     title: "TASK-3: PR: Estructura TDSP física (carpetas, .gitkeep, .gitignore
       datos/modelos)"
+    description: "Ejecuta el requisito P0 de docs/tdsp-alineacion.md: materializar
+      en disco el árbol TDSP de las consignas (Lab1 / Plan equipos) para
+      desbloquear PB y el laboratorio. Crear carpetas data/raw, data/processed,
+      notebooks, outputs/models, outputs/reports, src con .gitkeep y ajustar
+      .gitignore para ignorar datos y modelos generados."
     source_links: []
     status: done
     priority: P2
@@ -86,9 +101,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:03.575Z
-    updated_at: 2026-05-15T04:53:55.272Z
+    updated_at: 2026-05-15T05:24:59.154Z
   - id: task_004
     title: "TASK-4: Definir Product Backlog académico PB-01..PB-06 y roles Scrum ML"
+    description: Formalizar el Product Backlog académico del laboratorio Dry Bean
+      (UCI 602) según el plan de equipos (P3) y dejar registrados los roles
+      Scrum ML del equipo (P1). Da trazabilidad entre las historias PB-01..PB-06
+      y las tareas técnicas TASK-*, y habilita las evidencias Scrum exigidas en
+      la entrega.
     source_links: []
     status: ready
     priority: P2
@@ -114,10 +134,12 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:05.449Z
-    updated_at: 2026-05-15T04:53:05.449Z
+    updated_at: 2026-05-15T05:25:02.376Z
   - id: task_005
     title: "TASK-5: Configurar entorno reproducible con UV (Python 3.12) y
       dependencias del laboratorio"
+    description: "✅ Completada por Juan Velasquez — PR #5. Entregado: pyproject.toml
+      con UV, Python 3.12, dependencias runtime y dev, uv.lock."
     source_links: []
     status: done
     priority: P2
@@ -143,10 +165,15 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:07.565Z
-    updated_at: 2026-05-15T05:21:08.455Z
+    updated_at: 2026-05-15T05:25:09.804Z
   - id: task_006
     title: "TASK-6: Documentar política de datos en data/raw/README.md y
       data/processed/README.md"
+    description: Documentar política de datos en data/raw/README.md y
+      data/processed/README.md. La estructura física TDSP ya existe (TASK-3),
+      pero las carpetas de datos no documentan cómo obtener el Dry Bean Dataset
+      (UCI 602), qué se versiona y qué no, ni cómo registrar la procedencia y
+      fecha de descarga.
     source_links: []
     status: done
     priority: P2
@@ -172,10 +199,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:09.544Z
-    updated_at: 2026-05-15T04:53:57.510Z
+    updated_at: 2026-05-15T05:25:16.074Z
   - id: task_007
     title: "TASK-7: Estándares de calidad de código: ruff, black, pre-commit y
       nbstripout"
+    description: "Adoptar estándares mínimos de calidad de código: lint (ruff),
+      format (black), higiene de notebooks (nbstripout) y automatización local
+      (pre-commit) usando UV como ejecutor. Establece las herramientas para que
+      el laboratorio sea revisable, reproducible y compatible con CI (TASK-19)."
     source_links: []
     status: ready
     priority: P2
@@ -201,10 +232,13 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:15.759Z
-    updated_at: 2026-05-15T04:53:15.759Z
+    updated_at: 2026-05-15T05:25:21.176Z
   - id: task_008
     title: "TASK-8: Implementar módulo src/data_loading.py con fetch_drybean() y
       pruebas unitarias"
+    description: "✅ Completada por Juan Velasquez — PR #5. Entregado:
+      src/data_loading.py con fetch_drybean() y load_drybean(), 6 tests con
+      mock."
     source_links: []
     status: done
     priority: P2
@@ -230,9 +264,13 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:17.991Z
-    updated_at: 2026-05-15T05:21:10.524Z
+    updated_at: 2026-05-15T05:25:29.370Z
   - id: task_009
     title: "TASK-9: Notebook de EDA notebooks/01_eda_drybean.ipynb (Dry Bean UCI 602)"
+    description: Realizar el Análisis Exploratorio de Datos (EDA) del Dry Bean
+      Dataset cubriendo CRISP-DM fase 2 (Comprensión de datos) y los requisitos
+      L11 y PB-02. El notebook usa src/data_loading.py (TASK-8) y queda como
+      evidencia versionada del entendimiento de los datos antes del modelado.
     source_links: []
     status: ready
     priority: P2
@@ -258,10 +296,12 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:19.986Z
-    updated_at: 2026-05-15T04:53:19.986Z
+    updated_at: 2026-05-15T05:25:36.071Z
   - id: task_010
     title: "TASK-10: Implementar src/preprocessing.py: limpieza y partición
       train/test estratificada"
+    description: "✅ Completada por Juan Velasquez — PR #5. Entregado:
+      src/preprocessing.py con clean() y split() estratificado, 10 tests."
     source_links: []
     status: done
     priority: P2
@@ -287,10 +327,12 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:21.881Z
-    updated_at: 2026-05-15T05:21:12.356Z
+    updated_at: 2026-05-15T05:25:42.558Z
   - id: task_011
     title: "TASK-11: Modelo baseline: Pipeline(StandardScaler + LogisticRegression)
       en src/models/baseline.py"
+    description: "✅ Completada por Juan Velasquez — PR #5. Entregado:
+      src/models/baseline.py, accuracy 0.9195, F1 macro 0.9306, 6 tests."
     source_links: []
     status: done
     priority: P2
@@ -316,10 +358,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:23.936Z
-    updated_at: 2026-05-15T05:21:14.335Z
+    updated_at: 2026-05-15T05:25:49.674Z
   - id: task_012
     title: "TASK-12: Modelo alternativo RandomForestClassifier en
       src/models/random_forest.py"
+    description: "Implementar el modelo alternativo del laboratorio (PB-04 y L12):
+      RandomForestClassifier con hiperparámetros explícitos y reproducibles.
+      Junto al baseline (TASK-11), permite contrastar un modelo lineal vs. un
+      ensamble de árboles para clasificación multiclase del Dry Bean Dataset."
     source_links: []
     status: ready
     priority: P2
@@ -345,10 +391,15 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:25.864Z
-    updated_at: 2026-05-15T04:53:25.864Z
+    updated_at: 2026-05-15T05:25:54.679Z
   - id: task_013
     title: "TASK-13: Evaluación comparativa, métricas y matriz de confusión en
       src/evaluation.py"
+    description: Cerrar la fase de Evaluación de CRISP-DM (PB-05, L12) con un módulo
+      que compare baseline (TASK-11) y Random Forest (TASK-12) usando accuracy y
+      F1 macro, genere la matriz de confusión del modelo principal y emita un
+      classification_report por clase. Produce los artefactos que el reporte
+      (TASK-16) y el notebook integrador (TASK-15) consumen.
     source_links: []
     status: ready
     priority: P2
@@ -374,10 +425,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:27.924Z
-    updated_at: 2026-05-15T04:53:27.924Z
+    updated_at: 2026-05-15T05:26:00.991Z
   - id: task_014
     title: "TASK-14: Persistencia con joblib y función reutilizable de predicción en
       src/inference.py"
+    description: Cubrir PB-04, L13 (persistencia con joblib bajo outputs/models/) y
+      L14 (función reutilizable de predicción). Materializa el modelo final
+      seleccionado por TASK-13 como artefacto serializado y entrega una API
+      mínima de inferencia.
     source_links: []
     status: ready
     priority: P2
@@ -403,10 +458,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:34.145Z
-    updated_at: 2026-05-15T04:53:34.145Z
+    updated_at: 2026-05-15T05:26:07.021Z
   - id: task_015
     title: "TASK-15: Notebook integrador notebooks/01_laboratorio_drybean.ipynb
       (CRISP-DM end-to-end)"
+    description: "Producir el entregable principal del laboratorio (L10, L15): un
+      notebook único que orquesta CRISP-DM de inicio a fin reutilizando los
+      módulos src/. Este notebook es el artefacto que el docente ejecuta y
+      revisa, y la fuente desde la cual se exporta el reporte (TASK-16)."
     source_links: []
     status: ready
     priority: P2
@@ -432,10 +491,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:36.126Z
-    updated_at: 2026-05-15T04:53:36.126Z
+    updated_at: 2026-05-15T05:26:12.876Z
   - id: task_016
     title: "TASK-16: Reporte breve de 7 secciones en
       outputs/reports/informe_laboratorio.md"
+    description: "Producir el reporte narrativo exigido en L15: un documento
+      Markdown corto con las 7 secciones canónicas del SKILL
+      drybean-ml-laboratorio. Complementa el notebook integrador (TASK-15) y
+      sirve como insumo para la entrega final."
     source_links: []
     status: ready
     priority: P2
@@ -461,10 +524,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:38.641Z
-    updated_at: 2026-05-15T04:53:38.641Z
+    updated_at: 2026-05-15T05:26:17.824Z
   - id: task_017
     title: "TASK-17: Evidencias Scrum ML en outputs/reports/scrum/ (tablero,
       sprints, retrospectiva)"
+    description: "Generar las evidencias Scrum ML exigidas en L15 y P4 del Plan de
+      Equipos. Consolidar en outputs/reports/scrum/ los artefactos que
+      demuestran que el equipo aplicó Scrum: backlog, tablero, distribución por
+      sprint y retrospectiva."
     source_links: []
     status: ready
     priority: P2
@@ -490,10 +557,14 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:40.538Z
-    updated_at: 2026-05-15T04:53:40.538Z
+    updated_at: 2026-05-15T05:26:23.510Z
   - id: task_018
     title: "TASK-18: README final: sección de reproducibilidad y export de
       requirements.txt desde UV"
+    description: "Cerrar PB-06 y P2: el Plan de Equipos exige requirements.txt sin
+      renunciar a UV como fuente de verdad. Actualizar README.md con
+      instrucciones claras de reproducibilidad y entregar un mecanismo
+      automatizado para generar requirements.txt bajo demanda."
     source_links: []
     status: ready
     priority: P2
@@ -519,7 +590,7 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:42.528Z
-    updated_at: 2026-05-15T04:53:42.528Z
+    updated_at: 2026-05-15T05:26:28.766Z
   - id: task_019
     title: "TASK-19: CI smoke test con GitHub Actions: lint, tests y ejecución del
       notebook"
@@ -548,4 +619,8 @@ tasks:
       push_status: false
       push_comments: false
     created_at: 2026-05-15T04:53:44.658Z
-    updated_at: 2026-05-15T04:53:44.658Z
+    updated_at: 2026-05-15T05:26:32.791Z
+    description: Implementar un workflow de GitHub Actions que verifica en cada
+      push/PR que el laboratorio sigue siendo reproducible (lint, tests y
+      ejecución del notebook integrador). Cierra el bloque de aseguramiento TDSP
+      profesional ligero.
