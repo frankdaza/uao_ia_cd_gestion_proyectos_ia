@@ -1,7 +1,7 @@
 ---
 id: TASK-9
 title: Notebook de EDA notebooks/01_eda_drybean.ipynb (Dry Bean UCI 602)
-status: To Do
+status: Done
 assignee:
   - Yan Cuaran
 created_date: '2026-05-09 18:42'
