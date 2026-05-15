@@ -3,7 +3,7 @@ id: TASK-14
 title: >-
   Persistencia con joblib y función reutilizable de predicción en
   src/inference.py
-status: To Do
+status: Done
 assignee:
   - Jenifer Ramos
 created_date: '2026-05-09 18:44'
