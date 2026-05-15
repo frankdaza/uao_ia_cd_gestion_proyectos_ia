@@ -1,10 +1,11 @@
 ---
 id: TASK-6
 title: Documentar política de datos en data/raw/README.md y data/processed/README.md
-status: To Do
+status: Done
 assignee:
   - Yan Cuaran
 created_date: '2026-05-09 18:40'
+updated_date: '2026-05-15 03:54'
 labels: []
 dependencies: []
 references:
@@ -43,11 +44,35 @@ La estructura física TDSP ya existe (TASK-3), pero las carpetas de datos no doc
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 data/raw/README.md existe, identifica UCI 602, describe el comando ucimlrepo y la política de no versionado de datos crudos.
-- [ ] #2 data/processed/README.md existe, define convención de nombres y política de no versionado de datos procesados.
-- [ ] #3 Ambos README enlazan a docs/tdsp-estructura-congelada.md (sección de archivos mínimos por carpeta).
-- [ ] #4 Ambos README incluyen plantilla con campos: dataset, fuente, fecha de descarga, responsable, notas.
+- [x] #1 data/raw/README.md existe, identifica UCI 602, describe el comando ucimlrepo y la política de no versionado de datos crudos.
+- [x] #2 data/processed/README.md existe, define convención de nombres y política de no versionado de datos procesados.
+- [x] #3 Ambos README enlazan a docs/tdsp-estructura-congelada.md (sección de archivos mínimos por carpeta).
+- [x] #4 Ambos README incluyen plantilla con campos: dataset, fuente, fecha de descarga, responsable, notas.
 <!-- AC:END -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Implementation Plan
 
@@ -67,6 +92,6 @@ Idioma: español latinoamericano. Si el equipo opta por un dataset alternativo (
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 Sin binarios versionados accidentalmente en data/raw o data/processed (verificar con git status).
-- [ ] #2 Documentos enlazados desde README.md raíz (sección Datos).
+- [x] #1 Sin binarios versionados accidentalmente en data/raw o data/processed (verificar con git status).
+- [x] #2 Documentos enlazados desde README.md raíz (sección Datos).
 <!-- DOD:END -->
