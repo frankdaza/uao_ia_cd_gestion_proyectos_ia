@@ -38,17 +38,23 @@ La organización sigue las consignas (Lab1 y plan de equipos). La **versión con
 - **Python 3.12**
 - **UV** (Astral) para dependencias y entorno virtual
 
-Comandos de referencia:
+## Cómo correr
 
 ```bash
-uv python pin 3.12
+# 1. Instalar dependencias (crea .venv y descarga Python 3.12 si es necesario)
 uv sync
-uv add <paquete>
-uv run python src/<script>.py
+
+# 2. Ejecutar pruebas
+uv run pytest
+
+# 3. Abrir Jupyter Lab para trabajar con notebooks
 uv run jupyter lab
+
+# 4. Ejecutar un script directamente
+uv run python src/<script>.py
 ```
 
-La lista concreta de paquetes debe alinearse con `pyproject.toml` y `uv.lock` cuando existan en el repositorio. El proyecto recomienda evitar `pip install` y `python -m venv` como flujo predeterminado.
+> **Nota:** no usar `pip install` ni `python -m venv` como flujo predeterminado. Todas las dependencias están declaradas en `pyproject.toml` y fijadas en `uv.lock`.
 
 ## Consignas y plan de equipo
 
