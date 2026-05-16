@@ -5,6 +5,7 @@ status: Done
 assignee:
   - Yan Cuaran
 created_date: '2026-05-09 18:42'
+updated_date: '2026-05-15 20:29'
 labels: []
 dependencies:
   - TASK-6
@@ -42,12 +43,22 @@ Realizar el **Análisis Exploratorio de Datos (EDA)** del Dry Bean Dataset cubri
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 notebooks/01_eda_drybean.ipynb existe y se ejecuta de inicio a fin con uv run jupyter nbconvert --execute sin errores.
-- [ ] #2 El notebook reporta explícitamente: shape, conteo de nulos por columna, conteo de duplicados y distribución de Class.
-- [ ] #3 Incluye al menos 1 figura por sección (distribución de Class, histogramas de features, matriz de correlación, boxplots).
-- [ ] #4 La sección final 'Conclusiones del EDA' lista 5 a 8 hallazgos en lenguaje claro y en español.
-- [ ] #5 Las salidas pesadas del notebook quedan stripeadas por nbstripout (no se versionan outputs binarios grandes).
+- [x] #1 notebooks/01_eda_drybean.ipynb existe y se ejecuta de inicio a fin con uv run jupyter nbconvert --execute sin errores.
+- [x] #2 El notebook reporta explícitamente: shape, conteo de nulos por columna, conteo de duplicados y distribución de Class.
+- [x] #3 Incluye al menos 1 figura por sección (distribución de Class, histogramas de features, matriz de correlación, boxplots).
+- [x] #4 La sección final 'Conclusiones del EDA' lista 5 a 8 hallazgos en lenguaje claro y en español.
+- [x] #5 Las salidas pesadas del notebook quedan stripeadas por nbstripout (no se versionan outputs binarios grandes).
 <!-- AC:END -->
+
+
+
+
+
+
+
+
+
+
 
 ## Implementation Plan
 
@@ -71,6 +82,6 @@ Usar matplotlib y/o seaborn (instalable como dep adicional si no está). Asegura
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 El notebook importa funciones desde src/ en lugar de duplicar lógica de carga.
-- [ ] #2 Cualquier figura exportada se guarda en outputs/reports/eda/ (no versionada si pesa, alineado con TASK-3).
+- [x] #1 El notebook importa funciones desde src/ en lugar de duplicar lógica de carga.
+- [x] #2 Cualquier figura exportada se guarda en outputs/reports/eda/ (no versionada si pesa, alineado con TASK-3).
 <!-- DOD:END -->
