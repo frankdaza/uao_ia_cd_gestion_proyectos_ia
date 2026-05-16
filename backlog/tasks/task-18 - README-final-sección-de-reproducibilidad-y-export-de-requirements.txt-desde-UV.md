@@ -3,10 +3,11 @@ id: TASK-18
 title: >-
   README final: sección de reproducibilidad y export de requirements.txt desde
   UV
-status: To Do
+status: Done
 assignee:
   - Yan Cuaran
 created_date: '2026-05-09 18:46'
+updated_date: '2026-05-16 04:14'
 labels: []
 dependencies:
   - TASK-14
@@ -17,6 +18,7 @@ references:
 documentation:
   - README.md
   - scripts/export_requirements.sh
+ordinal: 125
 ---
 
 ## Description
@@ -47,11 +49,11 @@ Cerrar el requisito **PB-06** y **P2** (Plan de Equipos exige `requirements.txt`
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 README.md contiene sección 'Cómo correr el laboratorio' con los comandos UV listados (uv sync, uv run pytest, uv run jupyter lab, uv run python -m src.inference).
-- [ ] #2 scripts/export_requirements.sh existe, es ejecutable y corre uv export con los flags correctos.
-- [ ] #3 Ejecutar bash scripts/export_requirements.sh produce requirements.txt sin error.
-- [ ] #4 README declara explícitamente que pyproject.toml + uv.lock son la fuente de verdad y que requirements.txt es derivado.
-- [ ] #5 requirements.txt está en .gitignore (o se versiona deliberadamente con justificación documentada).
+- [x] #1 README.md contiene sección 'Cómo correr el laboratorio' con los comandos UV listados (uv sync, uv run pytest, uv run jupyter lab, uv run python -m src.inference).
+- [x] #2 scripts/export_requirements.sh existe, es ejecutable y corre uv export con los flags correctos.
+- [x] #3 Ejecutar bash scripts/export_requirements.sh produce requirements.txt sin error.
+- [x] #4 README declara explícitamente que pyproject.toml + uv.lock son la fuente de verdad y que requirements.txt es derivado.
+- [x] #5 requirements.txt está en .gitignore (o se versiona deliberadamente con justificación documentada).
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -69,6 +71,8 @@ Cerrar el requisito **PB-06** y **P2** (Plan de Equipos exige `requirements.txt`
 
 <!-- SECTION:NOTES:BEGIN -->
 El plan de equipos lista requirements.txt como artefacto esperado, pero la política del repo es UV. Esta tarea ofrece la equivalencia: generar requirements.txt desde uv export bajo demanda. Mantener la doble vía evita romper la entrega académica sin abandonar la reproducibilidad de UV.
+
+Cierre 2026-05-15: script verificado (`bash scripts/export_requirements.sh`); `uv run pip install -r requirements.txt --dry-run` exitoso. DoD #1: no hubo cambio de políticas globales del stack (no aplica sincronización multi-asistente). DoD #2: pendiente del flujo de PR/revisión por par.
 <!-- SECTION:NOTES:END -->
 
 ## Definition of Done

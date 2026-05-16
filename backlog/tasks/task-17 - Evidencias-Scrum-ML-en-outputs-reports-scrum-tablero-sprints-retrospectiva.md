@@ -7,7 +7,7 @@ status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:45'
-updated_date: '2026-05-16 04:10'
+updated_date: '2026-05-16 04:09'
 labels: []
 dependencies:
   - TASK-4
@@ -18,7 +18,7 @@ references:
   - docs/scrum/plantilla-retrospectiva.md
 documentation:
   - outputs/reports/scrum/
-ordinal: 1000
+ordinal: 250
 ---
 
 ## Description
