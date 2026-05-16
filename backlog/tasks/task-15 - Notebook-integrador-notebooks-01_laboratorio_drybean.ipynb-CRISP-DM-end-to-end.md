@@ -7,6 +7,7 @@ status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:44'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-14
@@ -16,6 +17,7 @@ references:
   - docs/tdsp-alineacion.md
 documentation:
   - notebooks/01_laboratorio_drybean.ipynb
+ordinal: 8000
 ---
 
 ## Description

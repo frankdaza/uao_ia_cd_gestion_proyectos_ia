@@ -1,10 +1,11 @@
 ---
 id: TASK-4
 title: Definir Product Backlog académico PB-01..PB-06 y roles Scrum ML
-status: To Do
+status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:39'
+updated_date: '2026-05-15 12:00'
 labels: []
 dependencies: []
 references:
@@ -14,6 +15,9 @@ references:
 documentation:
   - docs/product-backlog.md
   - docs/scrum/roles.md
+  - docs/scrum/plantilla-retrospectiva.md
+  - docs/scrum/tablero.md
+ordinal: 1000
 ---
 
 ## Description
@@ -40,10 +44,10 @@ Formalizar el **Product Backlog académico** del laboratorio Dry Bean (UCI 602) 
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 docs/product-backlog.md existe y lista PB-01..PB-06 con título, descripción, criterios de aceptación y mapeo explícito a TASK-* internas.
-- [ ] #2 docs/scrum/roles.md asigna nominalmente PO, SM, Data Eng y ML Eng usando solo nombres definidos en backlog/config.yml.
-- [ ] #3 docs/scrum/plantilla-retrospectiva.md contiene estructura de 3 puntos y campos para sprint, fecha y asistentes.
-- [ ] #4 docs/scrum/tablero.md describe el flujo Por hacer / En progreso / Hecho y el comando o procedimiento para exportar el tablero.
+- [x] #1 docs/product-backlog.md existe y lista PB-01..PB-06 con título, descripción, criterios de aceptación y mapeo explícito a TASK-* internas.
+- [x] #2 docs/scrum/roles.md asigna nominalmente PO, SM, Data Eng y ML Eng usando solo nombres definidos en backlog/config.yml.
+- [x] #3 docs/scrum/plantilla-retrospectiva.md contiene estructura de 3 puntos y campos para sprint, fecha y asistentes.
+- [x] #4 docs/scrum/tablero.md describe el flujo Por hacer / En progreso / Hecho y el comando o procedimiento para exportar el tablero.
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -64,6 +68,6 @@ Idioma: español latinoamericano. Respetar nombres exactos de assignees del conf
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 Documentos enlazados desde README.md o docs/README.md para descubrimiento.
-- [ ] #2 Mapeo PB → TASK-* validado contra backlog/tasks/ vigente al cierre de la tarea.
+- [x] #1 Documentos enlazados desde README.md o docs/README.md para descubrimiento.
+- [x] #2 Mapeo PB → TASK-* validado contra backlog/tasks/ vigente al cierre de la tarea.
 <!-- DOD:END -->

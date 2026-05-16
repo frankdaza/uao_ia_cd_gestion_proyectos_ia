@@ -1,7 +1,7 @@
 # Alineación consignas — TDSP académico vs TDSP profesional
 
-**Proyecto:** laboratorio Dry Bean (UCI 602)  
-**Fuentes:** `consignas/Lab1.pdf`, `consignas/Plan_Equipos_ScrumML_DryBean.pdf`, `README.md`, reglas y skills del repositorio.  
+**Proyecto:** laboratorio Dry Bean (UCI 602)
+**Fuentes:** `consignas/Lab1.pdf`, `consignas/Plan_Equipos_ScrumML_DryBean.pdf`, `README.md`, reglas y skills del repositorio.
 **Extracción de PDF:** texto extraído con `uv run --with pypdf` (páginas indicadas según el lector PDF; el documento Lab1 tiene **18** páginas, el plan de equipos **4**).
 
 ---
@@ -49,20 +49,20 @@
 | L13 | Modelo joblib | `outputs/models/*.joblib` (p. ej. `random_forest_drybean.joblib`). |
 | L15 | Reporte 7 secciones | `outputs/reports/informe_laboratorio.md` o PDF exportado desde notebook; o sección en README enlazada. |
 | L15 | Evidencias Scrum | `docs/scrum/` o `outputs/reports/scrum/` con capturas/export del tablero (Backlog.md, GitHub Projects, etc.) + actas de retrospectiva. |
-| L7, P3 | Backlog de producto | **Backlog.md** en `backlog/tasks/` (ya en uso) + opcional tabla PB-01… en `docs/product-backlog.md` para entrega académica. |
+| L7, P3 | Backlog de producto | **Backlog.md** en `backlog/tasks/` (ya en uso) + tabla académica PB-01…PB-06 en [`docs/product-backlog.md`](product-backlog.md). |
 | P5 | Ramas y PR | Flujo ya descrito en `README.md` / `AGENTS.md`: `feature/*`, PR, revisión. |
 
 ---
 
 ## 3. TDSP académico (repo actual) vs TDSP profesional (industria)
 
-**TDSP académico (consignas + README actual):**  
+**TDSP académico (consignas + README actual):**
 Carpetas fijas para datos crudos/procesados, experimentación en notebooks, salidas de modelos y reportes, código reutilizable en `src/`. Énfasis en **reproducibilidad básica** (joblib, rutas claras) y documentación en README + reporte breve.
 
-**TDSP profesional (Microsoft / equipos de datos maduros):**  
+**TDSP profesional (Microsoft / equipos de datos maduros):**
 Además del árbol: **ciclo de vida explícito** (charter o problema de negocio versionado, especificación de datos, informes de seguridad/privacidad cuando aplique), **control de versiones de datos** (DVC, lakehouse o al menos hashes/README de versiones), **experiment tracking** (MLflow, Weights & Biases o tabla en `outputs/reports/experiments.md`), **revisión por pares** formalizada, **CI** (tests de smoke del notebook o script), **contrato de inferencia** y **checklist de despliegue** aunque el “despliegue” sea solo una demo.
 
-**Recomendación para el curso (esfuerzo vs valor):**  
+**Recomendación para el curso (esfuerzo vs valor):**
 Mantener el **árbol TDSP de las consignas** como núcleo (cumple L6 y rúbrica TDSP). Añadir solo prácticas “profesionales livianas”: (1) `docs/` con este análisis y actas Scrum; (2) convención de nombres de experimentos y rutas en `outputs/reports/`; (3) ramas `feature/*` + PR ya alineadas con P5; (4) si el curso lo permite, un `README` de sección “Trazabilidad” con tabla fecha–commit–cambio relevante. **No** imponer DVC/MLflow salvo extensión opcional del curso.
 
 ---
@@ -100,13 +100,13 @@ Mantener el **árbol TDSP de las consignas** como núcleo (cumple L6 y rúbrica 
 | `data/raw`, `data/processed`, `notebooks`, `outputs/models`, `outputs/reports`, `src` | **Resuelto (2026-05-09)** | Carpetas creadas con `.gitkeep`; `.gitignore` alineado (TASK-3 / P0). |
 | `pyproject.toml` / `uv.lock` | Ausente al momento del análisis | Abordar PR P1. |
 | Notebook / script Lab1 | Pendiente | PB-01 en adelante. |
-| Evidencias Scrum en repo | Parcial (Backlog.md operativo) | Añadir artefactos para entrega L15. |
+| Evidencias Scrum en repo | Parcial (Backlog.md + [`docs/scrum/`](scrum/) operativos) | Añadir artefactos bajo `outputs/reports/scrum/` para entrega L15 (TASK-17). |
 
 ---
 
 ## 7. Cierre TASK-1 y validación TASK-2
 
-- **Entregable principal (TASK-1):** [tdsp-alineacion.md](tdsp-alineacion.md).  
-- **Congelación y validación (TASK-2):** [tdsp-estructura-congelada.md](tdsp-estructura-congelada.md) (v1.0) y [tdsp-validacion-acuerdo.md](tdsp-validacion-acuerdo.md) (acuerdo del equipo; bloque docente opcional).  
-- **Fecha de análisis (TASK-1):** 2026-05-09.  
+- **Entregable principal (TASK-1):** [tdsp-alineacion.md](tdsp-alineacion.md).
+- **Congelación y validación (TASK-2):** [tdsp-estructura-congelada.md](tdsp-estructura-congelada.md) (v1.0) y [tdsp-validacion-acuerdo.md](tdsp-validacion-acuerdo.md) (acuerdo del equipo; bloque docente opcional).
+- **Fecha de análisis (TASK-1):** 2026-05-09.
 - **Fecha de congelación (TASK-2):** 2026-05-09.

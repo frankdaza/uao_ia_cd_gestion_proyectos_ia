@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 import pytest
@@ -60,7 +58,9 @@ class TestSaveLoadModel:
         modelo_cargado = load_model(path)
         assert isinstance(modelo_cargado, Pipeline)
 
-    def test_round_trip_mantiene_predicciones(self, modelo_entrenado, datos_prueba, tmp_path) -> None:
+    def test_round_trip_mantiene_predicciones(
+        self, modelo_entrenado, datos_prueba, tmp_path
+    ) -> None:
         """El modelo cargado produce las mismas predicciones que el original."""
         X_test, _ = datos_prueba
         path = tmp_path / "modelo.joblib"
@@ -109,4 +109,54 @@ class TestPredictOne:
         """La clase predicha pertenece al conjunto de clases conocidas."""
         sample = {"f1": 5.0, "f2": 15.0}
         resultado = predict_one(modelo_entrenado, sample)
+        assert resultado in _CLASSES
+
+
+class TestPredictOneColumnasUci:
+    """Regresión: el ejemplo del docstring usa los nombres UCI 602 reales.
+
+    El UCI Dry Bean Dataset entregado por ``fetch_ucirepo(id=602)`` publica
+    los features con ``AspectRatio`` y ``Roundness`` (capitalizados, sin
+    typos). Este test entrena un pipeline con esos nombres exactos y
+    confirma que ``predict_one`` no rompe por mismatch de columnas si el
+    usuario copia el ejemplo del docstring.
+    """
+
+    _UCI_COLUMNS = [
+        "Area",
+        "Perimeter",
+        "MajorAxisLength",
+        "MinorAxisLength",
+        "AspectRatio",
+        "Eccentricity",
+        "ConvexArea",
+        "EquivDiameter",
+        "Extent",
+        "Solidity",
+        "Roundness",
+        "Compactness",
+        "ShapeFactor1",
+        "ShapeFactor2",
+        "ShapeFactor3",
+        "ShapeFactor4",
+    ]
+
+    @pytest.fixture(scope="class")
+    def modelo_uci(self):
+        """Entrena un RF sobre datos sintéticos con las 16 columnas UCI reales."""
+        from src.models.random_forest import train_rf
+
+        n = 28
+        rng = np.random.default_rng(42)
+        X = pd.DataFrame(
+            {col: rng.uniform(0.1, 100.0, n) for col in self._UCI_COLUMNS},
+            dtype=float,
+        )
+        y = pd.Series((_CLASSES * (n // len(_CLASSES) + 1))[:n], name="Class")
+        return train_rf(X, y)
+
+    def test_predict_one_con_nombres_uci(self, modelo_uci) -> None:
+        """Llamar ``predict_one`` con las claves UCI exactas no rompe."""
+        sample = {col: 1.0 for col in self._UCI_COLUMNS}
+        resultado = predict_one(modelo_uci, sample)
         assert resultado in _CLASSES

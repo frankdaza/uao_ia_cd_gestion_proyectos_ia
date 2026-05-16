@@ -1,6 +1,6 @@
 # Validación y acuerdo — TDSP y `docs/tdsp-alineacion.md`
 
-**Documento revisado:** [tdsp-alineacion.md](tdsp-alineacion.md)  
+**Documento revisado:** [tdsp-alineacion.md](tdsp-alineacion.md)
 **Estructura congelada asociada:** [tdsp-estructura-congelada.md](tdsp-estructura-congelada.md) (v1.0)
 
 ---

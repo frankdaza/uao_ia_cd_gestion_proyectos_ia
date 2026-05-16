@@ -7,6 +7,7 @@ status: Done
 assignee:
   - Juan Velasquez
 created_date: '2026-05-09 18:42'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-8
@@ -16,6 +17,7 @@ references:
 documentation:
   - src/preprocessing.py
   - tests/test_preprocessing.py
+ordinal: 10000
 ---
 
 ## Description

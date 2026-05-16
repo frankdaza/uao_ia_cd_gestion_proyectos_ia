@@ -5,6 +5,7 @@ status: Done
 assignee:
   - Juan Velasquez
 created_date: '2026-05-09 18:45'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-15
@@ -13,6 +14,7 @@ references:
   - .cursor/skills/drybean-ml-laboratorio/SKILL.md
 documentation:
   - outputs/reports/informe_laboratorio.md
+ordinal: 6000
 ---
 
 ## Description

@@ -5,7 +5,7 @@ status: Done
 assignee:
   - Yan Cuaran
 created_date: '2026-05-09 18:42'
-updated_date: '2026-05-15 20:29'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-6
@@ -15,6 +15,7 @@ references:
   - docs/tdsp-alineacion.md
 documentation:
   - notebooks/01_eda_drybean.ipynb
+ordinal: 4000
 ---
 
 ## Description
@@ -49,16 +50,6 @@ Realizar el **Análisis Exploratorio de Datos (EDA)** del Dry Bean Dataset cubri
 - [x] #4 La sección final 'Conclusiones del EDA' lista 5 a 8 hallazgos en lenguaje claro y en español.
 - [x] #5 Las salidas pesadas del notebook quedan stripeadas por nbstripout (no se versionan outputs binarios grandes).
 <!-- AC:END -->
-
-
-
-
-
-
-
-
-
-
 
 ## Implementation Plan
 

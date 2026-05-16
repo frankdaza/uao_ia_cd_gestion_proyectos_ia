@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import pandas as pd
 import pytest
 
@@ -24,13 +22,9 @@ _CLASSES = ["SEKER", "BARBUNYA", "BOMBAY", "CALI"]
 def _make_train_test() -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """Genera conjuntos de entrenamiento y prueba sintéticos."""
     n_train, n_test = 40, 12
-    X_train = pd.DataFrame(
-        {"f1": range(n_train), "f2": range(n_train, 2 * n_train)}, dtype=float
-    )
+    X_train = pd.DataFrame({"f1": range(n_train), "f2": range(n_train, 2 * n_train)}, dtype=float)
     y_train = pd.Series((_CLASSES * (n_train // len(_CLASSES)))[:n_train], name="Class")
-    X_test = pd.DataFrame(
-        {"f1": range(n_test), "f2": range(n_test, 2 * n_test)}, dtype=float
-    )
+    X_test = pd.DataFrame({"f1": range(n_test), "f2": range(n_test, 2 * n_test)}, dtype=float)
     y_test = pd.Series((_CLASSES * (n_test // len(_CLASSES)))[:n_test], name="Class")
     return X_train, X_test, y_train, y_test
 
@@ -102,9 +96,7 @@ class TestPlotConfusionMatrix:
         """plot_confusion_matrix guarda un archivo PNG en la ruta indicada."""
         models, X_test, y_test = modelos_y_datos
         output = tmp_path / "confusion_matrix.png"
-        result = plot_confusion_matrix(
-            models["baseline"], X_test, y_test, _CLASSES, output
-        )
+        result = plot_confusion_matrix(models["baseline"], X_test, y_test, _CLASSES, output)
         assert result.exists()
         assert result.suffix == ".png"
 
@@ -116,9 +108,7 @@ class TestSaveClassificationReport:
         """save_classification_report guarda un archivo .txt."""
         models, X_test, y_test = modelos_y_datos
         output = tmp_path / "report.txt"
-        result = save_classification_report(
-            models["baseline"], X_test, y_test, output
-        )
+        result = save_classification_report(models["baseline"], X_test, y_test, output)
         assert result.exists()
         assert result.suffix == ".txt"
 

@@ -5,6 +5,7 @@ status: Done
 assignee:
   - Jenifer Ramos
 created_date: '2026-05-09 18:43'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-11
@@ -14,6 +15,7 @@ references:
   - docs/tdsp-alineacion.md
 documentation:
   - src/evaluation.py
+ordinal: 9000
 ---
 
 ## Description

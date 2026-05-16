@@ -1,8 +1,8 @@
 # Estructura TDSP congelada — laboratorio Dry Bean
 
-**Versión:** 1.0  
-**Fecha de congelación:** 2026-05-09  
-**Base normativa:** `consignas/Lab1.pdf`, `consignas/Plan_Equipos_ScrumML_DryBean.pdf`, [tdsp-alineacion.md](tdsp-alineacion.md).  
+**Versión:** 1.0
+**Fecha de congelación:** 2026-05-09
+**Base normativa:** `consignas/Lab1.pdf`, `consignas/Plan_Equipos_ScrumML_DryBean.pdf`, [tdsp-alineacion.md](tdsp-alineacion.md).
 **Estado:** vigente para este repositorio hasta que se publique una versión 1.x o 2.0 en este mismo directorio.
 
 ---
@@ -25,7 +25,7 @@ README.md               # Punto de entrada del proyecto
 
 **Extensiones del curso ya alineadas en el repo (no obligatorias en el PDF mínimo, pero presentes):**
 
-- `backlog/` — gestión de tareas con Backlog.md.  
+- `backlog/` — gestión de tareas con Backlog.md.
 - `AGENTS.md`, `CLAUDE.md`, `.github/copilot-instructions.md`, `.cursor/` — guías para asistentes y políticas del equipo.
 
 ---
@@ -45,9 +45,9 @@ La política de exclusión en `.gitignore` está descrita en [tdsp-alineacion.md
 
 ## 3. Política de entorno (congelada para este repo)
 
-- **Gestor de dependencias:** UV (`pyproject.toml` + `uv.lock` cuando existan).  
-- **No** usar como flujo predeterminado `pip` ni `python -m venv` en la documentación interna del repositorio.  
-- La consigna del Lab1 muestra `venv`/`pip` como referencia pedagógica; la **interpretación oficial del equipo** es mantener UV y documentar la equivalencia (ver [tdsp-alineacion.md §5](tdsp-alineacion.md)).  
+- **Gestor de dependencias:** UV (`pyproject.toml` + `uv.lock` cuando existan).
+- **No** usar como flujo predeterminado `pip` ni `python -m venv` en la documentación interna del repositorio.
+- La consigna del Lab1 muestra `venv`/`pip` como referencia pedagógica; la **interpretación oficial del equipo** es mantener UV y documentar la equivalencia (ver [tdsp-alineacion.md §5](tdsp-alineacion.md)).
 - Si el docente exige entregar `requirements.txt`, generarlo desde UV (`uv export`) sin sustituir `pyproject.toml` como fuente de verdad.
 
 ---

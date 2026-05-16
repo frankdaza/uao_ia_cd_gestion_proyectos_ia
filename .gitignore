@@ -48,3 +48,6 @@ data/processed/*
 !data/processed/README.md
 outputs/models/*
 !outputs/models/.gitkeep
+
+# requirements.txt se genera bajo demanda con scripts/export_requirements.sh (TASK-18)
+requirements.txt

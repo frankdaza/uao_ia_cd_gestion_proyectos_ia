@@ -7,8 +7,10 @@ Random Forest no requiere escalado previo, por lo que el Pipeline tiene un
 único paso. Se mantiene Pipeline por consistencia con baseline.py y para
 facilitar la persistencia con joblib (TASK-14).
 
-Hiperparámetros elegidos:
-- n_estimators=300: compromiso entre estabilidad del ensamble y tiempo de entrenamiento.
+Hiperparámetros elegidos (alineados con ``Lab1.pdf`` Paso 11):
+- n_estimators=200: valor sugerido por la consigna del laboratorio.
+- class_weight="balanced": compensa el desbalance moderado entre clases
+  (BOMBAY ~3.8 % vs DERMASON ~26 %), tal como lo prescribe el PDF.
 - max_depth=None: los árboles crecen hasta nodos puros; el ensamble controla el sobreajuste.
 - random_state=42: reproducibilidad garantizada entre ejecuciones.
 - n_jobs=-1: usa todos los núcleos disponibles para acelerar el entrenamiento.
@@ -33,23 +35,27 @@ from sklearn.pipeline import Pipeline
 
 
 def build_rf_pipeline(
-    n_estimators: int = 300,
+    n_estimators: int = 200,
     max_depth: int | None = None,
     random_state: int = 42,
     n_jobs: int = -1,
+    class_weight: str | dict | None = "balanced",
 ) -> Pipeline:
     """Construye el pipeline con RandomForestClassifier.
 
     Parámetros
     ----------
     n_estimators : int
-        Número de árboles en el ensamble.
+        Número de árboles en el ensamble (200 por defecto, según ``Lab1.pdf`` Paso 11).
     max_depth : int | None
         Profundidad máxima de cada árbol. ``None`` crece hasta nodos puros.
     random_state : int
         Semilla para reproducibilidad.
     n_jobs : int
         Número de núcleos a usar. ``-1`` usa todos los disponibles.
+    class_weight : str | dict | None
+        Esquema de ponderación de clases. Por defecto ``"balanced"`` para
+        compensar el desbalance entre variedades (consigna del laboratorio).
 
     Retorna
     -------
@@ -65,6 +71,7 @@ def build_rf_pipeline(
                     max_depth=max_depth,
                     random_state=random_state,
                     n_jobs=n_jobs,
+                    class_weight=class_weight,
                 ),
             )
         ]
@@ -74,10 +81,11 @@ def build_rf_pipeline(
 def train_rf(
     X_train: pd.DataFrame,
     y_train: pd.Series,
-    n_estimators: int = 300,
+    n_estimators: int = 200,
     max_depth: int | None = None,
     random_state: int = 42,
     n_jobs: int = -1,
+    class_weight: str | dict | None = "balanced",
 ) -> Pipeline:
     """Entrena el pipeline RandomForest con los datos de entrenamiento.
 
@@ -95,6 +103,8 @@ def train_rf(
         Semilla para reproducibilidad.
     n_jobs : int
         Número de núcleos a usar.
+    class_weight : str | dict | None
+        Esquema de ponderación de clases. Por defecto ``"balanced"``.
 
     Retorna
     -------
@@ -106,6 +116,7 @@ def train_rf(
         max_depth=max_depth,
         random_state=random_state,
         n_jobs=n_jobs,
+        class_weight=class_weight,
     )
     pipeline.fit(X_train, y_train)
     return pipeline
@@ -144,7 +155,7 @@ if __name__ == "__main__":
     from src.preprocessing import clean, split
 
     print("Cargando Dry Bean Dataset (UCI 602)...")
-    _, _, df = fetch_drybean()
+    _, _, df = fetch_drybean(cache_dir=Path("data/raw"))
     df = clean(df)
     X_train, X_test, y_train, y_test = split(df, random_state=42)
 
