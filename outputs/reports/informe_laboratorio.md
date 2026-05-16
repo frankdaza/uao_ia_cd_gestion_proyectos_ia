@@ -308,13 +308,15 @@ El laboratorio se gestionó con un **Product Backlog** de 6 historias de product
 Scrum ML. El backlog se administra con Backlog.md en `backlog/tasks/` y la
 configuración del proyecto en `backlog/config.yml`.
 
+**Documentación formal del backlog y roles:** [Product Backlog PB-01..PB-06](../../docs/product-backlog.md) y [roles Scrum ML](../../docs/scrum/roles.md).
+
 **Roles del equipo:**
 
 | Rol               | Integrante      |
 |--------------------|-----------------|
 | Product Owner      | Frank Daza      |
 | Scrum Master       | Juan Velasquez  |
-| Data Engineer      | Yan Cuaran      |
+| Data Engineer / Analyst | Yan Cuaran   |
 | ML Engineer        | Jenifer Ramos   |
 
 ### 7.2. Avance por sprint
@@ -324,7 +326,7 @@ configuración del proyecto en `backlog/config.yml`.
 - TASK-1: Analizar consignas y alineación TDSP (Frank Daza) — Done
 - TASK-2: Validar y congelar estructura TDSP (Frank Daza) — Done
 - TASK-3: Estructura física de carpetas TDSP (Frank Daza) — Done
-- TASK-4: Definir Product Backlog y roles Scrum (Frank Daza) — To Do
+- TASK-4: Definir Product Backlog y roles Scrum (Frank Daza) — Done
 - TASK-5: Configurar entorno UV + Python 3.12 (Juan Velasquez) — Done
 - TASK-6: Documentar política de datos (Yan Cuaran) — Done
 - TASK-7: Estándares de calidad de código (Frank Daza) — To Do
@@ -347,7 +349,7 @@ configuración del proyecto en `backlog/config.yml`.
 - TASK-18: README final y requirements.txt (Yan Cuaran) — To Do
 - TASK-19: CI con GitHub Actions (Frank Daza) — To Do
 
-**Estado actual:** 13 de 19 tareas completadas (68 %).
+**Estado actual:** 14 de 19 tareas completadas (74 %).
 
 ### 7.3. Retrospectiva
 
@@ -362,7 +364,7 @@ configuración del proyecto en `backlog/config.yml`.
 
 **Qué no funcionó:**
 
-- Las tareas de documentación formal (TASK-4, TASK-7) se postergaron frente al
+- La documentación formal de estándares de código (**TASK-7**) se postergó frente al
   trabajo técnico, generando deuda de proceso.
 - La coordinación entre ramas feature requirió resolver conflictos de merge que
   podrían haberse evitado con integraciones más frecuentes.

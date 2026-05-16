@@ -49,7 +49,7 @@
 | L13 | Modelo joblib | `outputs/models/*.joblib` (p. ej. `random_forest_drybean.joblib`). |
 | L15 | Reporte 7 secciones | `outputs/reports/informe_laboratorio.md` o PDF exportado desde notebook; o sección en README enlazada. |
 | L15 | Evidencias Scrum | `docs/scrum/` o `outputs/reports/scrum/` con capturas/export del tablero (Backlog.md, GitHub Projects, etc.) + actas de retrospectiva. |
-| L7, P3 | Backlog de producto | **Backlog.md** en `backlog/tasks/` (ya en uso) + opcional tabla PB-01… en `docs/product-backlog.md` para entrega académica. |
+| L7, P3 | Backlog de producto | **Backlog.md** en `backlog/tasks/` (ya en uso) + tabla académica PB-01…PB-06 en [`docs/product-backlog.md`](product-backlog.md). |
 | P5 | Ramas y PR | Flujo ya descrito en `README.md` / `AGENTS.md`: `feature/*`, PR, revisión. |
 
 ---
@@ -100,7 +100,7 @@ Mantener el **árbol TDSP de las consignas** como núcleo (cumple L6 y rúbrica 
 | `data/raw`, `data/processed`, `notebooks`, `outputs/models`, `outputs/reports`, `src` | **Resuelto (2026-05-09)** | Carpetas creadas con `.gitkeep`; `.gitignore` alineado (TASK-3 / P0). |
 | `pyproject.toml` / `uv.lock` | Ausente al momento del análisis | Abordar PR P1. |
 | Notebook / script Lab1 | Pendiente | PB-01 en adelante. |
-| Evidencias Scrum en repo | Parcial (Backlog.md operativo) | Añadir artefactos para entrega L15. |
+| Evidencias Scrum en repo | Parcial (Backlog.md + [`docs/scrum/`](scrum/) operativos) | Añadir artefactos bajo `outputs/reports/scrum/` para entrega L15 (TASK-17). |
 
 ---
 

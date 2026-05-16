@@ -64,6 +64,13 @@ uv run python src/<script>.py
 - [docs/tdsp-estructura-congelada.md](docs/tdsp-estructura-congelada.md) — estructura TDSP **v1.0 congelada** (TASK-2).
 - [docs/tdsp-validacion-acuerdo.md](docs/tdsp-validacion-acuerdo.md) — acuerdo del equipo y plantilla para el docente (TASK-2).
 
+### Scrum ML y backlog de producto
+
+- [docs/product-backlog.md](docs/product-backlog.md) — historias **PB-01..PB-06** y mapeo a tareas **TASK-***
+- [docs/scrum/roles.md](docs/scrum/roles.md) — roles del equipo (PO, SM, Data Engineer/Analyst, ML Engineer)
+- [docs/scrum/plantilla-retrospectiva.md](docs/scrum/plantilla-retrospectiva.md) — plantilla de retrospectiva (tres bloques)
+- [docs/scrum/tablero.md](docs/scrum/tablero.md) — columnas Por hacer / En progreso / Hecho y exportación del tablero
+
 ## Colaboración en Git
 
 Uso de ramas `feature/<nombre>`, integración mediante **pull requests** y revisión antes de fusionar a la rama principal.
