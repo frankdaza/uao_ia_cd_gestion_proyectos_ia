@@ -9,6 +9,7 @@ Este repositorio es el laboratorio **Machine Learning — Dry Bean** (UCI id **6
 | Idioma | **Español latinoamericano** en comentarios, docstrings, commits, PRs y documentación. |
 | Python | **3.12** |
 | Paquetes y entorno | **UV** (`pyproject.toml`, `uv.lock`, `uv sync`, `uv add`, `uv run`) |
+| Calidad de código | **Ruff**, **Black**, **nbstripout** y **pre-commit** (`pyproject.toml`, `.pre-commit-config.yaml`). Tras clonar: `uv run pre-commit install`; validación local: `uv run pre-commit run --all-files`. |
 
 ## Dónde está cada cosa
 
@@ -20,7 +21,7 @@ Este repositorio es el laboratorio **Machine Learning — Dry Bean** (UCI id **6
 
 ## Sincronización (obligatoria al cambiar reglas o skills)
 
-Si se **agrega, elimina o modifica** una política que deba aplicar a todos los asistentes (idioma, versión de Python, UV, flujo del laboratorio, Definition of Done, estructura TDSP, etc.), **actualizar en la misma tarea commit** todos estos sitios para que permanezcan alineados:
+Si se **agrega, elimina o modifica** una política que deba aplicar a todos los asistentes (idioma, versión de Python, UV, estándares de calidad con ruff/black/pre-commit, flujo del laboratorio, Definition of Done, estructura TDSP, etc.), **actualizar en la misma tarea commit** todos estos sitios para que permanezcan alineados:
 
 1. [`.cursor/rules/stack-python-es.mdc`](.cursor/rules/stack-python-es.mdc) y, si aplica el contexto del lab, [`.cursor/rules/drybean-lab-context.mdc`](.cursor/rules/drybean-lab-context.mdc). Si cambian estándares de redacción o flujo de **tareas Backlog.md**, [`.cursor/rules/backlog-md-tareas.mdc`](.cursor/rules/backlog-md-tareas.mdc).
 2. [`.cursor/skills/drybean-ml-laboratorio/SKILL.md`](.cursor/skills/drybean-ml-laboratorio/SKILL.md) y, si aplica, [`.cursor/skills/backlog-md-tareas/SKILL.md`](.cursor/skills/backlog-md-tareas/SKILL.md)

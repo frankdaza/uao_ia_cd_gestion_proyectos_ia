@@ -5,7 +5,7 @@ status: Done
 assignee:
   - Jenifer Ramos
 created_date: '2026-05-09 18:43'
-updated_date: '2026-05-15 21:24'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-10
@@ -14,6 +14,7 @@ references:
   - docs/tdsp-alineacion.md
 documentation:
   - src/models/random_forest.py
+ordinal: 3000
 ---
 
 ## Description
@@ -48,16 +49,6 @@ Implementar el **modelo alternativo** del laboratorio (PB-04 y L12): `RandomFore
 - [x] #4 Hiperparámetros (n_estimators, max_depth, random_state, n_jobs) son explícitos y reproducibles.
 - [x] #5 La interfaz pública es paralela a la del baseline (mismas firmas y nombres equivalentes).
 <!-- AC:END -->
-
-
-
-
-
-
-
-
-
-
 
 ## Implementation Plan
 

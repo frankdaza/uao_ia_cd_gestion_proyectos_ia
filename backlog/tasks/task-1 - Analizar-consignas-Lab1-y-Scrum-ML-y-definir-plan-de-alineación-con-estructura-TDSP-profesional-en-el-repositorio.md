@@ -7,7 +7,7 @@ status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:03'
-updated_date: '2026-05-09 18:18'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies: []
 references:
@@ -19,6 +19,7 @@ references:
 documentation:
   - docs/tdsp-alineacion.md
   - .cursor/skills/drybean-ml-laboratorio/SKILL.md
+ordinal: 14000
 ---
 
 ## Description

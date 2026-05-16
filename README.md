@@ -1,5 +1,7 @@
 # Laboratorio de Machine Learning — Dry Bean
 
+[![CI](https://github.com/frankdaza/uao_ia_cd_gestion_proyectos_ia/actions/workflows/ci.yml/badge.svg)](https://github.com/frankdaza/uao_ia_cd_gestion_proyectos_ia/actions/workflows/ci.yml)
+
 Proyecto académico de **clasificación multiclase** sobre el **Dry Bean Dataset** del UCI Machine Learning Repository (id **602**). La variable objetivo es la columna **`Class`**. El trabajo integra prácticas de **CRISP-DM**, **Team Data Science Process (TDSP)** y **Scrum ML**, en línea con la gestión colaborativa de proyectos de ciencia de datos e inteligencia artificial.
 
 ## Metodología y flujo técnico
@@ -24,37 +26,70 @@ La organización sigue las consignas (Lab1 y plan de equipos). La **versión con
 │   ├── raw/              # Datos sin procesar
 │   └── processed/        # Datos limpios o transformados
 ├── notebooks/            # Exploración y experimentos en Jupyter
+├── scripts/              # Utilidades (p. ej. export de requirements.txt)
 ├── outputs/
 │   ├── models/           # Modelos persistidos (joblib)
 │   └── reports/          # Figuras, tablas o reportes exportados
 ├── src/                  # Código Python reutilizable
 ├── AGENTS.md             # Guía para asistentes de código y sincronización de políticas
 ├── CLAUDE.md             # Instrucciones para Claude Code
-└── pyproject.toml        # Dependencias con UV (cuando el proyecto las declare)
+├── pyproject.toml        # Metadatos del proyecto y dependencias (UV)
+└── uv.lock               # Versiones resueltas (reproducibilidad con uv sync)
 ```
 
 ## Requisitos y entorno
 
 - **Python 3.12**
-- **UV** (Astral) para dependencias y entorno virtual
+- **UV** (Astral) instalado y disponible en el PATH para dependencias y entorno virtual
 
-## Cómo correr
+## Cómo correr el laboratorio
+
+Desde la **raíz del repositorio**, con los requisitos anteriores:
 
 ```bash
-# 1. Instalar dependencias (crea .venv y descarga Python 3.12 si es necesario)
 uv sync
-
-# 2. Ejecutar pruebas
+uv run pre-commit install
 uv run pytest
-
-# 3. Abrir Jupyter Lab para trabajar con notebooks
-uv run jupyter lab
-
-# 4. Ejecutar un script directamente
-uv run python src/<script>.py
+uv run jupyter lab notebooks/01_laboratorio_drybean.ipynb
+uv run python -m src.inference
 ```
 
-> **Nota:** no usar `pip install` ni `python -m venv` como flujo predeterminado. Todas las dependencias están declaradas en `pyproject.toml` y fijadas en `uv.lock`.
+- `uv sync` crea o actualiza `.venv` y alinea el entorno con `uv.lock`.
+- `src.inference` entrena un modelo de ejemplo, lo guarda bajo `outputs/models/` y muestra una predicción de verificación (los datos deben poder obtenerse según la política en `data/raw` y `src/data_loading.py`).
+
+> **Nota:** no usar `pip install` ni `python -m venv` como flujo predeterminado del equipo.
+
+### Reproducibilidad y `requirements.txt`
+
+La **fuente de verdad** de las dependencias es **`pyproject.toml`** y el archivo de lock **`uv.lock`** (reproducibilidad con `uv sync`).
+
+El archivo **`requirements.txt`** no se versiona: es un **artefacto derivado** para quien deba entregarlo explícitamente (p. ej. consigna académica). Generalo bajo demanda:
+
+```bash
+bash scripts/export_requirements.sh
+```
+
+Equivale a `uv export --no-hashes --format requirements-txt -o requirements.txt` en la raíz del repo. Si necesitás solo dependencias de **runtime** (sin herramientas de desarrollo del grupo `dev`), podés ejecutar manualmente el mismo comando añadiendo `--no-dev`.
+
+## Calidad de código
+
+El repositorio usa **Ruff** (lint), **Black** (formato), **nbstripout** (evita versionar salidas pesadas en `.ipynb`) y **pre-commit** (hooks de Git). La configuración vive en `pyproject.toml` y `.pre-commit-config.yaml`.
+
+La instalación inicial de hooks está en la sección **Cómo correr el laboratorio**. Para correr todos los hooks sobre el árbol completo (útil antes de abrir un PR):
+
+```bash
+uv run pre-commit run --all-files
+```
+
+Sin instalar hooks, podés usar `uv run ruff check .` o `uv run black --check .` de forma puntual.
+
+## Integración continua (GitHub Actions)
+
+En cada push y pull request hacia `main`, el workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) ejecuta, en orden: `uv sync --all-extras --dev`, `uv run pre-commit run --all-files`, `uv run pytest -q --maxfail=1`, generación de un Parquet mínimo con [`scripts/ci_seed_drybean_cache.py`](scripts/ci_seed_drybean_cache.py) (evita descargar el UCI en CI) y ejecución del notebook `notebooks/01_laboratorio_drybean.ipynb` con `jupyter nbconvert --execute`. **Referencia de duración:** suele completarse en menos de 10 minutos en `ubuntu-latest` (sin compromiso estricto de tiempo).
+
+Para que un PR no pueda fusionarse si el workflow falla, quien administre el repositorio en GitHub debe configurar la rama `main` con **branch protection** y marcar el check del workflow **CI** como *required status check*.
+
+> **Repositorios privados:** el badge de estado puede no mostrarse en Markdown externo sin autenticación; la pestaña *Actions* del repositorio sigue siendo la fuente de verdad.
 
 ## Consignas y plan de equipo
 
@@ -63,6 +98,13 @@ uv run python src/<script>.py
 - [docs/tdsp-alineacion.md](docs/tdsp-alineacion.md) — inventario de requisitos de las consignas, mapeo al repositorio y comparación TDSP académico vs profesional (entregable TASK-1).
 - [docs/tdsp-estructura-congelada.md](docs/tdsp-estructura-congelada.md) — estructura TDSP **v1.0 congelada** (TASK-2).
 - [docs/tdsp-validacion-acuerdo.md](docs/tdsp-validacion-acuerdo.md) — acuerdo del equipo y plantilla para el docente (TASK-2).
+
+### Scrum ML y backlog de producto
+
+- [docs/product-backlog.md](docs/product-backlog.md) — historias **PB-01..PB-06** y mapeo a tareas **TASK-***
+- [docs/scrum/roles.md](docs/scrum/roles.md) — roles del equipo (PO, SM, Data Engineer/Analyst, ML Engineer)
+- [docs/scrum/plantilla-retrospectiva.md](docs/scrum/plantilla-retrospectiva.md) — plantilla de retrospectiva (tres bloques)
+- [docs/scrum/tablero.md](docs/scrum/tablero.md) — columnas Por hacer / En progreso / Hecho y exportación del tablero
 
 ## Colaboración en Git
 

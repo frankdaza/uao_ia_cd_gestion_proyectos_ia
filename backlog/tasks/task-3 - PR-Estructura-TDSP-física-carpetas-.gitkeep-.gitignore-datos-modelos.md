@@ -5,12 +5,13 @@ status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:16'
-updated_date: '2026-05-09 18:16'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-1
 references:
   - docs/tdsp-alineacion.md
+ordinal: 15000
 ---
 
 ## Description

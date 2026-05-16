@@ -25,6 +25,10 @@ alwaysApply: true
 - Mantener dependencias declaradas en **`pyproject.toml`** y el lock en **`uv.lock`** (versionar ambos en Git).
 - No instruir `pip install` ni `python -m venv` como flujo por defecto; reservarlos solo para migración legacy o restricciones externas documentadas.
 
+## Calidad de código
+
+- **Ruff** (lint), **Black** (formato) y **nbstripout** (notebooks): configuración en `pyproject.toml`. **pre-commit**: `.pre-commit-config.yaml`. Tras `uv sync`, ejecutar `uv run pre-commit install`; validación del árbol con `uv run pre-commit run --all-files`.
+
 ## Sincronización entre herramientas de IA
 
-Al cambiar políticas de idioma, versión de Python o uso de UV, actualizar también [CLAUDE.md](../../CLAUDE.md), [.github/copilot-instructions.md](../../.github/copilot-instructions.md) y [AGENTS.md](../../AGENTS.md). Ver [AGENTS.md](../../AGENTS.md) sección de sincronización.
+Al cambiar políticas de idioma, versión de Python, uso de UV o estándares de calidad (ruff, black, pre-commit), actualizar también [CLAUDE.md](../../CLAUDE.md), [.github/copilot-instructions.md](../../.github/copilot-instructions.md) y [AGENTS.md](../../AGENTS.md). Ver [AGENTS.md](../../AGENTS.md) sección de sincronización.

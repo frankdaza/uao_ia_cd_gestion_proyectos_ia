@@ -3,10 +3,11 @@ id: TASK-17
 title: >-
   Evidencias Scrum ML en outputs/reports/scrum/ (tablero, sprints,
   retrospectiva)
-status: To Do
+status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:45'
+updated_date: '2026-05-16 04:09'
 labels: []
 dependencies:
   - TASK-4
@@ -17,6 +18,7 @@ references:
   - docs/scrum/plantilla-retrospectiva.md
 documentation:
   - outputs/reports/scrum/
+ordinal: 250
 ---
 
 ## Description
@@ -44,11 +46,11 @@ Generar las **evidencias Scrum ML** exigidas en L15 (entregable de Scrum) y P4 (
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 outputs/reports/scrum/ contiene backlog-snapshot.md, tablero.md, sprint-1.md, sprint-2.md, sprint-3.md y retrospectiva.md.
-- [ ] #2 backlog-snapshot.md lista PB-01..PB-06 y TASK-1..TASK-19 con estado al cierre del laboratorio.
-- [ ] #3 Cada archivo sprint-N.md indica fechas estimadas, tareas TASK-* asignadas y completadas, y notas relevantes.
-- [ ] #4 retrospectiva.md sigue la plantilla de 3 puntos definida en TASK-4 y registra fecha y asistentes.
-- [ ] #5 El reporte (TASK-16, sección 7 Scrum ML) enlaza explícitamente a outputs/reports/scrum/.
+- [x] #1 outputs/reports/scrum/ contiene backlog-snapshot.md, tablero.md, sprint-1.md, sprint-2.md, sprint-3.md y retrospectiva.md.
+- [x] #2 backlog-snapshot.md lista PB-01..PB-06 y TASK-1..TASK-19 con estado al cierre del laboratorio.
+- [x] #3 Cada archivo sprint-N.md indica fechas estimadas, tareas TASK-* asignadas y completadas, y notas relevantes.
+- [x] #4 retrospectiva.md sigue la plantilla de 3 puntos definida en TASK-4 y registra fecha y asistentes.
+- [x] #5 El reporte (TASK-16, sección 7 Scrum ML) enlaza explícitamente a outputs/reports/scrum/.
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -69,6 +71,6 @@ Si backlog board export no está disponible o produce un formato no Markdown, us
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 Sin información en inglés salvo nombres propios y comandos.
-- [ ] #2 Tablero exportado o transcrito sin tareas atascadas in-progress sin justificación.
+- [x] #1 Sin información en inglés salvo nombres propios y comandos.
+- [x] #2 Tablero exportado o transcrito sin tareas atascadas in-progress sin justificación.
 <!-- DOD:END -->

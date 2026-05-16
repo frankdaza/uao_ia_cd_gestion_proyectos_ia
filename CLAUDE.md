@@ -8,6 +8,7 @@ Todo comentario en código, docstrings, mensajes de commit, descripciones de PR,
 
 - **Python 3.12** como versión objetivo del proyecto.
 - **UV** (Astral) es el gestor de paquetes y entornos: mantener `pyproject.toml` y `uv.lock`; usar `uv python pin 3.12`, `uv sync`, `uv add` y `uv run`. No usar `pip` ni `python -m venv` como flujo predeterminado.
+- **Calidad de código:** Ruff (lint), Black (formato), nbstripout (notebooks) y pre-commit definidos en `pyproject.toml` y `.pre-commit-config.yaml`. Tras clonar: `uv run pre-commit install`; validar el árbol: `uv run pre-commit run --all-files`.
 
 ## Contexto académico — Dry Bean ML
 
@@ -28,4 +29,4 @@ Al crear o editar ítems de gestión en el repositorio, seguir el skill [.cursor
 
 ## Sincronización entre herramientas de IA
 
-Al agregar, quitar o cambiar políticas (idioma, Python, UV, metodología del laboratorio, estándares de tareas Backlog), actualizar **Cursor** (`.cursor/rules/` y los skills afectados), **esta guía** (`CLAUDE.md`) y **[.github/copilot-instructions.md](.github/copilot-instructions.md)**. La lista canónica y el procedimiento están en [AGENTS.md](AGENTS.md).
+Al agregar, quitar o cambiar políticas (idioma, Python, UV, calidad de código con ruff/black/pre-commit, metodología del laboratorio, estándares de tareas Backlog), actualizar **Cursor** (`.cursor/rules/` y los skills afectados), **esta guía** (`CLAUDE.md`) y **[.github/copilot-instructions.md](.github/copilot-instructions.md)**. La lista canónica y el procedimiento están en [AGENTS.md](AGENTS.md).
