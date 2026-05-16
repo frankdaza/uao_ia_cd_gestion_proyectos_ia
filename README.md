@@ -1,5 +1,7 @@
 # Laboratorio de Machine Learning — Dry Bean
 
+[![CI](https://github.com/frankdaza/uao_ia_cd_gestion_proyectos_ia/actions/workflows/ci.yml/badge.svg)](https://github.com/frankdaza/uao_ia_cd_gestion_proyectos_ia/actions/workflows/ci.yml)
+
 Proyecto académico de **clasificación multiclase** sobre el **Dry Bean Dataset** del UCI Machine Learning Repository (id **602**). La variable objetivo es la columna **`Class`**. El trabajo integra prácticas de **CRISP-DM**, **Team Data Science Process (TDSP)** y **Scrum ML**, en línea con la gestión colaborativa de proyectos de ciencia de datos e inteligencia artificial.
 
 ## Metodología y flujo técnico
@@ -80,6 +82,14 @@ uv run pre-commit run --all-files
 ```
 
 Sin instalar hooks, podés usar `uv run ruff check .` o `uv run black --check .` de forma puntual.
+
+## Integración continua (GitHub Actions)
+
+En cada push y pull request hacia `main`, el workflow [`.github/workflows/ci.yml`](.github/workflows/ci.yml) ejecuta, en orden: `uv sync --all-extras --dev`, `uv run pre-commit run --all-files`, `uv run pytest -q --maxfail=1`, generación de un Parquet mínimo con [`scripts/ci_seed_drybean_cache.py`](scripts/ci_seed_drybean_cache.py) (evita descargar el UCI en CI) y ejecución del notebook `notebooks/01_laboratorio_drybean.ipynb` con `jupyter nbconvert --execute`. **Referencia de duración:** suele completarse en menos de 10 minutos en `ubuntu-latest` (sin compromiso estricto de tiempo).
+
+Para que un PR no pueda fusionarse si el workflow falla, quien administre el repositorio en GitHub debe configurar la rama `main` con **branch protection** y marcar el check del workflow **CI** como *required status check*.
+
+> **Repositorios privados:** el badge de estado puede no mostrarse en Markdown externo sin autenticación; la pestaña *Actions* del repositorio sigue siendo la fuente de verdad.
 
 ## Consignas y plan de equipo
 

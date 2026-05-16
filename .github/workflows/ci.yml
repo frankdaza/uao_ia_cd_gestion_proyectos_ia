@@ -1,0 +1,53 @@
+# Smoke de calidad y reproducibilidad (TASK-19).
+# Referencia de duración: típicamente bajo 10 min en ubuntu-latest (sin SLA estricto).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  quality-and-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configurar uv y Python 3.12
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          python-version: "3.12"
+
+      - name: Sincronizar dependencias
+        run: uv sync --all-extras --dev
+
+      - name: pre-commit (todo el árbol)
+        run: uv run pre-commit run --all-files
+
+      - name: Pytest
+        run: uv run pytest -q --maxfail=1
+
+      - name: Semilla de datos para notebook sin red
+        run: uv run python scripts/ci_seed_drybean_cache.py
+
+      - name: Ejecutar notebook integrador
+        run: >
+          uv run jupyter nbconvert
+          --to notebook
+          --execute
+          --ExecutePreprocessor.timeout=600
+          --output /tmp/integrador-ci.ipynb
+          notebooks/01_laboratorio_drybean.ipynb
