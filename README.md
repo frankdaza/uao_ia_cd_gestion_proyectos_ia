@@ -38,6 +38,24 @@ La organización sigue las consignas (Lab1 y plan de equipos). La **versión con
 - **Python 3.12**
 - **UV** (Astral) para dependencias y entorno virtual
 
+## Calidad de código
+
+El repositorio usa **Ruff** (lint), **Black** (formato), **nbstripout** (evita versionar salidas pesadas en `.ipynb`) y **pre-commit** (hooks de Git). La configuración vive en `pyproject.toml` y `.pre-commit-config.yaml`.
+
+Después de `uv sync`, instalá los hooks una vez:
+
+```bash
+uv run pre-commit install
+```
+
+Para correr todos los hooks sobre el árbol completo (útil antes de abrir un PR):
+
+```bash
+uv run pre-commit run --all-files
+```
+
+Sin instalar hooks, podés usar `uv run ruff check .` o `uv run black --check .` de forma puntual.
+
 ## Cómo correr
 
 ```bash

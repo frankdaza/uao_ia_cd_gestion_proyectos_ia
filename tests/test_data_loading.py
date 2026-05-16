@@ -62,9 +62,7 @@ class TestFetchDrybean:
 
     def test_retorna_tupla_correcta(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """fetch_drybean retorna (X, y, df) con tipos esperados."""
-        monkeypatch.setattr(
-            "src.data_loading.fetch_ucirepo", lambda id: _build_stub_dataset()
-        )
+        monkeypatch.setattr("src.data_loading.fetch_ucirepo", lambda id: _build_stub_dataset())
         X, y, df = fetch_drybean()
 
         assert isinstance(X, pd.DataFrame)
@@ -73,24 +71,18 @@ class TestFetchDrybean:
 
     def test_columna_class_presente(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """El dataframe completo contiene la columna ``Class``."""
-        monkeypatch.setattr(
-            "src.data_loading.fetch_ucirepo", lambda id: _build_stub_dataset()
-        )
+        monkeypatch.setattr("src.data_loading.fetch_ucirepo", lambda id: _build_stub_dataset())
         _, _, df = fetch_drybean()
         assert "Class" in df.columns
 
     def test_features_sin_class(self, monkeypatch: pytest.MonkeyPatch) -> None:
         """X no contiene la columna ``Class``."""
-        monkeypatch.setattr(
-            "src.data_loading.fetch_ucirepo", lambda id: _build_stub_dataset()
-        )
+        monkeypatch.setattr("src.data_loading.fetch_ucirepo", lambda id: _build_stub_dataset())
         X, _, _ = fetch_drybean()
         assert "Class" not in X.columns
         assert len(X.columns) == len(_FEATURE_COLS)
 
-    def test_cache_dir_escribe_y_lee(
-        self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path
-    ) -> None:
+    def test_cache_dir_escribe_y_lee(self, monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
         """Con cache_dir, la primera llamada escribe Parquet y la segunda lo lee."""
         call_count = 0
 

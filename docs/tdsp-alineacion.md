@@ -1,7 +1,7 @@
 # Alineación consignas — TDSP académico vs TDSP profesional
 
-**Proyecto:** laboratorio Dry Bean (UCI 602)  
-**Fuentes:** `consignas/Lab1.pdf`, `consignas/Plan_Equipos_ScrumML_DryBean.pdf`, `README.md`, reglas y skills del repositorio.  
+**Proyecto:** laboratorio Dry Bean (UCI 602)
+**Fuentes:** `consignas/Lab1.pdf`, `consignas/Plan_Equipos_ScrumML_DryBean.pdf`, `README.md`, reglas y skills del repositorio.
 **Extracción de PDF:** texto extraído con `uv run --with pypdf` (páginas indicadas según el lector PDF; el documento Lab1 tiene **18** páginas, el plan de equipos **4**).
 
 ---
@@ -56,13 +56,13 @@
 
 ## 3. TDSP académico (repo actual) vs TDSP profesional (industria)
 
-**TDSP académico (consignas + README actual):**  
+**TDSP académico (consignas + README actual):**
 Carpetas fijas para datos crudos/procesados, experimentación en notebooks, salidas de modelos y reportes, código reutilizable en `src/`. Énfasis en **reproducibilidad básica** (joblib, rutas claras) y documentación en README + reporte breve.
 
-**TDSP profesional (Microsoft / equipos de datos maduros):**  
+**TDSP profesional (Microsoft / equipos de datos maduros):**
 Además del árbol: **ciclo de vida explícito** (charter o problema de negocio versionado, especificación de datos, informes de seguridad/privacidad cuando aplique), **control de versiones de datos** (DVC, lakehouse o al menos hashes/README de versiones), **experiment tracking** (MLflow, Weights & Biases o tabla en `outputs/reports/experiments.md`), **revisión por pares** formalizada, **CI** (tests de smoke del notebook o script), **contrato de inferencia** y **checklist de despliegue** aunque el “despliegue” sea solo una demo.
 
-**Recomendación para el curso (esfuerzo vs valor):**  
+**Recomendación para el curso (esfuerzo vs valor):**
 Mantener el **árbol TDSP de las consignas** como núcleo (cumple L6 y rúbrica TDSP). Añadir solo prácticas “profesionales livianas”: (1) `docs/` con este análisis y actas Scrum; (2) convención de nombres de experimentos y rutas en `outputs/reports/`; (3) ramas `feature/*` + PR ya alineadas con P5; (4) si el curso lo permite, un `README` de sección “Trazabilidad” con tabla fecha–commit–cambio relevante. **No** imponer DVC/MLflow salvo extensión opcional del curso.
 
 ---
@@ -106,7 +106,7 @@ Mantener el **árbol TDSP de las consignas** como núcleo (cumple L6 y rúbrica 
 
 ## 7. Cierre TASK-1 y validación TASK-2
 
-- **Entregable principal (TASK-1):** [tdsp-alineacion.md](tdsp-alineacion.md).  
-- **Congelación y validación (TASK-2):** [tdsp-estructura-congelada.md](tdsp-estructura-congelada.md) (v1.0) y [tdsp-validacion-acuerdo.md](tdsp-validacion-acuerdo.md) (acuerdo del equipo; bloque docente opcional).  
-- **Fecha de análisis (TASK-1):** 2026-05-09.  
+- **Entregable principal (TASK-1):** [tdsp-alineacion.md](tdsp-alineacion.md).
+- **Congelación y validación (TASK-2):** [tdsp-estructura-congelada.md](tdsp-estructura-congelada.md) (v1.0) y [tdsp-validacion-acuerdo.md](tdsp-validacion-acuerdo.md) (acuerdo del equipo; bloque docente opcional).
+- **Fecha de análisis (TASK-1):** 2026-05-09.
 - **Fecha de congelación (TASK-2):** 2026-05-09.

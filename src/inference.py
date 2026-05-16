@@ -28,7 +28,6 @@ Ejemplo de uso::
 from __future__ import annotations
 
 from pathlib import Path
-from typing import Union
 
 import joblib
 import numpy as np
@@ -36,7 +35,7 @@ import pandas as pd
 from sklearn.pipeline import Pipeline
 
 # Tipo flexible: acepta pipeline en memoria o ruta al archivo .joblib
-ModelOrPath = Union[Pipeline, Path, str]
+ModelOrPath = Pipeline | Path | str
 
 
 def save_model(model: Pipeline, path: Path) -> Path:
@@ -143,7 +142,7 @@ if __name__ == "__main__":
     clase_predicha = predict(model_cargado, primera_fila)[0]
     clase_real = y_test.iloc[0]
 
-    print(f"\nPredicción de prueba:")
+    print("\nPredicción de prueba:")
     print(f"  Clase real:     {clase_real}")
     print(f"  Clase predicha: {clase_predicha}")
     print(f"  Correcto: {clase_real == clase_predicha}")

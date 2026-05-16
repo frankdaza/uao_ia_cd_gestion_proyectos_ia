@@ -1,10 +1,11 @@
 ---
 id: TASK-7
 title: 'Estándares de calidad de código: ruff, black, pre-commit y nbstripout'
-status: To Do
+status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:41'
+updated_date: '2026-05-15 12:00'
 labels: []
 dependencies:
   - TASK-5
@@ -14,6 +15,7 @@ references:
 documentation:
   - pyproject.toml
   - .pre-commit-config.yaml
+ordinal: 1000
 ---
 
 ## Description
@@ -39,10 +41,10 @@ Adoptar estándares mínimos de calidad de código de la industria sobre el repo
 
 ## Acceptance Criteria
 <!-- AC:BEGIN -->
-- [ ] #1 pyproject.toml contiene secciones [tool.ruff], [tool.ruff.lint] y [tool.black] coherentes (line-length 100, target py312).
-- [ ] #2 .pre-commit-config.yaml existe en la raíz e incluye hooks ruff, ruff-format o black, nbstripout y los hooks estándar de higiene de archivos.
-- [ ] #3 uv run pre-commit run --all-files termina con código 0 sobre el repositorio en su estado actual.
-- [ ] #4 README.md (o docs/calidad-codigo.md) documenta cómo instalar (uv run pre-commit install) y cómo correr los hooks.
+- [x] #1 pyproject.toml contiene secciones [tool.ruff], [tool.ruff.lint] y [tool.black] coherentes (line-length 100, target py312).
+- [x] #2 .pre-commit-config.yaml existe en la raíz e incluye hooks ruff, ruff-format o black, nbstripout y los hooks estándar de higiene de archivos.
+- [x] #3 uv run pre-commit run --all-files termina con código 0 sobre el repositorio en su estado actual.
+- [x] #4 README.md (o docs/calidad-codigo.md) documenta cómo instalar (uv run pre-commit install) y cómo correr los hooks.
 <!-- AC:END -->
 
 ## Implementation Plan
@@ -64,6 +66,6 @@ Si el equipo prefiere ruff-format como único formateador, eliminar black para e
 
 ## Definition of Done
 <!-- DOD:BEGIN -->
-- [ ] #1 Ningún archivo ignorado por error por las reglas (verificar con git diff tras pre-commit).
-- [ ] #2 Si esta tarea altera políticas de calidad globales, sincronizar AGENTS.md, CLAUDE.md, .github/copilot-instructions.md y reglas .cursor/rules/ según AGENTS.md.
+- [x] #1 Ningún archivo ignorado por error por las reglas (verificar con git diff tras pre-commit).
+- [x] #2 Si esta tarea altera políticas de calidad globales, sincronizar AGENTS.md, CLAUDE.md, .github/copilot-instructions.md y reglas .cursor/rules/ según AGENTS.md.
 <!-- DOD:END -->

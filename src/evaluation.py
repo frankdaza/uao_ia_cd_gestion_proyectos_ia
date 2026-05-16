@@ -18,6 +18,7 @@ import json
 from pathlib import Path
 
 import matplotlib
+
 matplotlib.use("Agg")  # backend sin pantalla, necesario para CI headless
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -55,11 +56,13 @@ def compare_models(
     filas = []
     for nombre, modelo in models.items():
         y_pred = modelo.predict(X_test)
-        filas.append({
-            "model": nombre,
-            "accuracy": float(accuracy_score(y_test, y_pred)),
-            "f1_macro": float(f1_score(y_test, y_pred, average="macro")),
-        })
+        filas.append(
+            {
+                "model": nombre,
+                "accuracy": float(accuracy_score(y_test, y_pred)),
+                "f1_macro": float(f1_score(y_test, y_pred, average="macro")),
+            }
+        )
     return pd.DataFrame(filas)
 
 
@@ -211,14 +214,19 @@ if __name__ == "__main__":
     modelo_seleccionado = modelo_baseline if mejor == "baseline" else modelo_rf
     labels = sorted(y_test.unique())
     cm_path = plot_confusion_matrix(
-        modelo_seleccionado, X_test, y_test, labels,
+        modelo_seleccionado,
+        X_test,
+        y_test,
+        labels,
         Path("outputs/reports/confusion_matrix.png"),
     )
     print(f"Matriz de confusión guardada en {cm_path}")
 
     # Reporte por clase
     report_path = save_classification_report(
-        modelo_seleccionado, X_test, y_test,
+        modelo_seleccionado,
+        X_test,
+        y_test,
         Path("outputs/reports/classification_report.txt"),
     )
     print(f"Reporte de clasificación guardado en {report_path}")

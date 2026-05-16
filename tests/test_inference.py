@@ -2,8 +2,6 @@
 
 from __future__ import annotations
 
-from pathlib import Path
-
 import numpy as np
 import pandas as pd
 import pytest
@@ -60,7 +58,9 @@ class TestSaveLoadModel:
         modelo_cargado = load_model(path)
         assert isinstance(modelo_cargado, Pipeline)
 
-    def test_round_trip_mantiene_predicciones(self, modelo_entrenado, datos_prueba, tmp_path) -> None:
+    def test_round_trip_mantiene_predicciones(
+        self, modelo_entrenado, datos_prueba, tmp_path
+    ) -> None:
         """El modelo cargado produce las mismas predicciones que el original."""
         X_test, _ = datos_prueba
         path = tmp_path / "modelo.joblib"

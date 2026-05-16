@@ -17,9 +17,7 @@ from src.models.baseline import (
 _CLASSES = ["SEKER", "BARBUNYA", "BOMBAY", "CALI"]
 
 
-def _make_train_test() -> (
-    tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]
-):
+def _make_train_test() -> tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     """Genera conjuntos de entrenamiento y prueba sintéticos."""
     n_train, n_test = 40, 12  # múltiplos de len(_CLASSES)=4
     X_train = pd.DataFrame(

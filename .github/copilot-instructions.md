@@ -8,6 +8,7 @@ Comentarios en código, docstrings, mensajes de commit, textos de PR y documenta
 
 - **Python 3.12**.
 - Dependencias y entorno con **UV**: `pyproject.toml` + `uv.lock`; `uv python pin 3.12`, `uv sync`, `uv add`, `uv run`. Evitar `pip` y `venv` como predeterminados.
+- **Calidad de código:** Ruff, Black, nbstripout y pre-commit (`pyproject.toml`, `.pre-commit-config.yaml`). `uv run pre-commit install` tras clonar; `uv run pre-commit run --all-files` para validar.
 
 ## Proyecto — Laboratorio Dry Bean
 
@@ -22,4 +23,4 @@ Consignas: `consignas/Lab1.pdf`, `consignas/Plan_Equipos_ScrumML_DryBean.pdf`. A
 - Claude Code: `CLAUDE.md`
 - Tabla de sincronización: `AGENTS.md`
 
-Al cambiar políticas globales del proyecto (incluido el estándar de tareas en Backlog.md), actualizar **este archivo**, `CLAUDE.md`, `.cursor/rules/`, los skills afectados y `AGENTS.md`.
+Al cambiar políticas globales del proyecto (incluido calidad de código con ruff/black/pre-commit y el estándar de tareas en Backlog.md), actualizar **este archivo**, `CLAUDE.md`, `.cursor/rules/`, los skills afectados y `AGENTS.md`.

@@ -1,9 +1,9 @@
 # Informe del Laboratorio — Clasificación Dry Bean (UCI 602)
 
-**Proyecto:** Laboratorio de Inteligencia Artificial — Ciencia de Datos  
-**Universidad:** Universidad Autónoma de Occidente  
-**Equipo:** Jenifer Ramos, Juan Velasquez, Yan Cuaran, Frank Daza  
-**Fecha:** 2026-05-15  
+**Proyecto:** Laboratorio de Inteligencia Artificial — Ciencia de Datos
+**Universidad:** Universidad Autónoma de Occidente
+**Equipo:** Jenifer Ramos, Juan Velasquez, Yan Cuaran, Frank Daza
+**Fecha:** 2026-05-15
 **Metodología:** CRISP-DM + TDSP + Scrum ML
 
 ---
@@ -252,7 +252,7 @@ from src.inference import save_model
 save_model(pipeline, "outputs/models/baseline_drybean.joblib")
 ```
 
-**Ruta del modelo:** `outputs/models/*.joblib`  
+**Ruta del modelo:** `outputs/models/*.joblib`
 **Formato:** joblib (estándar de scikit-learn para serialización eficiente de
 pipelines).
 

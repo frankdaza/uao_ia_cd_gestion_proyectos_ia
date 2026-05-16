@@ -13,16 +13,16 @@ Asignación nominal para el laboratorio **Dry Bean** (UCI 602), según el plan d
 
 ## Responsabilidades en este laboratorio
 
-**Product Owner (Frank Daza)**  
+**Product Owner (Frank Daza)**
 Prioriza el backlog académico (historias PB-01..PB-06 y su desglose en TASK-*), valida que los entregables cumplan la consigna y mantiene alineado el alcance con el docente y el plan de equipos.
 
-**Scrum Master (Juan Velasquez)**  
+**Scrum Master (Juan Velasquez)**
 Facilita el ritmo de los sprints, quita impedimentos operativos (entorno UV, integración en Git) y cuida que el tablero y las ceremonias mínimas (planificación, revisión, retrospectiva) dejen rastro en el repositorio.
 
-**Data Engineer / Analyst (Yan Cuaran)**  
+**Data Engineer / Analyst (Yan Cuaran)**
 Asegura la calidad y trazabilidad de los datos (carpetas `data/`, EDA, preprocesamiento, partición train/test) y documenta hallazgos reproducibles.
 
-**ML Engineer (Jenifer Ramos)**  
+**ML Engineer (Jenifer Ramos)**
 Lidera el modelado comparativo (baseline vs. alternativo), la evaluación con métricas acordadas y la persistencia del modelo para inferencia o demo mínima.
 
 ## Rotación de roles
