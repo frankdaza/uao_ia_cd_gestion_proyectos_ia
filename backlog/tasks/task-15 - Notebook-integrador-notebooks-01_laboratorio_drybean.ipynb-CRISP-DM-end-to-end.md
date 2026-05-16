@@ -3,7 +3,7 @@ id: TASK-15
 title: >-
   Notebook integrador notebooks/01_laboratorio_drybean.ipynb (CRISP-DM
   end-to-end)
-status: To Do
+status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:44'
