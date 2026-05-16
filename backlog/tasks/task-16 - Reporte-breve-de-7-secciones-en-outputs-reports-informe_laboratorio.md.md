@@ -1,7 +1,7 @@
 ---
 id: TASK-16
 title: Reporte breve de 7 secciones en outputs/reports/informe_laboratorio.md
-status: To Do
+status: Done
 assignee:
   - Juan Velasquez
 created_date: '2026-05-09 18:45'
