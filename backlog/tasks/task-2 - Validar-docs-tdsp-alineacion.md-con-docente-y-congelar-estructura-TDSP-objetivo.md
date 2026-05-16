@@ -7,7 +7,7 @@ status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:12'
-updated_date: '2026-05-09 18:24'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-1
@@ -17,7 +17,7 @@ references:
 documentation:
   - docs/tdsp-estructura-congelada.md
   - docs/tdsp-validacion-acuerdo.md
-ordinal: 1000
+ordinal: 2000
 ---
 
 ## Description

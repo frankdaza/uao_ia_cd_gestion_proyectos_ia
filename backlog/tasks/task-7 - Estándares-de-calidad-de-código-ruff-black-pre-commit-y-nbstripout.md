@@ -5,7 +5,7 @@ status: Done
 assignee:
   - Frank Daza
 created_date: '2026-05-09 18:41'
-updated_date: '2026-05-15 12:00'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-5
@@ -15,7 +15,7 @@ references:
 documentation:
   - pyproject.toml
   - .pre-commit-config.yaml
-ordinal: 1000
+ordinal: 500
 ---
 
 ## Description

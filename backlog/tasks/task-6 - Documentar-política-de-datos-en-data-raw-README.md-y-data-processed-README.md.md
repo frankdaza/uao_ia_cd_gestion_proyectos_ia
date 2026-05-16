@@ -5,7 +5,7 @@ status: Done
 assignee:
   - Yan Cuaran
 created_date: '2026-05-09 18:40'
-updated_date: '2026-05-15 03:54'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies: []
 references:
@@ -15,6 +15,7 @@ references:
 documentation:
   - data/raw/README.md
   - data/processed/README.md
+ordinal: 5000
 ---
 
 ## Description
@@ -49,30 +50,6 @@ La estructura física TDSP ya existe (TASK-3), pero las carpetas de datos no doc
 - [x] #3 Ambos README enlazan a docs/tdsp-estructura-congelada.md (sección de archivos mínimos por carpeta).
 - [x] #4 Ambos README incluyen plantilla con campos: dataset, fuente, fecha de descarga, responsable, notas.
 <!-- AC:END -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## Implementation Plan
 

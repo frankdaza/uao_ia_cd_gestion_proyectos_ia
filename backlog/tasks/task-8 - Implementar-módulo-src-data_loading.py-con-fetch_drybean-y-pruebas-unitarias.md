@@ -5,6 +5,7 @@ status: Done
 assignee:
   - Juan Velasquez
 created_date: '2026-05-09 18:41'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-5
@@ -15,6 +16,7 @@ references:
 documentation:
   - src/data_loading.py
   - tests/test_data_loading.py
+ordinal: 12000
 ---
 
 ## Description

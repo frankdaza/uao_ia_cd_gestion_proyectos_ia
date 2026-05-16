@@ -329,7 +329,7 @@ configuración del proyecto en `backlog/config.yml`.
 - TASK-4: Definir Product Backlog y roles Scrum (Frank Daza) — Done
 - TASK-5: Configurar entorno UV + Python 3.12 (Juan Velasquez) — Done
 - TASK-6: Documentar política de datos (Yan Cuaran) — Done
-- TASK-7: Estándares de calidad de código (Frank Daza) — To Do
+- TASK-7: Estándares de calidad de código (Frank Daza) — Done
 - TASK-8: Módulo data_loading.py (Juan Velasquez) — Done
 - TASK-9: Notebook EDA (Yan Cuaran) — Done
 
@@ -345,11 +345,11 @@ configuración del proyecto en `backlog/config.yml`.
 
 - TASK-15: Notebook integrador CRISP-DM end-to-end (Frank Daza) — Done
 - TASK-16: Reporte breve 7 secciones (Juan Velasquez) — Done
-- TASK-17: Evidencias Scrum ML (Frank Daza) — To Do
+- TASK-17: Evidencias Scrum ML (Frank Daza) — Done
 - TASK-18: README final y requirements.txt (Yan Cuaran) — To Do
 - TASK-19: CI con GitHub Actions (Frank Daza) — To Do
 
-**Estado actual:** 14 de 19 tareas completadas (74 %).
+**Estado actual:** 17 de 19 tareas completadas (~89 %). Quedan abiertas **TASK-18** y **TASK-19** (documentación de entrega y pipeline de CI), sin bloquear el núcleo de modelado e informe descrito en este documento.
 
 ### 7.3. Retrospectiva
 
@@ -364,8 +364,9 @@ configuración del proyecto en `backlog/config.yml`.
 
 **Qué no funcionó:**
 
-- La documentación formal de estándares de código (**TASK-7**) se postergó frente al
-  trabajo técnico, generando deuda de proceso.
+- En etapas intermedias se priorizó el código frente a parte de la documentación de
+  proceso, lo que concentró trabajo de cierre (evidencias Scrum, README, CI) hacia el
+  final del laboratorio.
 - La coordinación entre ramas feature requirió resolver conflictos de merge que
   podrían haberse evitado con integraciones más frecuentes.
 
@@ -376,6 +377,17 @@ configuración del proyecto en `backlog/config.yml`.
 - Automatizar la validación del código con CI (TASK-19) desde el Sprint 1 para
   detectar regresiones tempranamente.
 - Realizar retrospectivas al final de cada sprint, no solo al cierre del proyecto.
+
+### 7.4. Evidencias registradas (TASK-17)
+
+Artefactos bajo [`outputs/reports/scrum/`](scrum/) alineados con el frontmatter de `backlog/tasks/` y [`backlog/config.yml`](../../backlog/config.yml):
+
+- [Snapshot de backlog (PB y TASK)](scrum/backlog-snapshot.md)
+- [Tablero Por hacer / En progreso / Hecho](scrum/tablero.md)
+- [Sprint 1 — bases y exploración](scrum/sprint-1.md)
+- [Sprint 2 — modelado y evaluación](scrum/sprint-2.md)
+- [Sprint 3 — integración y entrega](scrum/sprint-3.md)
+- [Retrospectiva de cierre](scrum/retrospectiva.md)
 
 ---
 
@@ -391,4 +403,4 @@ configuración del proyecto en `backlog/config.yml`.
 - **Métricas Random Forest:** [`outputs/reports/metrics_rf.json`](metrics_rf.json)
 - **Código fuente:** [`src/`](../../src/)
 - **Pruebas unitarias:** [`tests/`](../../tests/)
-- **Evidencias Scrum:** [`outputs/reports/scrum/`](scrum/) *(pendiente TASK-17)*
+- **Evidencias Scrum (TASK-17):** [`outputs/reports/scrum/backlog-snapshot.md`](scrum/backlog-snapshot.md), [`tablero.md`](scrum/tablero.md), [`sprint-1.md`](scrum/sprint-1.md), [`sprint-2.md`](scrum/sprint-2.md), [`sprint-3.md`](scrum/sprint-3.md), [`retrospectiva.md`](scrum/retrospectiva.md)

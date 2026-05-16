@@ -7,6 +7,7 @@ status: Done
 assignee:
   - Juan Velasquez
 created_date: '2026-05-09 18:40'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies: []
 references:
@@ -17,6 +18,7 @@ documentation:
   - pyproject.toml
   - uv.lock
   - README.md
+ordinal: 13000
 ---
 
 ## Description

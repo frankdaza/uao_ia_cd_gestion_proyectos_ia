@@ -7,6 +7,7 @@ status: Done
 assignee:
   - Juan Velasquez
 created_date: '2026-05-09 18:42'
+updated_date: '2026-05-16 03:59'
 labels: []
 dependencies:
   - TASK-10
@@ -15,6 +16,7 @@ references:
   - docs/tdsp-alineacion.md
 documentation:
   - src/models/baseline.py
+ordinal: 11000
 ---
 
 ## Description
