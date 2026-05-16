@@ -112,7 +112,7 @@ if __name__ == "__main__":
 
     # Carga y preparación
     print("Cargando Dry Bean Dataset (UCI 602)...")
-    _, _, df = fetch_drybean()
+    _, _, df = fetch_drybean(cache_dir=Path("data/raw"))
     df = clean(df)
     X_train, X_test, y_train, y_test = split(df, random_state=42)
 

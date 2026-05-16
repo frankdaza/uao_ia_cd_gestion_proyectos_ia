@@ -7,14 +7,13 @@ Convención de columnas (según [`docs/scrum/tablero.md`](../../../docs/scrum/ta
 
 Los valores de estado provienen de [`backlog/config.yml`](../../../backlog/config.yml) y se agrupan en tres columnas: **Por hacer**, **En progreso** y **Hecho** (detalle en [`docs/scrum/tablero.md`](../../../docs/scrum/tablero.md)).
 
-Estado **tras completar TASK-17**: no quedan tareas en *En progreso*; las tareas abiertas son únicamente cierre de documentación (TASK-18) y CI (TASK-19).
+Estado **al cierre del laboratorio**: las 19 tareas TASK-1..TASK-19 quedan en *Hecho* en `backlog/tasks/`. No hay tareas en *Por hacer* ni en *En progreso*.
 
 ---
 
 ## Por hacer
 
-- **TASK-18** — README final: sección de reproducibilidad y export de `requirements.txt` desde UV — *Yan Cuaran*
-- **TASK-19** — CI smoke test con GitHub Actions: lint, tests y ejecución del notebook — *Frank Daza*
+*(Sin tareas: el backlog cerró completo al final del Sprint 3.)*
 
 ## En progreso
 
@@ -39,6 +38,8 @@ Estado **tras completar TASK-17**: no quedan tareas en *En progreso*; las tareas
 - **TASK-15** — Notebook integrador CRISP-DM — *Frank Daza*
 - **TASK-16** — Informe de 7 secciones — *Juan Velasquez*
 - **TASK-17** — Evidencias Scrum en `outputs/reports/scrum/` — *Frank Daza*
+- **TASK-18** — README final con reproducibilidad y export `requirements.txt` desde UV — *Yan Cuaran*
+- **TASK-19** — CI smoke test en GitHub Actions (`uv sync` + `pre-commit` + `pytest` + `nbconvert`) — *Frank Daza*
 
 ---
 

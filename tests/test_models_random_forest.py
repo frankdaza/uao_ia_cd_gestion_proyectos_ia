@@ -60,13 +60,14 @@ class TestBuildRfPipeline:
         assert isinstance(pipe.named_steps["rf"], RandomForestClassifier)
 
     def test_hiperparametros_por_defecto(self) -> None:
-        """Los hiperparámetros por defecto son los esperados."""
+        """Los hiperparámetros por defecto coinciden con la consigna Lab1.pdf Paso 11."""
         pipe = build_rf_pipeline()
         rf = pipe.named_steps["rf"]
-        assert rf.n_estimators == 300
+        assert rf.n_estimators == 200
         assert rf.max_depth is None
         assert rf.random_state == 42
         assert rf.n_jobs == -1
+        assert rf.class_weight == "balanced"
 
 
 class TestTrainRf:

@@ -51,3 +51,13 @@ jobs:
           --ExecutePreprocessor.timeout=600
           --output /tmp/integrador-ci.ipynb
           notebooks/01_laboratorio_drybean.ipynb
+
+      - name: Restaurar artefactos del \u00e1rbol (defensa para reproducciones locales)
+        if: always()
+        run: |
+          # nbconvert escribe figuras y CSV en outputs/reports/ y un cache sint\u00e9tico
+          # en data/raw/drybean.parquet. En CI no afecta porque no hay commit, pero
+          # si alguien reproduce el workflow localmente (p. ej. con `act`) esos
+          # archivos contaminan los outputs reales del repositorio.
+          git restore --source=HEAD --staged --worktree outputs/ data/raw/ || true
+          git clean -fd outputs/ data/raw/ || true

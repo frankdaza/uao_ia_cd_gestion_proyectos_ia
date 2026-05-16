@@ -163,20 +163,25 @@ necesario para la regresión logística que optimiza una función basada en dist
 
 ```
 Pipeline([
-    ("rf", RandomForestClassifier(n_estimators=300, max_depth=None,
+    ("rf", RandomForestClassifier(n_estimators=200, max_depth=None,
+                                   class_weight="balanced",
                                    random_state=42, n_jobs=-1))
 ])
 ```
 
-| Hiperparámetro  | Valor  | Justificación |
-|------------------|--------|---------------|
-| `n_estimators`   | 300    | Compromiso entre estabilidad del ensamble y tiempo |
-| `max_depth`      | None   | Árboles crecen hasta nodos puros; el ensamble controla sobreajuste |
-| `random_state`   | 42     | Reproducibilidad |
-| `n_jobs`         | -1     | Usa todos los núcleos disponibles |
+| Hiperparámetro  | Valor       | Justificación |
+|------------------|-------------|---------------|
+| `n_estimators`   | 200         | Valor sugerido por la consigna (`Lab1.pdf` Paso 11) |
+| `max_depth`      | None        | Árboles crecen hasta nodos puros; el ensamble controla sobreajuste |
+| `class_weight`   | "balanced"  | Compensa el desbalance moderado entre clases (`Lab1.pdf` Paso 11) |
+| `random_state`   | 42          | Reproducibilidad |
+| `n_jobs`         | -1          | Usa todos los núcleos disponibles |
 
 Random Forest no requiere escalado previo, pero se mantiene el `Pipeline` por
-consistencia con el baseline y para facilitar la persistencia con `joblib`.
+consistencia con el baseline y para facilitar la persistencia con `joblib`. El
+parámetro `class_weight="balanced"` pondera cada clase inversamente a su
+frecuencia, evitando que la minoritaria BOMBAY (3.8 %) quede subaprendida frente
+a la dominante DERMASON (26 %).
 
 ---
 
@@ -187,17 +192,18 @@ consistencia con el baseline y para facilitar la persistencia con `joblib`.
 La evaluación se implementó en [`src/evaluation.py`](../../src/evaluation.py).
 Los resultados sobre el conjunto de prueba (2 709 instancias) son:
 
-| Modelo          | Accuracy | F1 macro |
-|-----------------|----------|----------|
-| **Baseline (LR)**  | **0.9195** | **0.9306** |
-| Random Forest   | 0.9192   | 0.9305   |
+| Modelo            | Accuracy | F1 macro |
+|-------------------|----------|----------|
+| **Baseline (LR)** | **0.9195** | **0.9306** |
+| Random Forest     | 0.9181   | 0.9295   |
 
 **Modelo seleccionado: baseline** (Pipeline con StandardScaler + LogisticRegression).
 
-Ambos modelos alcanzan un rendimiento prácticamente idéntico (~92 % accuracy, ~93 %
-F1 macro). Se seleccionó el baseline por tener un F1 macro marginalmente superior
-(0.93055 vs 0.93054) y por ser un modelo más simple, interpretable y rápido de
-entrenar — principio de parsimonia.
+Ambos modelos alcanzan un rendimiento alto (~92 % accuracy y ~93 % F1 macro).
+El baseline obtiene un F1 macro ligeramente superior al Random Forest configurado
+con `class_weight="balanced"` (0.9306 vs 0.9295) y, además, es un modelo más
+simple, interpretable y rápido de entrenar — principio de parsimonia. Por eso
+se elige como modelo final para la fase de despliegue.
 
 La tabla comparativa completa se encuentra en
 [`outputs/reports/comparison.csv`](comparison.csv).
@@ -226,7 +232,24 @@ La tabla comparativa completa se encuentra en
 El reporte completo por clase está en
 [`outputs/reports/classification_report.txt`](classification_report.txt).
 
-### 5.3. Matriz de confusión
+### 5.3. Importancia de variables (Paso 15 — `Lab1.pdf`)
+
+Aprovechando que el Random Forest expone `feature_importances_`, se generó un
+ranking de las 16 features según su contribución a las divisiones de los árboles
+(no es prueba de causalidad; solo indica utilidad dentro del modelo entrenado).
+El ranking completo se exporta a
+[`outputs/reports/feature_importance.csv`](feature_importance.csv) y la gráfica
+del top 10 a [`outputs/reports/feature_importance.png`](feature_importance.png).
+
+![Top 10 importancia de variables](feature_importance.png)
+
+Las variables que más pesan son las de tamaño (`Area`, `Perimeter`,
+`MajorAxisLength`, `ConvexArea`, `EquivDiameter`) y los factores de forma
+(`ShapeFactor1`–`ShapeFactor4`). Esto es coherente con los boxplots del EDA,
+donde BOMBAY se separaba claramente del resto por tamaño y los frijoles más
+pequeños (DERMASON, SIRA) se distinguían sobre todo por sus factores de forma.
+
+### 5.4. Matriz de confusión
 
 La matriz de confusión del modelo seleccionado se generó con
 `ConfusionMatrixDisplay` de scikit-learn y se almacena en
@@ -346,10 +369,10 @@ configuración del proyecto en `backlog/config.yml`.
 - TASK-15: Notebook integrador CRISP-DM end-to-end (Frank Daza) — Done
 - TASK-16: Reporte breve 7 secciones (Juan Velasquez) — Done
 - TASK-17: Evidencias Scrum ML (Frank Daza) — Done
-- TASK-18: README final y requirements.txt (Yan Cuaran) — To Do
-- TASK-19: CI con GitHub Actions (Frank Daza) — To Do
+- TASK-18: README final y requirements.txt (Yan Cuaran) — Done
+- TASK-19: CI con GitHub Actions (Frank Daza) — Done
 
-**Estado actual:** 17 de 19 tareas completadas (~89 %). Quedan abiertas **TASK-18** y **TASK-19** (documentación de entrega y pipeline de CI), sin bloquear el núcleo de modelado e informe descrito en este documento.
+**Estado actual:** 19 de 19 tareas completadas (100 %). El laboratorio cierra con núcleo de modelado, informe, evidencias Scrum, documentación reproducible (README + export `requirements.txt` desde UV) y pipeline de CI integrados al repositorio.
 
 ### 7.3. Retrospectiva
 
@@ -399,6 +422,7 @@ Artefactos bajo [`outputs/reports/scrum/`](scrum/) alineados con el frontmatter 
 - **Comparación de modelos:** [`outputs/reports/comparison.csv`](comparison.csv)
 - **Matriz de confusión:** [`outputs/reports/confusion_matrix.png`](confusion_matrix.png)
 - **Reporte por clase:** [`outputs/reports/classification_report.txt`](classification_report.txt)
+- **Importancia de variables:** [`outputs/reports/feature_importance.csv`](feature_importance.csv) y [`feature_importance.png`](feature_importance.png)
 - **Métricas baseline:** [`outputs/reports/metrics_baseline.json`](metrics_baseline.json)
 - **Métricas Random Forest:** [`outputs/reports/metrics_rf.json`](metrics_rf.json)
 - **Código fuente:** [`src/`](../../src/)

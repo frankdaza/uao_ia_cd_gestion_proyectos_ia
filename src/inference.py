@@ -13,7 +13,11 @@ Ejemplo de uso::
     # Predecir sobre un DataFrame
     predicciones = predict(model, X_test)
 
-    # Predecir un único registro como diccionario
+    # Predecir un único registro como diccionario.
+    # IMPORTANTE: las claves deben coincidir exactamente con los nombres de
+    # columnas que devuelve ``fetch_ucirepo(id=602)``: ``AspectRatio`` y
+    # ``Roundness`` (capitalizados, sin typos). Usar otros nombres rompe el
+    # ``Pipeline`` por mismatch de columnas en el ``StandardScaler``.
     clase = predict_one(model, {
         "Area": 54386, "Perimeter": 887.35, "MajorAxisLength": 332.58,
         "MinorAxisLength": 208.45, "AspectRatio": 1.595, "Eccentricity": 0.778,
@@ -121,19 +125,32 @@ def predict_one(model_or_path: ModelOrPath, sample: dict) -> str:
 
 if __name__ == "__main__":
     from src.data_loading import fetch_drybean
+    from src.evaluation import compare_models, select_best
+    from src.models.baseline import train_baseline
     from src.models.random_forest import train_rf
     from src.preprocessing import clean, split
 
     print("Cargando y preparando datos...")
-    _, _, df = fetch_drybean()
+    _, _, df = fetch_drybean(cache_dir=Path("data/raw"))
     df = clean(df)
     X_train, X_test, y_train, y_test = split(df, random_state=42)
 
-    print("Entrenando modelo final (RandomForestClassifier)...")
-    model = train_rf(X_train, y_train, random_state=42)
+    print("Entrenando baseline (StandardScaler + LogisticRegression)...")
+    modelo_baseline = train_baseline(X_train, y_train, random_state=42)
+    print("Entrenando Random Forest (n_estimators=200, class_weight='balanced')...")
+    modelo_rf = train_rf(X_train, y_train, random_state=42)
 
-    model_path = Path("outputs/models/random_forest_drybean.joblib")
-    save_model(model, model_path)
+    modelos = {"baseline": modelo_baseline, "random_forest": modelo_rf}
+
+    print("Comparando modelos por F1 macro...")
+    comparison = compare_models(modelos, X_test, y_test)
+    print(comparison.to_string(index=False))
+
+    mejor = select_best(comparison, metric="f1_macro")
+    print(f"\nModelo seleccionado: {mejor}")
+
+    model_path = Path(f"outputs/models/{mejor}_drybean.joblib")
+    save_model(modelos[mejor], model_path)
     print(f"Modelo guardado en {model_path}")
 
     # Verificación round-trip: cargar y predecir la primera fila del test

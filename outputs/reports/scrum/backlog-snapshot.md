@@ -22,7 +22,7 @@ Este archivo cumple la evidencia académica de backlog al cierre descrita en **T
 
 ## Backlog técnico (TASK-1..TASK-19)
 
-Estado y responsable según archivos de tarea **tras cierre de TASK-17** (equivalente a *Hecho* en Backlog.md; pendientes operativas: TASK-18 y TASK-19).
+Estado y responsable según archivos de tarea **al cierre del laboratorio** (todas las TASK en estado *Done*/*Hecho* en Backlog.md, alineadas con `backlog/tasks/` y [`backlog/config.yml`](../../../backlog/config.yml)).
 
 | ID | Título | Estado (Backlog.md) | Asignado/a |
 |----|--------|---------------------|-------------|
@@ -43,7 +43,7 @@ Estado y responsable según archivos de tarea **tras cierre de TASK-17** (equiva
 | TASK-15 | Notebook integrador notebooks/01_laboratorio_drybean.ipynb (CRISP-DM end-to-end) | Hecho | Frank Daza |
 | TASK-16 | Reporte breve de 7 secciones en outputs/reports/informe_laboratorio.md | Hecho | Juan Velasquez |
 | TASK-17 | Evidencias Scrum ML en outputs/reports/scrum/ (tablero, sprints, retrospectiva) | Hecho | Frank Daza |
-| TASK-18 | README final: sección de reproducibilidad y export de requirements.txt desde UV | Por hacer | Yan Cuaran |
-| TASK-19 | CI smoke test con GitHub Actions: lint, tests y ejecución del notebook | Por hacer | Frank Daza |
+| TASK-18 | README final: sección de reproducibilidad y export de requirements.txt desde UV | Hecho | Yan Cuaran |
+| TASK-19 | CI smoke test con GitHub Actions: lint, tests y ejecución del notebook | Hecho | Frank Daza |
 
-**Resumen:** 17 tareas en **Hecho**, 2 en **Por hacer** (cierre académico del núcleo ML y Scrum documentado; integración README y CI quedan como trabajo explícito restante).
+**Resumen:** 19 tareas en **Hecho**, 0 en **Por hacer**: el laboratorio queda cerrado con núcleo ML, evidencias Scrum, README reproducible y pipeline de CI integrados.
