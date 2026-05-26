@@ -1,5 +1,7 @@
 # --- Datos (explícito según proyecto) ---
 data/raw/data_consolidada.csv
+data/processed/
+data/processed/clean_data.csv
 
 # Entornos virtuales
 .venv/
