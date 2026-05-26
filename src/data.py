@@ -1,12 +1,7 @@
 #Extracción + Transformación de datos
 
 import pandas as pd
-from config import RAW_DATA_DIR, PROCESSED_DATA_DIR, RAW_DATA_PATH, PROCESSED_DATA_PATH
-
-import matplotlib.pyplot as plt
-import seaborn as sns
-import glob
-import os
+from src.config import RAW_DATA_DIR, PROCESSED_DATA_DIR, RAW_DATA_PATH, PROCESSED_DATA_PATH
 
 
 
@@ -30,7 +25,7 @@ def filter_columns(df: pd.DataFrame) -> pd.DataFrame:
 # funcion para cambiar el tipo de dato de la columan fecha a datatime
 def change_type(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    df["fecha"] = pd.to_datetime(df["fecha"])
+    df["fecha"] = pd.to_datetime(df["fecha"], format="%Y%m%d")
     df["valor_neto"] = df["valor_neto"].astype(float)
     df["valor_costo"] = df["valor_costo"].astype(float)
     return df
@@ -86,8 +81,8 @@ def impute_nulls_by_month(df: pd.DataFrame, date_column: str = "fecha") -> pd.Da
 def preprocess_data() -> pd.DataFrame:
     df = load_raw_data()
     df = filter_columns(df)
-    df = impute_nulls_by_month(df)
     df = change_type(df)
+    df = impute_nulls_by_month(df)
     df = delete_negative_sales(df)
     
     print("Dimensiones finales:", df.shape)

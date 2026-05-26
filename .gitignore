@@ -2,6 +2,8 @@
 data/raw/data_consolidada.csv
 data/processed/
 data/processed/clean_data.csv
+data/processed/features.csv
+data/processed/ventas_procesadas.csv
 
 # Entornos virtuales
 .venv/
