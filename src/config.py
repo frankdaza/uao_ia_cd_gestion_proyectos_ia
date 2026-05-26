@@ -12,13 +12,13 @@ FIGURES_DIR = REPORTS_DIR / "figures"
 METRICS_DIR = REPORTS_DIR / "metrics"
 MODELS_DIR = ROOT_DIR / "models"
 
-RAW_DATA_PATH = RAW_DATA_DIR / "ventas.csv"
-PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "mall_customers_processed.csv"
+RAW_DATA_PATH = RAW_DATA_DIR / "data_consolidada.csv"
+PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "ventas_procesadas.csv"
 SEGMENTED_DATA_PATH = PROCESSED_DATA_DIR / "mall_customers_segmented.csv"
 
 MLFLOW_TRACKING_URI = "http://127.0.0.1:5000"
-EXPERIMENT_NAME = "mall-customers-classification"
-REGISTERED_MODEL_NAME = "mall-customer-segment-classifier"
+EXPERIMENT_NAME = "sales-forecasting"
+REGISTERED_MODEL_NAME = "sales-forecaster"
 
 RANDOM_STATE = 42
 TEST_SIZE = 0.2
