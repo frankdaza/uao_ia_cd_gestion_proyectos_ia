@@ -85,16 +85,16 @@ def impute_nulls_by_month(df: pd.DataFrame, date_column: str = "fecha") -> pd.Da
 
 def preprocess_data() -> pd.DataFrame:
     df = load_raw_data()
-    df = count_and_remove_duplicates(df)
     df = filter_columns(df)
     df = impute_nulls_by_month(df)
     df = change_type(df)
     df = delete_negative_sales(df)
     
-    df.shape()
+    print("Dimensiones finales:", df.shape)
     PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
     df.to_csv(PROCESSED_DATA_PATH, index=False)
     return df
+
 
 
 if __name__ == "__main__":
