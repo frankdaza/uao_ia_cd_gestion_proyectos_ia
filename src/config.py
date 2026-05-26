@@ -14,12 +14,9 @@ MODELS_DIR = ROOT_DIR / "models"
 
 RAW_DATA_PATH = RAW_DATA_DIR / "data_consolidada.csv"
 PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "ventas_procesadas.csv"
-SEGMENTED_DATA_PATH = PROCESSED_DATA_DIR / "mall_customers_segmented.csv"
-
 MLFLOW_TRACKING_URI = "http://127.0.0.1:5000"
 EXPERIMENT_NAME = "sales-forecasting"
 REGISTERED_MODEL_NAME = "sales-forecaster"
 
 RANDOM_STATE = 42
 TEST_SIZE = 0.2
-N_CLUSTERS = 4
