@@ -38,12 +38,13 @@ uvicorn api.main:app --port 8000
 streamlit run app/streamlit_app.py
 ```
 
-**Browser con cuatro pestañas pre-abiertas:**
+**Browser con cinco pestañas pre-abiertas:**
 
 1. GitHub: https://github.com/jennramos87/Forescast_Project
 2. MLflow: http://127.0.0.1:5000
 3. API Swagger: http://127.0.0.1:8000/docs
 4. Streamlit: http://localhost:8501
+5. Grafana: http://localhost:3000 (si vas con Docker)
 
 ---
 
@@ -182,13 +183,19 @@ Mostrar el response (30 puntos, total, promedio, modelo usado: AutoARIMA).
 **Qué mostrar (rápido):**
 
 1. http://127.0.0.1:8000/metrics — métricas Prometheus en raw.
-2. (Opcional, si está corriendo) http://localhost:9090 — Prometheus UI.
+2. http://localhost:9090 — Prometheus UI (tab **Status → Targets** con `forescast-api` en `UP`).
+3. http://localhost:3000 — **Grafana** dashboard `Forescast — API metrics` con los 4 paneles ya cargados (acceso anónimo como Viewer, no requiere login).
 
 **Qué decir:**
 
-> "Cada pronóstico incrementa contadores Prometheus. Esto es la base del
-> monitoreo en producción: latencia, errores y throughput. Y todo el stack
-> se levanta con `docker compose up` — un comando, cuatro servicios."
+> "Cada pronóstico incrementa contadores Prometheus: cantidad por serie y
+> modelo, latencia en histograma, errores tipados. Prometheus scrapea cada
+> 15 segundos. Grafana toma esos datos y los muestra en cuatro paneles:
+> rate de predicciones, latencia p50/p95/p99, total acumulado y errores.
+> Esto es la base del monitoreo en producción.
+>
+> Todo el stack se levanta con `docker compose up` — un comando, cinco
+> servicios."
 
 ---
 

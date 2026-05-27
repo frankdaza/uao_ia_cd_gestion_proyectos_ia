@@ -136,9 +136,11 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 | API FastAPI (`api/main.py`) | Funcional (`/predict`, `/health`, `/model-info`, `/metrics`) |
 | App Streamlit (`app/streamlit_app.py`) | Funcional (KPIs, histórico vs pronóstico, fallback local) |
 | Prometheus + monitoreo | Funcional (scrape automático de `api:8000/metrics` cada 15 s) |
-| Docker Compose | Funcional (MLflow + API + Streamlit + Prometheus con `docker compose up`) |
+| Grafana dashboard | Funcional (datasource y panel pre-provisionado en `docker/grafana/`) |
+| Docker Compose | Funcional (MLflow + API + Streamlit + Prometheus + Grafana con `docker compose up`) |
 | MLflow Tracing (`@mlflow.trace`) | Funcional en data, featuring, train, predict y API — visible en tab **Traces** |
-| Tests | Pendiente |
+| Tests (`tests/` con pytest) | Funcional (22 tests · 21 passed, 1 skipped) |
+| Guion Demo Day (`docs/DEMO_DAY.md`) | Listo (10 min con timing, comandos, plan B) |
 
 ## 6.1 Resultados del baseline actual
 
@@ -283,6 +285,16 @@ streamlit run app/streamlit_app.py
 
 Abre en http://localhost:8501. Consume la API si está activa; si no, cae a llamada local — la demo no se rompe.
 
+### 9.8 Tests
+
+```bash
+pytest -v
+```
+
+22 tests en `tests/` cubriendo data, train, predict y API. Los tests que
+requieren modelo entrenado se saltan automáticamente si no existe
+`models/sales_forecaster.joblib`.
+
 ## 10. Ejecución con Docker
 
 Levanta toda la plataforma con un solo comando:
@@ -299,6 +311,7 @@ Servicios y puertos:
 | API FastAPI | http://localhost:8000/docs | Swagger UI |
 | Streamlit | http://localhost:8501 | App demo |
 | Prometheus | http://localhost:9090 | Métricas (job `forescast-api`) |
+| Grafana | http://localhost:3000 | Dashboard `Forescast — API metrics` (login `admin`/`admin`) |
 
 **Pre-requisitos para que la demo arranque con datos:** correr una vez
 localmente `python -m src.data` → `python -m src.featuring` → `python -m src.train`
@@ -317,8 +330,44 @@ docker compose down
 - `MLFLOW_TRACKING_URI=http://mlflow:5000`
 - `API_URL=http://api:8000` (sólo en Streamlit)
 
-Grafana queda como mejora futura — Prometheus ya expone los datos listos para
-conectarlo.
+### 10.1 Prometheus — qué hay listo y qué configurar
+
+**Listo en este repo:**
+
+- `api/main.py` expone `/metrics` con 3 series:
+  - `forescast_predictions_total{series, model}` — counter por serie + modelo.
+  - `forescast_prediction_errors_total{error_type}` — counter de errores
+    (`validation`, `model_not_found`, `internal`).
+  - `forescast_prediction_latency_seconds` — histograma de latencia.
+- `docker/prometheus.yml` scrape automático de `api:8000/metrics` cada
+  15 s. Job: `forescast-api`.
+- En la UI de Prometheus (http://localhost:9090) ya puedes:
+  - Tab **Status → Targets** — ver que `forescast-api` está `UP`.
+  - Tab **Graph** — queries tipo:
+    - `rate(forescast_predictions_total[1m])` — predicciones por segundo.
+    - `histogram_quantile(0.95, forescast_prediction_latency_seconds_bucket)` — p95 de latencia.
+    - `forescast_prediction_errors_total` — total de errores por tipo.
+
+### 10.2 Grafana
+
+Grafana viene en el compose con datasource Prometheus y un dashboard pre-
+provisionado. URL: http://localhost:3000 (login `admin` / `admin`).
+
+Paneles del dashboard `Forescast — API metrics`:
+
+- **Predicciones por segundo** — `rate(forescast_predictions_total[1m])`.
+- **P95 latencia** — `histogram_quantile(0.95, ...latency_bucket)`.
+- **Total de predicciones por serie / modelo** — counter actual.
+- **Errores por tipo** — `forescast_prediction_errors_total`.
+
+Provisioning automático: ver `docker/grafana/provisioning/`. No hay clicks
+manuales — al levantar `docker compose up`, el dashboard ya aparece.
+
+**Mejoras futuras (no incluidas):**
+
+- **Reglas de alerta de Prometheus**: definir umbrales como "p95 latencia
+  > 1 s por 5 min" o "errores > 1 % en última hora".
+- Más paneles: drift, throughput por endpoint, conexiones MLflow.
 
 ## 11. Datos
 
