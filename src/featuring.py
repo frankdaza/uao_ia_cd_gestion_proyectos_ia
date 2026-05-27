@@ -4,10 +4,7 @@ import plotly.graph_objects as go
 from pathlib import Path
 import matplotlib.pyplot as plt
 from scipy import stats
-from src.config import PROCESSED_DATA_PATH, PROCESSED_DATA_DIR
-
-
-FEATURES_PATH = PROCESSED_DATA_DIR / "features.csv"
+from src.config import PROCESSED_DATA_PATH, PROCESSED_DATA_DIR, DF_DAY_PATH, DF_NIXTLA_PATH, FEATURES_PATH
 
 
 # Lee el CSV procesado por data.py y lo retorna como DataFrame
@@ -244,18 +241,24 @@ def build_features() -> pd.DataFrame:
         save_image(fig_iqr, f"outliers_iqr_{serie}.png", "reports/figures")
         save_image(fig_z, f"outliers_zscore_{serie}.png", "reports/figures")
 
-
-
-    # 
+    # datos con informacion de calendario
     df_calendar = add_calendar_features(df_nixtla)
 
 
-    FEATURES_PATH.parent.mkdir(parents=True, exist_ok=True)
-    df.to_csv(FEATURES_PATH, index=False)
-
-    print(f"Features guardadas en: {FEATURES_PATH}")
-    print(f"Filas: {len(df)} | Columnas: {list(df.columns)}")
-    return df
+    # Guardar datos diarios, en formato nixtla, calendarizados
+    PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+        
+    df_day.to_csv(DF_DAY_PATH, index=False)
+    print(f"Daily aggregate guardado en: {DF_DAY_PATH}")
+    
+    df_nixtla.to_csv(DF_NIXTLA_PATH, index=False)
+    print(f"Nixtla format guardado en: {DF_NIXTLA_PATH}")
+    
+    df_calendar.to_csv(FEATURES_PATH, index=False)
+    print(f"Features (calendar) guardadas en: {FEATURES_PATH}")
+    
+    print(f"Filas df_day: {len(df_day)} | Filas df_nixtla: {len(df_nixtla)} | Filas df_calendar: {len(df_calendar)}")
+    return df_calendar
 
 
 if __name__ == "__main__":
