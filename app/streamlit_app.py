@@ -50,6 +50,7 @@ def get_predictions(days: int, series: str) -> tuple[pd.DataFrame, str, str]:
         payload = r.json()
         df = pd.DataFrame(payload["predictions"])
         df["ds"] = pd.to_datetime(df["ds"])
+        df["model"] = payload["model"]
         return df, payload["model"], "API"
     except (requests.RequestException, ValueError):
         df = predict_next_days(days=days, unique_id=series)
@@ -95,7 +96,7 @@ with st.sidebar:
         format_func=lambda s: "Ventas (valor neto)" if s == "valor_neto" else "Costo (valor costo)",
     )
     days = st.slider("Días a pronosticar", min_value=7, max_value=90, value=30, step=1)
-    run = st.button("Generar pronóstico", type="primary", use_container_width=True)
+    run = st.button("Generar pronóstico", type="primary", width="stretch")
 
     st.divider()
     st.subheader("Modelo activo")
@@ -163,7 +164,7 @@ fig.update_layout(
     template="plotly_white",
     legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1),
 )
-st.plotly_chart(fig, use_container_width=True)
+st.plotly_chart(fig, width="stretch")
 
 # ---------- Tabla ----------
 with st.expander("📋 Detalle del pronóstico"):
@@ -171,7 +172,7 @@ with st.expander("📋 Detalle del pronóstico"):
     display_df["ds"] = display_df["ds"].dt.strftime("%Y-%m-%d")
     display_df["y_hat"] = display_df["y_hat"].map(lambda x: f"{x:,.0f}")
     display_df.columns = ["Fecha", "Pronóstico", "Modelo"]
-    st.dataframe(display_df, use_container_width=True, hide_index=True)
+    st.dataframe(display_df, width="stretch", hide_index=True)
 
 # ---------- Cómo funciona ----------
 with st.expander("ℹ️ Cómo funciona el MLOps"):
