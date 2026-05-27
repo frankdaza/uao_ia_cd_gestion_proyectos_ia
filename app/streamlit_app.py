@@ -13,6 +13,7 @@ Asume que ya se ejecutó `python -m src.data`, `python -m src.featuring` y
 
 from __future__ import annotations
 
+import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -29,7 +30,7 @@ import streamlit as st
 from src.config import DF_NIXTLA_PATH, METRICS_DIR
 from src.predict import VALID_SERIES, predict_next_days
 
-API_URL = "http://127.0.0.1:8000"
+API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
 TRAIN_METRICS_PATH = METRICS_DIR / "train_metrics.json"
 
 

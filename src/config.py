@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
@@ -20,9 +21,9 @@ DF_DAY_PATH = PROCESSED_DATA_DIR / "daily_aggregate.csv"
 DF_NIXTLA_PATH = PROCESSED_DATA_DIR / "nixtla_format.csv"
 FEATURES_PATH = PROCESSED_DATA_DIR / "features.csv"
 
-MLFLOW_TRACKING_URI = "http://127.0.0.1:5000"
-EXPERIMENT_NAME = "sales-forecasting"
-REGISTERED_MODEL_NAME = "sales-forecaster"
+MLFLOW_TRACKING_URI = os.getenv("MLFLOW_TRACKING_URI", "http://127.0.0.1:5000")
+EXPERIMENT_NAME = os.getenv("MLFLOW_EXPERIMENT_NAME", "sales-forecasting")
+REGISTERED_MODEL_NAME = os.getenv("MLFLOW_REGISTERED_MODEL_NAME", "sales-forecaster")
 
 RANDOM_STATE = 42
 TEST_SIZE = 0.2

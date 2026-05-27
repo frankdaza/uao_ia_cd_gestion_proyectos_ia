@@ -1,0 +1,58 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Entornos virtuales
+.venv
+venv
+env
+__pycache__
+*.pyc
+*.pyo
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Datos y artefactos (montados como volumes)
+data
+models
+mlruns
+reports/metrics/cv_predictions.csv
+
+# Notebooks pesados
+notebook
+*.ipynb
+EDA.ipynb
+
+# CSVs en raíz
+clean_data-*.csv
+clean_data.csv
+
+# IDE / editores
+.vscode
+.idea
+*.swp
+
+# Docs / PDFs
+docs
+*.pdf
+
+# Claude
+.claude
+CLAUDE.md
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Docker
+Dockerfile
+docker-compose.yml
+docker
+
+# README solo para humanos
+README.md
