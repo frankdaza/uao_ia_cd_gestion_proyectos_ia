@@ -1,9 +1,12 @@
-import pandas as pd
+import matplotlib.pyplot as plt
+import mlflow
 import numpy as np
+import pandas as pd
 import plotly.graph_objects as go
 from pathlib import Path
-import matplotlib.pyplot as plt
 from scipy import stats
+
+from src import observability  # noqa: F401  side-effect: init MLflow tracing
 from src.config import PROCESSED_DATA_PATH, PROCESSED_DATA_DIR, DF_DAY_PATH, DF_NIXTLA_PATH, FEATURES_PATH
 
 
@@ -19,6 +22,7 @@ def load_processed_data() -> pd.DataFrame:
 
 
 # Agrupa las transacciones por día sumando valor_neto y valor_costo → 365 filas
+@mlflow.trace(name="aggregate_daily", attributes={"stage": "featuring"})
 def aggregate_daily(df: pd.DataFrame) -> pd.DataFrame:
     df = df.groupby("fecha", as_index=False).agg(
         valor_neto=("valor_neto", "sum"),
@@ -28,6 +32,7 @@ def aggregate_daily(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+@mlflow.trace(name="to_nixtla_format", attributes={"stage": "featuring"})
 def to_nixtla_format(df: pd.DataFrame) -> pd.DataFrame:
     """
     Convierte el DataFrame al formato requerido por Nixtla (StatsForecast/NeuralForecast).
@@ -46,6 +51,7 @@ def to_nixtla_format(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # Agrega features de calendario: día de semana, mes, día del mes, quincena y fin de semana
+@mlflow.trace(name="add_calendar_features", attributes={"stage": "featuring"})
 def add_calendar_features(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     # Usamos la columna "ds" en lugar de "fecha" ya que ahora el df está en formato Nixtla
@@ -84,6 +90,7 @@ def plot_series(df: pd.DataFrame) -> go.Figure:
 
 
 # ── Outliers Método 1: IQR (Rango Intercuartílico) ────────────────────────────────
+@mlflow.trace(name="detect_outliers_iqr", attributes={"stage": "featuring", "method": "iqr"})
 def detect_outliers_iqr(df: pd.DataFrame) -> pd.DataFrame:
     """
     Detecta outliers en la columna 'y' del DataFrame usando el método IQR.
@@ -104,6 +111,7 @@ def detect_outliers_iqr(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ── Método 2: Z-score ─────────────────────────────────────────────────────
+@mlflow.trace(name="detect_outliers_zscore", attributes={"stage": "featuring", "method": "zscore"})
 def detect_outliers_zscore(df: pd.DataFrame, num_desvest: int = 3) -> pd.DataFrame:
     """
     Detecta outliers en la columna 'y' del DataFrame usando el método Z-score.
@@ -221,6 +229,7 @@ def save_image(fig: go.Figure, nombre_archivo: str, ruta_guardado: str,
 
 
 # Orquesta todo el pipeline de features y guarda el resultado en data/processed/features.csv
+@mlflow.trace(name="build_features", attributes={"stage": "featuring", "type": "pipeline"})
 def build_features() -> pd.DataFrame:
     df = load_processed_data()
     df_day = aggregate_daily(df)

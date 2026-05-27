@@ -1,6 +1,9 @@
 #Extracción + Transformación de datos
 
+import mlflow
 import pandas as pd
+
+from src import observability  # noqa: F401  side-effect: init MLflow tracing
 from src.config import RAW_DATA_DIR, PROCESSED_DATA_DIR, RAW_DATA_PATH, PROCESSED_DATA_PATH
 
 
@@ -48,6 +51,7 @@ def delete_negative_sales(df: pd.DataFrame) -> pd.DataFrame:
 # imputa por el promedio del mes y 
 # luego imprime el total de nullos imputados por columna
 
+@mlflow.trace(name="impute_nulls_by_month", attributes={"stage": "data"})
 def impute_nulls_by_month(df: pd.DataFrame, date_column: str = "fecha") -> pd.DataFrame:
     df = df.copy()
     
@@ -84,6 +88,7 @@ def impute_nulls_by_month(df: pd.DataFrame, date_column: str = "fecha") -> pd.Da
 
 
 
+@mlflow.trace(name="preprocess_data", attributes={"stage": "data", "type": "etl"})
 def preprocess_data(chunk_size: int = 2_000_000) -> pd.DataFrame:
     """Procesa el CSV crudo por chunks y guarda ventas agregadas por día.
 

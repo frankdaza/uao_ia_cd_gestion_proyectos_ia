@@ -20,6 +20,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Literal
 
+import mlflow
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import Response
 from prometheus_client import (
@@ -30,6 +31,7 @@ from prometheus_client import (
 )
 from pydantic import BaseModel, Field, field_validator
 
+from src import observability  # noqa: F401  side-effect: init MLflow tracing
 from src.config import METRICS_DIR, MODELS_DIR
 from src.predict import VALID_SERIES, load_model, predict_next_days
 
@@ -110,6 +112,7 @@ def health() -> HealthResponse:
 
 
 @app.get("/model-info", response_model=ModelInfoResponse, tags=["model"])
+@mlflow.trace(name="api.model_info", attributes={"stage": "api"})
 def model_info() -> ModelInfoResponse:
     if not MODEL_PATH.exists():
         raise HTTPException(
@@ -139,6 +142,7 @@ def model_info() -> ModelInfoResponse:
 
 
 @app.post("/predict", response_model=PredictResponse, tags=["forecast"])
+@mlflow.trace(name="api.predict", attributes={"stage": "api", "type": "inference"})
 def predict(req: PredictRequest) -> PredictResponse:
     start = time.perf_counter()
     try:

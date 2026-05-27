@@ -20,14 +20,17 @@ import json
 from typing import Any
 
 import joblib
+import mlflow
 import pandas as pd
 
+from src import observability  # noqa: F401  side-effect: init MLflow tracing
 from src.config import MODELS_DIR
 
 MODEL_PATH = MODELS_DIR / "sales_forecaster.joblib"
 VALID_SERIES = ("valor_neto", "valor_costo")
 
 
+@mlflow.trace(name="load_model", attributes={"stage": "predict"})
 def load_model() -> dict[str, Any]:
     """Carga el bundle {forecaster, best_model} guardado por src.train.
 
@@ -50,6 +53,7 @@ def load_model() -> dict[str, Any]:
     return bundle
 
 
+@mlflow.trace(name="predict_next_days", attributes={"stage": "predict", "type": "inference"})
 def predict_next_days(days: int, unique_id: str = "valor_neto") -> pd.DataFrame:
     """Pronostica los próximos `days` días para una serie.
 

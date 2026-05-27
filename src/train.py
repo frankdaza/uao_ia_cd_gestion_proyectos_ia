@@ -35,6 +35,7 @@ from statsforecast.models import (
     SeasonalNaive,
 )
 
+from src import observability  # noqa: F401  side-effect: init MLflow tracing
 from src.config import (
     DF_NIXTLA_PATH,
     EXPERIMENT_NAME,
@@ -54,6 +55,7 @@ N_WINDOWS = 3               # ventanas de backtest
 STEP_SIZE = HORIZON         # avance entre ventanas
 
 
+@mlflow.trace(name="get_models", attributes={"stage": "train"})
 def get_models() -> list:
     """Lista de modelos baseline + clásicos a comparar."""
     return [
@@ -67,6 +69,7 @@ def get_models() -> list:
     ]
 
 
+@mlflow.trace(name="load_nixtla_data", attributes={"stage": "train"})
 def load_nixtla_data() -> pd.DataFrame:
     """Carga el dataframe en formato Nixtla generado por featuring.py."""
     if not DF_NIXTLA_PATH.exists():
@@ -78,6 +81,7 @@ def load_nixtla_data() -> pd.DataFrame:
     return df[["unique_id", "ds", "y"]]
 
 
+@mlflow.trace(name="compute_metrics", attributes={"stage": "train"})
 def compute_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
     """MAE, RMSE, MAPE y R² robustos a divisiones por cero."""
     y_true = np.asarray(y_true, dtype=float)
@@ -100,6 +104,7 @@ def compute_metrics(y_true: np.ndarray, y_pred: np.ndarray) -> dict[str, float]:
     return {"MAE": mae, "RMSE": rmse, "MAPE": mape, "R2": r2}
 
 
+@mlflow.trace(name="evaluate_with_cv", attributes={"stage": "train", "type": "backtest"})
 def evaluate_with_cv(df: pd.DataFrame) -> tuple[pd.DataFrame, dict]:
     """Backtest temporal con cross_validation de StatsForecast.
 
@@ -173,6 +178,7 @@ def log_run(
             mlflow.log_artifact(str(artifact_path))
 
 
+@mlflow.trace(name="train_pipeline", attributes={"stage": "train", "type": "pipeline"})
 def train() -> dict:
     """Pipeline principal: carga datos, evalúa modelos, registra en MLflow, guarda mejor."""
     METRICS_DIR.mkdir(parents=True, exist_ok=True)
