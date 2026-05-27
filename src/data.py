@@ -12,7 +12,13 @@ def load_raw_data() -> pd.DataFrame:
             "por favor carga el documento dentro de data/raw/"
         )
 
-    return pd.read_csv(RAW_DATA_PATH)
+    # Cargar sólo las 3 columnas que se usan, con dtypes compactos.
+    # Reduce drásticamente la memoria para datasets grandes (decenas de GB).
+    return pd.read_csv(
+        RAW_DATA_PATH,
+        usecols=["fecha", "valor_neto", "valor_costo"],
+        dtype={"fecha": "string", "valor_neto": "float32", "valor_costo": "float32"},
+    )
 
 
 # funcion para filtrar las comlumnas de interés dejando solo fecha, valor neto y calor costo.
@@ -26,8 +32,8 @@ def filter_columns(df: pd.DataFrame) -> pd.DataFrame:
 def change_type(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
     df["fecha"] = pd.to_datetime(df["fecha"], format="%Y%m%d")
-    df["valor_neto"] = df["valor_neto"].astype(float)
-    df["valor_costo"] = df["valor_costo"].astype(float)
+    df["valor_neto"] = df["valor_neto"].astype("float32")
+    df["valor_costo"] = df["valor_costo"].astype("float32")
     return df
 
 
