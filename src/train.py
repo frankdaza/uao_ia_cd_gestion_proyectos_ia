@@ -49,7 +49,7 @@ warnings.filterwarnings("ignore", category=FutureWarning)
 FREQ = "D"                  # frecuencia diaria
 HORIZON = 30                # pronóstico a 30 días vista
 SEASON_WEEK = 7             # estacionalidad semanal
-SEASON_MONTH = 30.5         # estacionalidad mensual aproximada
+SEASON_MONTH = 30           # estacionalidad mensual (STL exige entero)
 N_WINDOWS = 3               # ventanas de backtest
 STEP_SIZE = HORIZON         # avance entre ventanas
 
