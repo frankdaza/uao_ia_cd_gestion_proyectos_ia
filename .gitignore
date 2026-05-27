@@ -8,6 +8,8 @@ data/processed/ventas_procesadas.csv
 # Datasets pesados/intermedios sueltos en raíz (NO subir a GitHub)
 clean_data-*.csv
 clean_data.csv
+/data_consolidada.csv
+/data_consolidada*.csv
 *.parquet
 *.feather
 # Archivos muy grandes (>50MB) deberían quedar fuera del repo
