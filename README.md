@@ -95,28 +95,45 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 ```text
 .
 ├── api/                       Servicio FastAPI
-│   └── main.py
+│   └── main.py                Endpoints /health /model-info /predict /metrics
 ├── app/                       App Streamlit
-│   └── streamlit_app.py
+│   └── streamlit_app.py       UI con KPIs e histórico vs pronóstico
 ├── docker/                    Configs de orquestación
-│   └── prometheus.yml
-├── docs/                      Documentación de negocio
+│   ├── prometheus.yml         Scrape de api:8000/metrics
+│   └── grafana/
+│       ├── provisioning/
+│       │   ├── datasources/   Prometheus como default
+│       │   └── dashboards/    Provider que carga JSONs
+│       └── dashboards/
+│           └── forescast.json Dashboard "Forescast — API metrics"
+├── docs/                      Documentación de negocio + pitch
 │   ├── BMC_Pronostico_Ventas.pdf
-│   └── DIB_Pronostico_Ventas.pdf
+│   ├── DIB_Pronostico_Ventas.pdf
+│   └── DEMO_DAY.md            Guion 10 min con timing, comandos y plan B
 ├── notebook/                  EDA y experimentación
 │   └── EDA.ipynb
 ├── reports/
 │   ├── figures/               Gráficas generadas por featuring.py
-│   └── metrics/               Resumen JSON de métricas de entrenamiento
+│   └── metrics/
+│       └── train_metrics.json Métricas del último entrenamiento (versionado)
 ├── src/                       Pipeline core
-│   ├── config.py              Rutas y configuración central
-│   ├── data.py                Carga + limpieza
+│   ├── config.py              Rutas + URIs (lee env vars)
+│   ├── data.py                Carga chunked + limpieza
 │   ├── featuring.py           Feature engineering + outliers
-│   ├── train.py               (pendiente) Entrenamiento + MLflow
-│   ├── register_model.py      (pendiente) Registro en MLflow
-│   └── predict.py             (pendiente) Inferencia
-├── tests/                     (pendiente) Pruebas
-├── docker-compose.yml         (pendiente)
+│   ├── train.py               7 baselines StatsForecast + MLflow tracking
+│   ├── register_model.py      Registry MLflow + alias 'production'
+│   ├── predict.py             Inferencia CLI + librería
+│   └── observability.py       Init MLflow tracing centralizado
+├── tests/                     22 tests pytest
+│   ├── conftest.py            Fixtures compartidas
+│   ├── test_data.py
+│   ├── test_train.py
+│   ├── test_predict.py
+│   └── test_api.py
+├── docker-compose.yml         MLflow + API + Streamlit + Prometheus + Grafana
+├── Dockerfile                 Multi-stage con uv (python:3.12.11-slim)
+├── .dockerignore
+├── .gitattributes             Binarios PDF/PNG/joblib/.ipynb
 ├── pyproject.toml             Dependencias y metadata
 ├── uv.lock                    Lock file de uv
 └── README.md
@@ -416,11 +433,15 @@ de Occidente (UAO)** · Cali, Colombia.
 
 ## 14. Demo Day — guion (10 minutos)
 
+Guion detallado con timing, comandos exactos y plan B: ver [`docs/DEMO_DAY.md`](docs/DEMO_DAY.md).
+
+Resumen:
+
 | Tiempo | Bloque | Contenido |
 |---|---|---|
-| 0:00 – 1:30 | **Problema** | Procesos manuales, quiebres, mermas, falta de trazabilidad. |
-| 1:30 – 3:00 | **Solución** | Pipeline MLOps con Nixtla + MLflow + FastAPI + Streamlit. |
-| 3:00 – 8:30 | **Demo** | `python -m src.data` → `src.featuring` → `src.train` → MLflow UI → FastAPI `/docs` → Streamlit. |
+| 0:00 – 1:30 | **Problema** | Procesos manuales, quiebres, mermas, falta de trazabilidad (BMC + DIB). |
+| 1:30 – 3:00 | **Solución** | Pipeline MLOps con Nixtla + MLflow + FastAPI + Streamlit + Prometheus + Grafana. |
+| 3:00 – 8:30 | **Demo** | Featuring en vivo → MLflow UI (Experiments, Models, Traces) → Swagger `/predict` → Streamlit → Grafana. |
 | 8:30 – 10:00 | **Cierre** | KPIs alcanzados, valor de negocio, próximos pasos. |
 
 ## 15. Limitaciones conocidas
@@ -428,17 +449,25 @@ de Occidente (UAO)** · Cali, Colombia.
 - Sólo se modelan series agregadas (`valor_neto`, `valor_costo`); el BMC plantea
   granularidad SKU-tienda-día, fuera del alcance del Demo Day.
 - No se incluyen variables exógenas (clima, promociones, IPC) en esta versión.
-- Histórico limitado a ~1 año.
-- Monitoreo con Grafana queda como mejora si el tiempo no alcanza.
+- MAPE actual ~21 % vs el KPI del DIB ≤ 10 %. La brecha está documentada en §6.1.
+- Reglas de alerta de Prometheus pendientes (Grafana ya tiene paneles).
 
 ## 16. Próximos pasos
 
-1. Cerrar `src/train.py` con Nixtla + MLflow tracking.
-2. `src/predict.py` con `predict_next_days()`.
-3. FastAPI `/predict` con Pydantic + Prometheus.
-4. Streamlit con visualización histórico vs pronóstico.
-5. `docker-compose.yml` levantando todos los servicios.
-6. Tests mínimos (`test_data.py`, `test_predict.py`, `test_api.py`).
+1. **Cerrar la brecha de MAPE** — variables exógenas (festivos Colombia/Cali,
+   IPC, clima), mayor granularidad (categoría / sede) y modelos neurales
+   (NHITS, NBEATS) si los datos lo permiten.
+2. **Reglas de alerta en Prometheus** — umbrales como p95 latencia > 1 s o
+   error rate > 1 %.
+3. **Migrar MLflow a backend SQLite/Postgres** — el filesystem store está
+   deprecado a partir de febrero 2026.
+4. **API consume modelo desde Registry** (`models:/sales-forecaster@production`)
+   con fallback al joblib local — hoy carga el joblib directo.
+5. **CI/CD** — workflow de GitHub Actions que corra `pytest` y `docker compose build`
+   en cada PR.
+6. **Despliegue cloud** — Azure ML, AWS SageMaker o GCP Vertex AI.
+7. **Monitoreo de drift** y retraining automático cuando el MAPE de producción
+   se degrade.
 7. Extender a granularidad por categoría o sede.
 8. Incorporar variables exógenas (calendario de festivos de Cali, IPC, clima).
 9. Validación temporal (walk-forward) y monitoreo de drift.
