@@ -66,6 +66,9 @@ dmypy.json
 # MLflow (tracking local por defecto)
 mlruns/
 
+# Artefactos regenerables de entrenamiento (sí se versiona train_metrics.json)
+reports/metrics/cv_predictions.csv
+
 # Artefactos de modelos y salidas generadas (ajusta si versionas alguno)
 models/*.pkl
 models/*.joblib

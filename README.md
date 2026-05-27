@@ -106,7 +106,8 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 ├── notebook/                  EDA y experimentación
 │   └── EDA.ipynb
 ├── reports/
-│   └── figures/               Gráficas generadas por featuring.py
+│   ├── figures/               Gráficas generadas por featuring.py
+│   └── metrics/               Resumen JSON de métricas de entrenamiento
 ├── src/                       Pipeline core
 │   ├── config.py              Rutas y configuración central
 │   ├── data.py                Carga + limpieza
@@ -128,8 +129,8 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 | Pipeline de datos (`src/data.py`) | Funcional |
 | Feature engineering (`src/featuring.py`) | Funcional (formato Nixtla, calendario, outliers IQR/Z-score) |
 | EDA (`notebook/EDA.ipynb`) | Avanzado |
-| Entrenamiento (`src/train.py`) | En construcción |
-| MLflow tracking | Configurado, falta integración |
+| Entrenamiento (`src/train.py`) | Funcional (7 baselines StatsForecast, backtest, MLflow) |
+| MLflow tracking | Funcional (fallback automático a `mlruns/` local si no hay servidor) |
 | Registry (`src/register_model.py`) | En construcción |
 | Inferencia (`src/predict.py`) | En construcción |
 | API FastAPI (`api/main.py`) | En construcción |
@@ -137,6 +138,40 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 | Prometheus + monitoreo | En construcción |
 | Docker Compose | En construcción |
 | Tests | Pendiente |
+
+## 6.1 Resultados del baseline actual
+
+Ejecutando `python -m src.train` sobre el histórico de 2023 (728 obs, 2 series),
+con backtest temporal de 3 ventanas y horizonte de 30 días:
+
+| Modelo | MAPE promedio | R² `valor_neto` | R² `valor_costo` |
+|---|---:|---:|---:|
+| **MSTL([7, 30])** ★ | **20.98 %** | 0.02 | 0.13 |
+| AutoARIMA(7) | 21.44 % | 0.16 | 0.24 |
+| HistoricAverage | 23.00 % | −0.01 | −0.02 |
+| SeasonalNaive(7) | 31.12 % | −0.93 | −0.80 |
+| Naive | 40.45 % | −0.76 | −0.92 |
+| AutoTheta(7) | 48.40 % | −1.34 | −1.79 |
+| AutoETS(7) | 67.71 % | −2.83 | −5.64 |
+
+**Mejor modelo:** MSTL — captura la doble estacionalidad semanal + mensual (calza
+con el patrón quincenal del DIB).
+
+**Lectura honesta del resultado:**
+
+- El KPI del DIB es MAPE ≤ 10 %; el mejor baseline está en ~21 %. La brecha es
+  esperable sin variables exógenas (clima, promociones, calendario de festivos
+  de Cali) y con sólo 1 año de histórico.
+- Sólo MSTL y AutoARIMA logran R² positivo. Los demás pierden contra la media.
+- AutoETS falla muy mal — probable sensibilidad a outliers en la serie.
+
+**Próximos pasos para cerrar la brecha (en próximos PRs):**
+
+1. Incorporar features exógenas: días festivos Colombia/Cali, calendario de
+   quincenas, promociones si están disponibles.
+2. Evaluar `AutoCES`, `AutoTBATS` para múltiples estacionalidades.
+3. Probar `NHITS` / `NBEATS` (NeuralForecast) si se dispone de más histórico.
+4. Trabajar con datos por categoría o sede (granularidad mayor mejora MAPE).
 
 ## 7. Requisitos
 
