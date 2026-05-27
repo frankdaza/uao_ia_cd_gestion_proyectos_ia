@@ -135,8 +135,8 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 | Inferencia (`src/predict.py`) | Funcional (CLI + librería, JSON / tabla) |
 | API FastAPI (`api/main.py`) | Funcional (`/predict`, `/health`, `/model-info`, `/metrics`) |
 | App Streamlit (`app/streamlit_app.py`) | Funcional (KPIs, histórico vs pronóstico, fallback local) |
-| Prometheus + monitoreo | Endpoint `/metrics` listo; integración Prometheus pendiente |
-| Docker Compose | Pendiente |
+| Prometheus + monitoreo | Funcional (scrape automático de `api:8000/metrics` cada 15 s) |
+| Docker Compose | Funcional (MLflow + API + Streamlit + Prometheus con `docker compose up`) |
 | Tests | Pendiente |
 
 ## 6.1 Resultados del baseline actual
@@ -265,13 +265,42 @@ streamlit run app/streamlit_app.py
 
 Abre en http://localhost:8501. Consume la API si está activa; si no, cae a llamada local — la demo no se rompe.
 
-## 10. Ejecución con Docker *(en construcción)*
+## 10. Ejecución con Docker
+
+Levanta toda la plataforma con un solo comando:
 
 ```bash
 docker compose up --build
 ```
 
-Servicios previstos: MLflow, FastAPI, Streamlit, Prometheus (y Grafana opcional).
+Servicios y puertos:
+
+| Servicio | URL | Descripción |
+|---|---|---|
+| MLflow | http://localhost:5000 | Tracking server + Model Registry |
+| API FastAPI | http://localhost:8000/docs | Swagger UI |
+| Streamlit | http://localhost:8501 | App demo |
+| Prometheus | http://localhost:9090 | Métricas (job `forescast-api`) |
+
+**Pre-requisitos para que la demo arranque con datos:** correr una vez
+localmente `python -m src.data` → `python -m src.featuring` → `python -m src.train`
+para generar `data/processed/` y `models/sales_forecaster.joblib`. El compose monta
+estas carpetas como volúmenes.
+
+**Detener todo:**
+
+```bash
+docker compose down
+```
+
+**Variables de entorno usadas dentro del compose** (sobrescriben los defaults de
+`src/config.py` y `app/streamlit_app.py`):
+
+- `MLFLOW_TRACKING_URI=http://mlflow:5000`
+- `API_URL=http://api:8000` (sólo en Streamlit)
+
+Grafana queda como mejora futura — Prometheus ya expone los datos listos para
+conectarlo.
 
 ## 11. Datos
 
