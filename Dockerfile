@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 # ---------- Etapa 1: construir el entorno con uv ----------
-FROM python:3.12-slim AS builder
+FROM python:3.12.11-slim AS builder
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
@@ -27,7 +27,7 @@ RUN uv sync --frozen
 
 
 # ---------- Etapa 2: runtime mínimo ----------
-FROM python:3.12-slim AS runtime
+FROM python:3.12.11-slim AS runtime
 
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
