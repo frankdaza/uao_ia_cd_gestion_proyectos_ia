@@ -77,8 +77,9 @@ def predict_next_days(days: int, unique_id: str = "valor_neto") -> pd.DataFrame:
     forecaster = bundle["forecaster"]
     best_model = bundle["best_model"]
 
-    forecast_df = forecaster.forecast(h=days)
-    forecast_df = forecast_df.reset_index() if "unique_id" not in forecast_df.columns else forecast_df
+    forecast_df = forecaster.predict(h=days)
+    if "unique_id" not in forecast_df.columns:
+        forecast_df = forecast_df.reset_index()
 
     series_df = forecast_df[forecast_df["unique_id"] == unique_id].copy()
     if series_df.empty:
