@@ -131,12 +131,12 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 | EDA (`notebook/EDA.ipynb`) | Avanzado |
 | Entrenamiento (`src/train.py`) | Funcional (7 baselines StatsForecast, backtest, MLflow) |
 | MLflow tracking | Funcional (fallback automático a `mlruns/` local si no hay servidor) |
-| Registry (`src/register_model.py`) | En construcción |
-| Inferencia (`src/predict.py`) | En construcción |
-| API FastAPI (`api/main.py`) | En construcción |
-| App Streamlit (`app/streamlit_app.py`) | En construcción |
-| Prometheus + monitoreo | En construcción |
-| Docker Compose | En construcción |
+| Registry (`src/register_model.py`) | Funcional (PyFunc wrapper + alias `production`) |
+| Inferencia (`src/predict.py`) | Funcional (CLI + librería, JSON / tabla) |
+| API FastAPI (`api/main.py`) | Funcional (`/predict`, `/health`, `/model-info`, `/metrics`) |
+| App Streamlit (`app/streamlit_app.py`) | Funcional (KPIs, histórico vs pronóstico, fallback local) |
+| Prometheus + monitoreo | Endpoint `/metrics` listo; integración Prometheus pendiente |
+| Docker Compose | Pendiente |
 | Tests | Pendiente |
 
 ## 6.1 Resultados del baseline actual
@@ -215,24 +215,55 @@ python -m src.data
 python -m src.featuring
 ```
 
-### 9.3 Entrenamiento y servicio *(en construcción)*
+### 9.3 Entrenamiento
 
 ```bash
-# Levantar MLflow tracking server
-mlflow ui --host 0.0.0.0 --port 5000
+# (Opcional) Levantar MLflow tracking server en otra terminal
+mlflow ui --backend-store-uri ./mlruns --host 127.0.0.1 --port 5000
 
-# Entrenar modelos Nixtla y registrar en MLflow
+# Entrenar los 7 baselines, evaluar backtest y guardar el mejor.
+# Si MLflow server no responde, hace fallback automático a ./mlruns local.
 python -m src.train
+```
 
-# Registrar mejor modelo en el registry
+Genera `models/sales_forecaster.joblib` + `reports/metrics/train_metrics.json`.
+
+### 9.4 Inferencia desde la CLI
+
+```bash
+# Pronóstico de 30 días para valor_neto, formato tabla
+python -m src.predict --days 30 --series valor_neto
+
+# Pronóstico de 14 días para valor_costo, JSON
+python -m src.predict --days 14 --series valor_costo --json
+```
+
+### 9.5 Registry MLflow
+
+```bash
+# Registra el mejor modelo como sales-forecaster y asigna alias 'production'
 python -m src.register_model
+```
 
-# Levantar API
-uvicorn api.main:app --reload
+Verlo en MLflow UI → tab **Models** → `sales-forecaster` → versión con alias `@production`.
 
-# Lanzar app de demo
+### 9.6 API FastAPI
+
+```bash
+uvicorn api.main:app --reload --port 8000
+```
+
+Endpoints:
+- http://127.0.0.1:8000/docs — Swagger UI.
+- `GET /health` · `GET /model-info` · `POST /predict` · `GET /metrics`.
+
+### 9.7 Streamlit demo
+
+```bash
 streamlit run app/streamlit_app.py
 ```
+
+Abre en http://localhost:8501. Consume la API si está activa; si no, cae a llamada local — la demo no se rompe.
 
 ## 10. Ejecución con Docker *(en construcción)*
 
