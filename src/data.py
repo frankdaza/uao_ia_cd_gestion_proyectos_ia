@@ -84,17 +84,80 @@ def impute_nulls_by_month(df: pd.DataFrame, date_column: str = "fecha") -> pd.Da
 
 
 
-def preprocess_data() -> pd.DataFrame:
-    df = load_raw_data()
-    df = filter_columns(df)
-    df = change_type(df)
-    df = impute_nulls_by_month(df)
-    df = delete_negative_sales(df)
-    
-    print("Dimensiones finales:", df.shape)
+def preprocess_data(chunk_size: int = 2_000_000) -> pd.DataFrame:
+    """Procesa el CSV crudo por chunks y guarda ventas agregadas por día.
+
+    El dataset crudo puede pesar decenas de GB. Cargarlo entero a memoria
+    revienta la RAM. En lugar de eso:
+
+      1. Se lee en chunks de `chunk_size` filas (~24 MB cada uno con 3 cols
+         float32 + string).
+      2. En cada chunk: parsear fecha, descartar inválidas, filtrar
+         valor_neto > 0, agregar por día.
+      3. Concatenar y re-agregar todos los chunks (resultado: 1 fila por día).
+      4. Imputar nulos por mes en el resultado agregado (rápido y barato).
+
+    Output: `ventas_procesadas.csv` con columnas `fecha`, `valor_neto`,
+    `valor_costo` ya agregadas a nivel diario. featuring.py vuelve a
+    aplicar `aggregate_daily` sobre esto, que es idempotente sobre datos
+    ya agregados.
+
+    Pico de RAM esperado: ~50 MB independientemente del tamaño del CSV.
+    """
+    if not RAW_DATA_PATH.exists():
+        raise FileNotFoundError(
+            f"No se encontró {RAW_DATA_PATH}. "
+            "Coloca el dataset en data/raw/data_consolidada.csv."
+        )
+
+    print(f"Procesando {RAW_DATA_PATH.name} en chunks de {chunk_size:,} filas...")
+
+    reader = pd.read_csv(
+        RAW_DATA_PATH,
+        usecols=["fecha", "valor_neto", "valor_costo"],
+        dtype={"fecha": "string", "valor_neto": "float32", "valor_costo": "float32"},
+        chunksize=chunk_size,
+    )
+
+    daily_chunks: list[pd.DataFrame] = []
+    total_rows = 0
+    total_kept = 0
+
+    for i, chunk in enumerate(reader, start=1):
+        original_size = len(chunk)
+        chunk["fecha"] = pd.to_datetime(chunk["fecha"], format="%Y%m%d", errors="coerce")
+        chunk = chunk.dropna(subset=["fecha"])
+        chunk = chunk[chunk["valor_neto"] > 0]
+
+        agg = chunk.groupby("fecha", as_index=False).agg(
+            valor_neto=("valor_neto", "sum"),
+            valor_costo=("valor_costo", "sum"),
+        )
+        daily_chunks.append(agg)
+        total_rows += original_size
+        total_kept += len(chunk)
+        print(f"  Chunk {i}: {original_size:>10,} filas → {len(chunk):>10,} válidas "
+              f"({agg['fecha'].nunique()} días distintos)")
+        del chunk, agg
+
+    print(f"\nTotal procesado: {total_rows:,} filas | mantenidas: {total_kept:,} "
+          f"({100 * total_kept / max(total_rows, 1):.1f} %)")
+
+    combined = pd.concat(daily_chunks, ignore_index=True)
+    daily = (
+        combined.groupby("fecha", as_index=False)
+        .agg(valor_neto=("valor_neto", "sum"), valor_costo=("valor_costo", "sum"))
+        .sort_values("fecha")
+        .reset_index(drop=True)
+    )
+
+    daily = impute_nulls_by_month(daily)
+
+    print(f"\nDimensiones finales (agregado diario): {daily.shape}")
     PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
-    df.to_csv(PROCESSED_DATA_PATH, index=False)
-    return df
+    daily.to_csv(PROCESSED_DATA_PATH, index=False)
+    print(f"Guardado en: {PROCESSED_DATA_PATH}")
+    return daily
 
 
 
