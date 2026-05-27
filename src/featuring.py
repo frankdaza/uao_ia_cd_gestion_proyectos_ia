@@ -1,6 +1,9 @@
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
+from pathlib import Path
+import matplotlib.pyplot as plt
+from scipy import stats
 from src.config import PROCESSED_DATA_PATH, PROCESSED_DATA_DIR
 
 
@@ -59,8 +62,7 @@ def add_calendar_features(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # graficar series de valor_neto y valor_costo
-
-def plot_series(df: pd.DataFrame):
+def plot_series(df: pd.DataFrame) -> go.Figure:
     fig = go.Figure()
     
     for uid in df["unique_id"].unique():
@@ -81,7 +83,127 @@ def plot_series(df: pd.DataFrame):
         template='plotly_white'
     )
     fig.show()
+    return fig
 
+
+# ── Outliers Método 1: IQR (Rango Intercuartílico) ────────────────────────────────
+def detect_outliers_iqr(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Detecta outliers en la columna 'y' del DataFrame usando el método IQR.
+    """
+    Q1, Q3 = df.y.quantile(0.25), df.y.quantile(0.75)
+    IQR    = Q3 - Q1
+    limite_inf_iqr = Q1 - 1.5 * IQR
+    limite_sup_iqr = Q3 + 1.5 * IQR
+    outliers_iqr = df[(df.y < limite_inf_iqr) | (df.y > limite_sup_iqr)]
+
+    print("IQR — Detección de Outliers")
+    print(f"  Q1={Q1:.0f}  Q3={Q3:.0f}  IQR={IQR:.0f}")
+    print(f"  Límite inferior: {limite_inf_iqr:.0f}")
+    print(f"  Límite superior: {limite_sup_iqr:.0f}")
+    print(f"  Outliers detectados: {len(outliers_iqr)}")
+    print(outliers_iqr[['ds','y']])
+    return outliers_iqr
+
+
+# ── Método 2: Z-score ─────────────────────────────────────────────────────
+def detect_outliers_zscore(df: pd.DataFrame, num_desvest: int = 3) -> pd.DataFrame:
+    """
+    Detecta outliers en la columna 'y' del DataFrame usando el método Z-score.
+    """
+    z_scores = np.abs(stats.zscore(df.y))
+    outliers_z = df[z_scores > num_desvest]
+
+    # Calculate Z-score limits
+    mean_y = df.y.mean()
+    std_y = df.y.std()
+    limite_inf_z = mean_y - num_desvest * std_y
+    limite_sup_z = mean_y + num_desvest * std_y
+
+    print(f"\nZ-score (|z| > {num_desvest}) — Outliers detectados: {len(outliers_z)}")
+    if len(outliers_z): 
+        print(outliers_z[['ds','y']])
+    return outliers_z
+
+
+
+# ── Visualización comparativa ─────────────────────────────────────────────
+def plot_outliers_comparativa(df: pd.DataFrame, outliers_iqr: pd.DataFrame, outliers_z: pd.DataFrame, num_desvest: int = 3) -> tuple[go.Figure, go.Figure]:
+    """
+    Genera y muestra gráficos comparativos para la detección de outliers (IQR y Z-score).
+    
+    :return: Tupla (fig_iqr, fig_z) con los objetos de figura de Plotly.
+    """
+    # Metodo IQR
+    Q1, Q3 = df.y.quantile(0.25), df.y.quantile(0.75)
+    IQR    = Q3 - Q1
+    limite_inf_iqr = Q1 - 1.5 * IQR
+    limite_sup_iqr = Q3 + 1.5 * IQR
+
+    fig_iqr = go.Figure()
+    fig_iqr.add_trace(go.Scatter(x=df.ds, y=df.y, mode='lines',
+                              name='Serie', line=dict(color='#2196F3', width=1.5)))
+    fig_iqr.add_hline(y=limite_sup_iqr, line_dash='dash', line_color='orange',
+                  annotation_text='Límite IQR superior')
+    fig_iqr.add_hline(y=limite_inf_iqr, line_dash='dash', line_color='orange',
+                  annotation_text='Límite IQR inferior')
+    if len(outliers_iqr):
+        fig_iqr.add_trace(go.Scatter(x=outliers_iqr.ds, y=outliers_iqr.y,
+                                  mode='markers', name='Outlier (IQR)',
+                                  marker=dict(color='red', size=10, symbol='circle-open', line_width=2)))
+    fig_iqr.update_layout(title='Detección de Outliers — Método IQR',
+                      height=380, template='plotly_white',
+                      xaxis_title='Fecha', yaxis_title='Ventas')
+    fig_iqr.show()
+
+    # Metodo Z-score
+    mean_y = df.y.mean()
+    std_y = df.y.std()
+    limite_inf_z = mean_y - num_desvest * std_y
+    limite_sup_z = mean_y + num_desvest * std_y
+
+    fig_z = go.Figure()
+    fig_z.add_trace(go.Scatter(x=df.ds, y=df.y, mode='lines',
+                              name='Serie', line=dict(color='#2196F3', width=1.5)))
+    fig_z.add_hline(y=limite_sup_z, line_dash='dash', line_color='orange',
+                  annotation_text='Límite Z-score superior')
+    fig_z.add_hline(y=limite_inf_z, line_dash='dash', line_color='orange',
+                  annotation_text='Límite Z-score inferior')
+    if len(outliers_z):
+        fig_z.add_trace(go.Scatter(x=outliers_z.ds, y=outliers_z.y,
+                                  mode='markers', name='Outlier Z-score',
+                                  marker=dict(color='red', size=10, symbol='circle-open', line_width=2)))
+    fig_z.update_layout(title='Detección de Outliers — Método Z-Score',
+                      height=380, template='plotly_white',
+                      xaxis_title='Fecha', yaxis_title='Ventas')
+    fig_z.show()
+    
+    return fig_iqr, fig_z
+
+
+
+def save_image(fig: go.Figure, nombre_archivo: str, ruta_guardado: str, 
+                width: int = 1200, height: int = 600, scale: int = 2):
+    """
+    Guarda la figura de Plotly como imagen con resolución mejorada para evitar borrosidad.
+    Crea la ruta especificada si esta no existe.
+    
+    :param fig: Figura de Plotly a guardar.
+    :param nombre_archivo: Nombre del archivo con su extensión (ej. 'grafico.png').
+    :param ruta_guardado: Directorio donde se guardará la imagen.
+    :param width: Ancho de la imagen en píxeles.
+    :param height: Alto de la imagen en píxeles.
+    :param scale: Multiplicador de escala (resolución/DPI). Por ejemplo, 2 duplica la resolución.
+    """
+    # 1. Crear directorios si no existen
+    directorio = Path(ruta_guardado)
+    directorio.mkdir(parents=True, exist_ok=True)
+    
+    ruta_completa = directorio / nombre_archivo
+    
+    # 2. Guardar la figura de Plotly con resolución configurada
+    fig.write_image(str(ruta_completa), width=width, height=height, scale=scale)
+    print(f"Imagen guardada correctamente en: {ruta_completa} (Resolución: {width*scale}x{height*scale} px)")
 
 
 # Agrega ventas de 7, 14 y 30 días atrás agrupando por serie (unique_id) para evitar mezcla de datos
@@ -106,7 +228,25 @@ def build_features() -> pd.DataFrame:
     df = load_processed_data()
     df_day = aggregate_daily(df)
     df_nixtla = to_nixtla_format(df_day)
-    plot_series(df_nixtla)
+    fig = plot_series(df_nixtla)
+    save_image(fig, "series_tiempo.png", "reports/figures")
+    
+    # Outliers por serie
+    for serie, group in df_nixtla.groupby('unique_id'): 
+        print(f"\n{'='*15} Serie: {serie} {'='*15}")
+        outliers_iqr = detect_outliers_iqr(group)
+        outliers_z = detect_outliers_zscore(group)
+
+        # Generar visualización comparativa para cada serie
+        fig_iqr, fig_z = plot_outliers_comparativa(group, outliers_iqr, outliers_z)
+        
+        # Guardar figuras
+        save_image(fig_iqr, f"outliers_iqr_{serie}.png", "reports/figures")
+        save_image(fig_z, f"outliers_zscore_{serie}.png", "reports/figures")
+
+
+
+    # 
     df_calendar = add_calendar_features(df_nixtla)
 
 
