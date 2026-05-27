@@ -137,33 +137,40 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 | App Streamlit (`app/streamlit_app.py`) | Funcional (KPIs, histórico vs pronóstico, fallback local) |
 | Prometheus + monitoreo | Funcional (scrape automático de `api:8000/metrics` cada 15 s) |
 | Docker Compose | Funcional (MLflow + API + Streamlit + Prometheus con `docker compose up`) |
+| MLflow Tracing (`@mlflow.trace`) | Funcional en data, featuring, train, predict y API — visible en tab **Traces** |
 | Tests | Pendiente |
 
 ## 6.1 Resultados del baseline actual
 
-Ejecutando `python -m src.train` sobre el histórico de 2023 (728 obs, 2 series),
-con backtest temporal de 3 ventanas y horizonte de 30 días:
+Ejecutando `python -m src.train` sobre el histórico procesado (agregado diario,
+2 series `valor_neto` y `valor_costo`), con backtest temporal de 3 ventanas y
+horizonte de 30 días:
 
-| Modelo | MAPE promedio | R² `valor_neto` | R² `valor_costo` |
-|---|---:|---:|---:|
-| **MSTL([7, 30])** ★ | **20.98 %** | 0.02 | 0.13 |
-| AutoARIMA(7) | 21.44 % | 0.16 | 0.24 |
-| HistoricAverage | 23.00 % | −0.01 | −0.02 |
-| SeasonalNaive(7) | 31.12 % | −0.93 | −0.80 |
-| Naive | 40.45 % | −0.76 | −0.92 |
-| AutoTheta(7) | 48.40 % | −1.34 | −1.79 |
-| AutoETS(7) | 67.71 % | −2.83 | −5.64 |
+| Modelo | MAPE promedio |
+|---|---:|
+| **AutoARIMA(7)** ★ | **20.96 %** |
+| HistoricAverage | 21.88 % |
+| MSTL([7, 30]) | 22.13 % |
+| SeasonalNaive(7) | 31.11 % |
+| Naive | 40.55 % |
+| AutoTheta(7) | 42.22 % |
+| AutoETS(7) | 60.36 % |
 
-**Mejor modelo:** MSTL — captura la doble estacionalidad semanal + mensual (calza
-con el patrón quincenal del DIB).
+**Mejor modelo:** AutoARIMA — con el dataset crudo completo (17 GB de
+transacciones agregadas a nivel diario), ARIMA estacional captura mejor la
+señal que MSTL. Las métricas detalladas por serie viven en
+[`reports/metrics/train_metrics.json`](reports/metrics/train_metrics.json).
 
 **Lectura honesta del resultado:**
 
 - El KPI del DIB es MAPE ≤ 10 %; el mejor baseline está en ~21 %. La brecha es
   esperable sin variables exógenas (clima, promociones, calendario de festivos
-  de Cali) y con sólo 1 año de histórico.
-- Sólo MSTL y AutoARIMA logran R² positivo. Los demás pierden contra la media.
-- AutoETS falla muy mal — probable sensibilidad a outliers en la serie.
+  de Cali) y a nivel agregado global.
+- AutoARIMA gana al pre-agregar el dataset crudo (decenas de millones de
+  transacciones) por día. Con la agregación, la señal estacional ARIMA captura
+  mejor que MSTL.
+- AutoETS y AutoTheta fallan más — probable sensibilidad a outliers post-
+  agregación; vale la pena revisar la limpieza de extremos.
 
 **Próximos pasos para cerrar la brecha (en próximos PRs):**
 
@@ -247,6 +254,17 @@ python -m src.register_model
 
 Verlo en MLflow UI → tab **Models** → `sales-forecaster` → versión con alias `@production`.
 
+### 9.5.1 Tracing (observabilidad fina)
+
+Todas las funciones críticas del pipeline (data, featuring, train, predict, API)
+están decoradas con `@mlflow.trace`. Al correr cualquier paso del pipeline, en
+MLflow UI → tab **Traces** se ve la cascada de spans con duración por función —
+útil para identificar cuellos de botella (típicamente `evaluate_with_cv` en
+train).
+
+`src/observability.py` configura el tracking automáticamente al importarse
+desde cualquier módulo. No hay paso manual extra.
+
 ### 9.6 API FastAPI
 
 ```bash
@@ -306,12 +324,18 @@ conectarlo.
 
 - **Granularidad de modelado:** diaria, sobre ventas agregadas a nivel global.
 - **Series predichas:** `valor_neto` y `valor_costo`.
-- **Histórico requerido:** ~1 año disponible en `data_consolidada.csv`.
+- **Histórico:** ~1 año en `data_consolidada.csv` (decenas de millones de
+  transacciones, ~17 GB crudo).
 - **Formato Nixtla:** `unique_id`, `ds`, `y` para compatibilidad con
   StatsForecast / NeuralForecast.
 
-> El dataset crudo (~5.5 GB) y los procesados quedan fuera del repo
-> (`.gitignore`). Compartir vía canal interno del equipo.
+**Procesamiento eficiente:** `src/data.py` lee el CSV crudo en chunks de
+2M filas con `usecols + float32`, agregando por día sobre la marcha. Pico
+de RAM ~50 MB independientemente del tamaño del CSV, así que corre cómodo
+en máquinas de 8–32 GB.
+
+> El dataset crudo y los procesados quedan fuera del repo (`.gitignore`).
+> Compartir vía canal interno del equipo.
 
 ## 12. Flujo de trabajo Git
 
