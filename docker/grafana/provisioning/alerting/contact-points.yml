@@ -1,0 +1,11 @@
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: forescast-demo
+    receivers:
+      - uid: forescast-demo-receiver
+        type: webhook
+        settings:
+          url: http://127.0.0.1:1/forescast-demo-noop
+        disableResolveMessage: false

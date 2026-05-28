@@ -5,6 +5,9 @@ global:
     project: forescast
     environment: demo
 
+rule_files:
+  - /etc/prometheus/alerts.yml
+
 scrape_configs:
   - job_name: prometheus
     static_configs:
@@ -17,3 +20,11 @@ scrape_configs:
         labels:
           service: api
           component: forecast
+
+  - job_name: forescast-streamlit
+    metrics_path: /metrics
+    static_configs:
+      - targets: ["app:8502"]
+        labels:
+          service: streamlit
+          component: demo

@@ -1,0 +1,48 @@
+groups:
+  - name: forescast
+    rules:
+      - alert: ForescastHighLatencyP95
+        expr: |
+          histogram_quantile(
+            0.95,
+            sum(rate(forescast_prediction_latency_seconds_bucket[5m])) by (le)
+          ) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Latencia p95 de /predict > 1s"
+          description: "El percentil 95 de latencia supera 1 segundo durante 5 minutos."
+
+      - alert: ForescastHighErrorRate
+        expr: |
+          (
+            sum(rate(forescast_prediction_errors_total[5m]))
+            /
+            sum(rate(forescast_predictions_total[5m]))
+          ) > 0.01
+          and sum(rate(forescast_predictions_total[5m])) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Tasa de errores en /predict > 1%"
+          description: "Más del 1% de las predicciones fallan en los últimos 5 minutos."
+
+      - alert: ForescastApiTargetDown
+        expr: up{job="forescast-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Target forescast-api caído"
+          description: "Prometheus no puede scrapear la API en api:8000/metrics."
+
+      - alert: ForescastModelNotLoaded
+        expr: forescast_model_loaded == 0
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Modelo no cargado en disco"
+          description: "forescast_model_loaded lleva 10 minutos en 0."

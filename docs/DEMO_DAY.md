@@ -184,18 +184,21 @@ Mostrar el response (30 puntos, total, promedio, modelo usado: AutoARIMA).
 
 1. http://127.0.0.1:8000/metrics — métricas Prometheus en raw.
 2. http://localhost:9090 — Prometheus UI (tab **Status → Targets** con `forescast-api` en `UP`).
-3. http://localhost:3000 — **Grafana** dashboard `Forescast — API metrics` con los 4 paneles ya cargados (acceso anónimo como Viewer, no requiere login).
+3. http://localhost:3000 — **Grafana** dashboard `Forescast — API metrics` (acceso anónimo Viewer).
+4. (Opcional) Prometheus → **Alerts** — reglas `ForescastHighLatencyP95`, etc.
 
 **Qué decir:**
 
 > "Cada pronóstico incrementa contadores Prometheus: cantidad por serie y
-> modelo, latencia en histograma, errores tipados. Prometheus scrapea cada
-> 15 segundos. Grafana toma esos datos y los muestra en cuatro paneles:
-> rate de predicciones, latencia p50/p95/p99, total acumulado y errores.
-> Esto es la base del monitoreo en producción.
+> modelo, latencia en histograma, errores tipados. También medimos requests HTTP,
+> si el modelo está en disco y si MLflow responde. Streamlit expone métricas en
+> el puerto 8502 para ver si el pronóstico vino por API o por fallback local.
+> Prometheus scrapea cada 15 segundos (API y Streamlit). Grafana muestra ocho
+> paneles: los cuatro de inferencia más throughput HTTP, estado del modelo,
+> MLflow y fuente Streamlit. Hay reglas de alerta para p95 y target caído.
 >
-> Todo el stack se levanta con `docker compose up` — un comando, cinco
-> servicios."
+> Todo el stack se levanta con `docker compose up` — un comando, **cinco**
+> servicios: MLflow, API, Streamlit, Prometheus y Grafana."
 
 ---
 
@@ -251,8 +254,8 @@ Mostrar el response (30 puntos, total, promedio, modelo usado: AutoARIMA).
 | ¿Tamaño del dataset? | ~17 GB crudo, agregado a 365 filas diarias en `data/processed/`. |
 | ¿Cuánto RAM consume? | ~50 MB pico gracias a chunked read + float32. |
 | ¿Cómo decidieron el modelo? | Backtest temporal (3 ventanas, h=30) con MAPE promedio entre las 2 series. |
-| ¿Cómo lo despliegan? | Docker Compose con 4 servicios: MLflow, FastAPI, Streamlit, Prometheus. |
-| ¿Cómo lo monitorean? | Prometheus scrape de `/metrics` cada 15 s. Grafana es paso siguiente. |
+| ¿Cómo lo despliegan? | Docker Compose con 5 servicios: MLflow, FastAPI, Streamlit, Prometheus, Grafana. |
+| ¿Cómo lo monitorean? | Prometheus scrape de API (`:8000/metrics`) y Streamlit (`:8502/metrics`) cada 15 s; Grafana con dashboard y alertas demo. |
 | ¿Pueden cambiar de modelo sin redeploy? | Sí — promover otra versión al alias `@production` en MLflow Registry. |
 
 ---

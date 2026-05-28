@@ -17,20 +17,23 @@ from __future__ import annotations
 import json
 import time
 from datetime import datetime
-from pathlib import Path
 from typing import Literal
 
 import mlflow
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import Response
-from prometheus_client import (
-    CONTENT_TYPE_LATEST,
-    Counter,
-    Histogram,
-    generate_latest,
-)
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from pydantic import BaseModel, Field, field_validator
 
+from api.metrics import (
+    MODEL_INFO_ERRORS_TOTAL,
+    PREDICTION_ERRORS_TOTAL,
+    PREDICTION_LATENCY,
+    PREDICTIONS_TOTAL,
+    refresh_mlflow_reachable,
+    register_metrics,
+    set_model_loaded,
+)
 from src import observability  # noqa: F401  side-effect: init MLflow tracing
 from src.config import METRICS_DIR, MODELS_DIR
 from src.predict import VALID_SERIES, load_model, predict_next_days
@@ -38,28 +41,14 @@ from src.predict import VALID_SERIES, load_model, predict_next_days
 MODEL_PATH = MODELS_DIR / "sales_forecaster.joblib"
 METRICS_JSON_PATH = METRICS_DIR / "train_metrics.json"
 
-# ---------- Prometheus ----------
-PREDICTIONS_TOTAL = Counter(
-    "forescast_predictions_total",
-    "Total de predicciones servidas",
-    ["series", "model"],
-)
-PREDICTION_ERRORS_TOTAL = Counter(
-    "forescast_prediction_errors_total",
-    "Total de errores en /predict",
-    ["error_type"],
-)
-PREDICTION_LATENCY = Histogram(
-    "forescast_prediction_latency_seconds",
-    "Latencia de /predict en segundos",
-)
-
 # ---------- App ----------
 app = FastAPI(
     title="Forescast API",
     description="Servicio de pronóstico de ventas — Forescast_Project (UAO).",
     version="0.1.0",
 )
+
+register_metrics(app, model_path_exists=MODEL_PATH.exists())
 
 
 # ---------- Schemas ----------
@@ -108,19 +97,31 @@ class HealthResponse(BaseModel):
 # ---------- Endpoints ----------
 @app.get("/health", response_model=HealthResponse, tags=["system"])
 def health() -> HealthResponse:
-    return HealthResponse(status="ok", model_loaded=MODEL_PATH.exists())
+    loaded = MODEL_PATH.exists()
+    set_model_loaded(loaded)
+    refresh_mlflow_reachable()
+    return HealthResponse(status="ok", model_loaded=loaded)
 
 
 @app.get("/model-info", response_model=ModelInfoResponse, tags=["model"])
 @mlflow.trace(name="api.model_info", attributes={"stage": "api"})
 def model_info() -> ModelInfoResponse:
     if not MODEL_PATH.exists():
+        MODEL_INFO_ERRORS_TOTAL.labels(error_type="model_not_found").inc()
+        set_model_loaded(False)
         raise HTTPException(
             status_code=503,
             detail="Modelo no entrenado. Correr `python -m src.train` primero.",
         )
 
-    bundle = load_model()
+    set_model_loaded(True)
+
+    try:
+        bundle = load_model()
+    except Exception as exc:
+        MODEL_INFO_ERRORS_TOTAL.labels(error_type="internal").inc()
+        raise HTTPException(status_code=500, detail=f"Error al cargar modelo: {exc}") from exc
+
     last_mod = datetime.fromtimestamp(MODEL_PATH.stat().st_mtime).isoformat()
 
     mape_by_model: dict[str, float] | None = None

@@ -27,11 +27,18 @@ import plotly.graph_objects as go
 import requests
 import streamlit as st
 
+from app.metrics import (
+    STREAMLIT_ERRORS,
+    STREAMLIT_FORECAST_REQUESTS,
+    start_metrics_server,
+)
 from src.config import DF_NIXTLA_PATH, METRICS_DIR
 from src.predict import VALID_SERIES, predict_next_days
 
 API_URL = os.getenv("API_URL", "http://127.0.0.1:8000")
 TRAIN_METRICS_PATH = METRICS_DIR / "train_metrics.json"
+
+start_metrics_server()
 
 
 # ---------- Helpers ----------
@@ -53,7 +60,9 @@ def get_predictions(days: int, series: str) -> tuple[pd.DataFrame, str, str]:
         df["ds"] = pd.to_datetime(df["ds"])
         df["model"] = payload["model"]
         return df, payload["model"], "API"
-    except (requests.RequestException, ValueError):
+    except (requests.RequestException, ValueError) as exc:
+        error_type = "api_error" if isinstance(exc, requests.RequestException) else "validation"
+        STREAMLIT_ERRORS.labels(error_type=error_type).inc()
         df = predict_next_days(days=days, unique_id=series)
         df["ds"] = pd.to_datetime(df["ds"])
         return df, str(df["model"].iloc[0]), "local"
@@ -116,6 +125,7 @@ if not run:
 
 with st.spinner("Generando pronóstico..."):
     forecast_df, model_used, source = get_predictions(days, series)
+    STREAMLIT_FORECAST_REQUESTS.labels(source=source.lower()).inc()
 
 # ---------- KPIs ----------
 total = float(forecast_df["y_hat"].sum())

@@ -42,7 +42,18 @@ def test_metrics_endpoint_exposes_prometheus_format(client: TestClient) -> None:
     r = client.get("/metrics")
     assert r.status_code == 200
     assert "text/plain" in r.headers["content-type"]
-    assert "forescast_predictions_total" in r.text
+    text = r.text
+    assert "forescast_predictions_total" in text
+    assert "forescast_http_requests_total" in text
+    assert "forescast_model_loaded" in text
+    assert "forescast_mlflow_reachable" in text
+
+
+def test_health_increments_http_requests_metric(client: TestClient) -> None:
+    client.get("/health")
+    r = client.get("/metrics")
+    assert r.status_code == 200
+    assert 'forescast_http_requests_total{endpoint="/health"' in r.text
 
 
 def test_predict_rejects_zero_days(client: TestClient) -> None:
@@ -65,6 +76,8 @@ def test_model_info_503_when_no_model(client: TestClient, model_exists: bool) ->
         pytest.skip("Hay modelo entrenado; el caso 503 no aplica.")
     r = client.get("/model-info")
     assert r.status_code == 503
+    metrics = client.get("/metrics").text
+    assert 'forescast_model_info_errors_total{error_type="model_not_found"}' in metrics
 
 
 def test_model_info_ok_when_model_exists(client: TestClient, model_exists: bool) -> None:
