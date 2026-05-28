@@ -1,0 +1,39 @@
+---
+description: Guía de uso del MCP CodeGraph — cuándo usar cada herramienta
+alwaysApply: true
+---
+<!-- CODEGRAPH_START -->
+## CodeGraph
+
+Este proyecto tiene configurado un servidor MCP de CodeGraph (herramientas `codegraph_*`). CodeGraph es un grafo de conocimiento parseado con tree-sitter de cada símbolo, arista y archivo. Las lecturas son submilisegundo y devuelven información estructural que grep no puede.
+
+### Cuándo preferir codegraph frente a búsqueda nativa
+
+Usa codegraph para preguntas **estructurales**: quién llama a quién, qué se rompería, dónde está definido X, cuál es la firma de X. Usa grep/Read nativos solo para consultas de **texto literal** (contenido de cadenas, comentarios, mensajes de log) o cuando ya tengas abierto un archivo concreto.
+
+| Pregunta | Herramienta |
+|---|---|
+| "¿Dónde está definido X?" / "Buscar símbolo X" | `codegraph_search` |
+| "¿Quién llama a la función Y?" | `codegraph_callers` |
+| "¿Qué llama Y?" | `codegraph_callees` |
+| "¿Cómo llega X a Y? / trazar el flujo de X a Y" | `codegraph_trace` (una llamada = el camino completo, incl. callbacks/React/JSX) |
+| "¿Qué se rompe si cambio Z?" | `codegraph_impact` |
+| "Muéstrame la firma / fuente / docstring de Y" | `codegraph_node` |
+| "Dame contexto enfocado para una tarea o área" | `codegraph_context` |
+| "Ver el código de varios símbolos relacionados a la vez" | `codegraph_explore` |
+| "¿Qué archivos hay bajo path/?" | `codegraph_files` |
+| "¿El índice está sano?" | `codegraph_status` |
+
+### Reglas de oro
+
+- **Responde directamente — no delegues la exploración.** Para "¿cómo funciona X?" o preguntas de arquitectura, responde con 2-3 llamadas a codegraph: primero `codegraph_context`, luego UN solo `codegraph_explore` con el código de los símbolos que devuelva. Para un **flujo** concreto ("¿cómo llega X a Y?") empieza con `codegraph_trace` de→a — una llamada devuelve todo el camino con saltos dinámicos resueltos — y luego UN solo `codegraph_explore` para los cuerpos; no reconstruyas el camino con `codegraph_search` + `codegraph_callers`. Codegraph ES el índice preconstruido; lanzar un subagente o tarea de lectura de archivos — o un bucle grep + read — repite trabajo que codegraph ya hizo y cuesta más para la misma respuesta.
+- **Confía en los resultados de codegraph.** Provienen de un parseo AST completo. NO los verifiques de nuevo con grep — es más lento, menos preciso y desperdicia contexto.
+- **No uses grep primero** al buscar un símbolo por nombre. `codegraph_search` es más rápido y devuelve tipo + ubicación + firma en una sola llamada.
+- **No encadenes `codegraph_search` + `codegraph_node`** cuando solo quieras contexto — `codegraph_context` es una sola llamada.
+- **No hagas bucle de `codegraph_node` sobre muchos símbolos** — una llamada a `codegraph_explore` devuelve el código de varios símbolos agrupados en una sola llamada acotada, mientras que cada `codegraph_node`/Read por separado vuelve a leer todo el contexto y cuesta mucho más.
+- **Retraso del índice**: el file watcher hace debounce ~500 ms detrás de las escrituras; no vuelvas a consultar inmediatamente después de editar un archivo en el mismo turno.
+
+### Si no existe `.codegraph/`
+
+El servidor MCP devuelve "not initialized." Pregúntale al usuario: *"Veo que este proyecto no tiene CodeGraph inicializado. ¿Quieres que ejecute `codegraph init -i` para construir el índice?"*
+<!-- CODEGRAPH_END -->
