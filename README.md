@@ -4,6 +4,8 @@ Proyecto MLOps de la **Maestría en IA y Ciencia de Datos (UAO)** para una caden
 supermercados en Cali. Combina ingeniería de datos, modelos de series de tiempo
 y prácticas MLOps para producir pronósticos accionables y trazables.
 
+> **Pitch de negocio:** ver [BUSINESS.md](BUSINESS.md) (problema, valor, KPIs y por qué adoptar o invertir).
+
 > **Estado:** En desarrollo activo. Pipeline de datos y featuring funcionales;
 > modelado, API y despliegue en construcción rumbo al Demo Day del **30 de mayo
 > de 2026** y entrega final del **3 de junio de 2026**.
@@ -94,6 +96,7 @@ MLflow Model Registry  ──►  sales-forecaster (Staging/Production)
 
 ```text
 .
+├── BUSINESS.md                Pitch de negocio (inversores / adopción retail)
 ├── api/                       Servicio FastAPI
 │   ├── main.py                Endpoints /health /model-info /predict /metrics
 │   └── metrics.py             Métricas Prometheus + middleware HTTP
