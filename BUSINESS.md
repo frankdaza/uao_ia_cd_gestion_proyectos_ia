@@ -5,8 +5,9 @@
 Proyecto de la **Maestría en Inteligencia Artificial y Ciencia de Datos · Universidad
 Autónoma de Occidente (UAO)** · Cali, Colombia.
 
-> Documento técnico e instalación: [README.md](README.md) · Guion Demo Day:
-> [docs/DEMO_DAY.md](docs/DEMO_DAY.md) · Marco de negocio:
+> Documento técnico e instalación: [README.md](README.md) · Guion Demo Day técnico:
+> [docs/DEMO_DAY.md](docs/DEMO_DAY.md) · Guion Demo Day comercial:
+> [docs/DEMO_DAY_COMERCIAL.md](docs/DEMO_DAY_COMERCIAL.md) · Marco de negocio:
 > [docs/BMC_Pronostico_Ventas.pdf](docs/BMC_Pronostico_Ventas.pdf) · KPIs de innovación:
 > [docs/DIB_Pronostico_Ventas.pdf](docs/DIB_Pronostico_Ventas.pdf)
 
